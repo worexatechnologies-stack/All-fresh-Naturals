@@ -1,0 +1,7 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+
+
+
+Sitemap : https://allfreshnaturals.com/sitemap.xml
+Sitemap : https://allfreshnaturals.com/blogs.xml
