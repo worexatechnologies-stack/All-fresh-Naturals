@@ -4,11 +4,10 @@ import {
   Phone,
   Send,
   CheckCircle2,
-  Clock,
-  MapPin,
   ShieldCheck,
   Sparkles,
-  HelpCircle
+  HelpCircle,
+  ChevronDown
 } from 'lucide-react';
 import { BUSINESS_WHATSAPP_NUMBER } from '../config/whatsapp';
 import type { Product } from '../data/products';
@@ -22,7 +21,8 @@ const QUICK_TOPICS = [
   'Order Inquiry',
   'Baby Dosage (6M+)',
   'Ingredients & Nutrition',
-  'Preparation Method'
+  'Preparation Method',
+  'Custom / Bulk Order'
 ];
 
 export default function ArticleStickyContact({ articleTitle, linkedProduct }: ArticleStickyContactProps) {
@@ -40,13 +40,13 @@ export default function ArticleStickyContact({ articleTitle, linkedProduct }: Ar
       return;
     }
     if (!phone.trim() || phone.replace(/\D/g, '').length < 10) {
-      setError('Please enter a valid 10-digit mobile number');
+      setError('Please enter valid 10-digit mobile');
       return;
     }
 
     setError('');
 
-    let msg = `*INQUIRY FROM ARTICLE / BLOG*\n`;
+    let msg = `*INQUIRY FROM BLOG GUIDE*\n`;
     msg += `📄 *Article:* ${articleTitle}\n`;
     if (linkedProduct) {
       msg += `🌿 *Product:* ${linkedProduct.name}\n`;
@@ -57,7 +57,7 @@ export default function ArticleStickyContact({ articleTitle, linkedProduct }: Ar
     if (message.trim()) {
       msg += `💬 *Message:* ${message.trim()}\n`;
     } else {
-      msg += `💬 *Query:* Interested to know more about this product / health guide.\n`;
+      msg += `💬 *Query:* Interested to know more about this product / dosage.\n`;
     }
 
     const encoded = encodeURIComponent(msg);
@@ -76,26 +76,27 @@ export default function ArticleStickyContact({ articleTitle, linkedProduct }: Ar
 
   return (
     <div className="article-sticky-card">
-      {/* Header Badge */}
+      {/* Compact Header */}
       <div className="sticky-contact-header">
-        <div className="sticky-badge">
-          <Sparkles size={13} className="sticky-badge-icon" />
-          <span>KITCHEN HELPLINE</span>
+        <div className="sticky-header-row">
+          <h3 className="sticky-contact-title">Quick Kitchen Inquiry</h3>
+          <span className="sticky-badge">
+            <Sparkles size={11} /> Helpline
+          </span>
         </div>
-        <h3 className="sticky-contact-title">Have Questions?</h3>
         <p className="sticky-contact-subtitle">
-          Ask our artisan kitchen team about dosage, pure sprouted grains, or place a fresh batch order.
+          Have doubts on dosage, sprouted grains, or fresh packs? Ask our team directly.
         </p>
       </div>
 
       {submitted ? (
         <div className="sticky-contact-success">
           <div className="sticky-success-icon-wrap">
-            <CheckCircle2 size={36} color="#15803d" />
+            <CheckCircle2 size={30} color="#15803d" />
           </div>
           <h4 className="sticky-success-title">Opening WhatsApp…</h4>
           <p className="sticky-success-desc">
-            Your inquiry for <strong>"{articleTitle}"</strong> has been prepared. Our team typically responds within minutes during kitchen hours.
+            Your inquiry for <strong>"{articleTitle}"</strong> has been prepared. Our kitchen team will assist you shortly.
           </p>
           <button
             type="button"
@@ -109,64 +110,68 @@ export default function ArticleStickyContact({ articleTitle, linkedProduct }: Ar
         <form onSubmit={handleSubmit} className="sticky-contact-form">
           {error && <div className="sticky-form-error">{error}</div>}
 
-          {/* Topic Quick Chips */}
+          {/* Topic Dropdown */}
           <div className="sticky-field-group">
-            <label className="sticky-field-label">
-              <HelpCircle size={13} /> Select Topic
+            <label className="sticky-field-label" htmlFor="sticky-topic-select">
+              <HelpCircle size={12} /> Select Topic <span className="req-star">*</span>
             </label>
-            <div className="sticky-chips-grid">
-              {QUICK_TOPICS.map((t) => (
-                <button
-                  key={t}
-                  type="button"
-                  className={`sticky-chip${topic === t ? ' sticky-chip--active' : ''}`}
-                  onClick={() => setTopic(t)}
-                >
-                  {t}
-                </button>
-              ))}
+            <div className="sticky-select-wrap">
+              <select
+                id="sticky-topic-select"
+                className="sticky-select"
+                value={topic}
+                onChange={(e) => setTopic(e.target.value)}
+              >
+                {QUICK_TOPICS.map((t) => (
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown size={14} className="sticky-select-chevron" />
             </div>
           </div>
 
-          {/* Name Field */}
-          <div className="sticky-field-group">
-            <label className="sticky-field-label" htmlFor="sticky-name">
-              Your Name <span className="req-star">*</span>
-            </label>
-            <input
-              id="sticky-name"
-              type="text"
-              className="sticky-input"
-              placeholder="e.g. Ramesh Kumar"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-                if (error) setError('');
-              }}
-              required
-            />
+          {/* 2-Column Name and Phone */}
+          <div className="sticky-row-2col">
+            <div className="sticky-field-group">
+              <label className="sticky-field-label" htmlFor="sticky-name">
+                Your Name <span className="req-star">*</span>
+              </label>
+              <input
+                id="sticky-name"
+                type="text"
+                className="sticky-input"
+                placeholder="Your Name"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  if (error) setError('');
+                }}
+                required
+              />
+            </div>
+
+            <div className="sticky-field-group">
+              <label className="sticky-field-label" htmlFor="sticky-phone">
+                Phone / WhatsApp <span className="req-star">*</span>
+              </label>
+              <input
+                id="sticky-phone"
+                type="tel"
+                className="sticky-input"
+                placeholder="10-digit number"
+                value={phone}
+                onChange={(e) => {
+                  setPhone(e.target.value);
+                  if (error) setError('');
+                }}
+                required
+              />
+            </div>
           </div>
 
-          {/* Phone Field */}
-          <div className="sticky-field-group">
-            <label className="sticky-field-label" htmlFor="sticky-phone">
-              WhatsApp / Phone <span className="req-star">*</span>
-            </label>
-            <input
-              id="sticky-phone"
-              type="tel"
-              className="sticky-input"
-              placeholder="e.g. 98765 43210"
-              value={phone}
-              onChange={(e) => {
-                setPhone(e.target.value);
-                if (error) setError('');
-              }}
-              required
-            />
-          </div>
-
-          {/* Message Field */}
+          {/* Compact Message Field */}
           <div className="sticky-field-group">
             <label className="sticky-field-label" htmlFor="sticky-msg">
               Your Message <span className="opt-text">(Optional)</span>
@@ -174,21 +179,21 @@ export default function ArticleStickyContact({ articleTitle, linkedProduct }: Ar
             <textarea
               id="sticky-msg"
               className="sticky-textarea"
-              rows={3}
-              placeholder={`Ask about ${linkedProduct ? linkedProduct.name : 'natural health benefits'} or bulk orders…`}
+              rows={2}
+              placeholder={`Ask about ${linkedProduct ? linkedProduct.name : 'dosage, nutrition, or packs'}…`}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
           </div>
 
-          {/* Submit Button */}
+          {/* Compact Submit Button */}
           <button type="submit" className="sticky-btn-submit">
-            <Send size={15} /> Send to WhatsApp
+            <Send size={14} /> Send to WhatsApp
           </button>
         </form>
       )}
 
-      {/* Divider */}
+      {/* Subtle Divider */}
       <div className="sticky-divider">
         <span>OR CONNECT DIRECTLY</span>
       </div>
@@ -200,13 +205,8 @@ export default function ArticleStickyContact({ articleTitle, linkedProduct }: Ar
           className="sticky-direct-item phone"
           title="Call All Fresh Naturals Kitchen"
         >
-          <div className="sticky-direct-icon phone">
-            <Phone size={15} />
-          </div>
-          <div className="sticky-direct-info">
-            <span className="direct-label">Call Support</span>
-            <span className="direct-val">+91 85534 28079</span>
-          </div>
+          <Phone size={13} className="sticky-direct-icon-inline" />
+          <span className="direct-val">+91 85534 28079</span>
         </a>
 
         <a
@@ -216,30 +216,15 @@ export default function ArticleStickyContact({ articleTitle, linkedProduct }: Ar
           className="sticky-direct-item whatsapp"
           title="Chat directly on WhatsApp"
         >
-          <div className="sticky-direct-icon whatsapp">
-            <MessageSquare size={15} />
-          </div>
-          <div className="sticky-direct-info">
-            <span className="direct-label">Instant Chat</span>
-            <span className="direct-val">WhatsApp Helpline</span>
-          </div>
+          <MessageSquare size={13} className="sticky-direct-icon-inline" />
+          <span className="direct-val">WhatsApp Chat</span>
         </a>
       </div>
 
-      {/* Trust Mini Bar */}
-      <div className="sticky-trust-footer">
-        <div className="sticky-trust-row">
-          <Clock size={13} className="sticky-trust-icon" />
-          <span>Kitchen Hours: Mon – Sat • 9 AM to 7 PM</span>
-        </div>
-        <div className="sticky-trust-row">
-          <MapPin size={13} className="sticky-trust-icon" />
-          <span>Uttarahalli, Bengaluru • 100% Homemade</span>
-        </div>
-        <div className="sticky-trust-row fssai">
-          <ShieldCheck size={13} className="sticky-trust-icon fssai" />
-          <span>FSSAI Lic. 21226186000460</span>
-        </div>
+      {/* 1-Line Trust Footer */}
+      <div className="sticky-trust-footer-compact">
+        <ShieldCheck size={12} className="sticky-trust-icon" />
+        <span>FSSAI Lic. 21226186000460 • Mon–Sat 9AM–7PM</span>
       </div>
     </div>
   );
