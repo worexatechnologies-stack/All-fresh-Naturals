@@ -20,6 +20,7 @@ import { useProducts } from '../context/ProductContext';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import InstantOrderModal from '../components/InstantOrderModal';
+import ArticleStickyContact from '../components/ArticleStickyContact';
 import type { Product } from '../data/products';
 
 export default function ArticleDetailPage() {
@@ -445,7 +446,7 @@ export default function ArticleDetailPage() {
 
       {/* Top Breadcrumbs & Back Bar */}
       <section className="article-detail-topbar">
-        <div className="container" style={{ maxWidth: '900px' }}>
+        <div className="container" style={{ maxWidth: '1240px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
             {/* Breadcrumb */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.84rem', color: 'var(--text-muted)', flexWrap: 'wrap' }}>
@@ -482,7 +483,8 @@ export default function ArticleDetailPage() {
 
       {/* Main Article Container */}
       <main className="article-detail-container">
-        <article className="article-detail-card">
+        <div className="article-detail-layout">
+          <article className="article-detail-card">
           {/* Article Header Meta */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', marginBottom: '20px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
@@ -852,7 +854,16 @@ export default function ArticleDetailPage() {
             </Link>
           </div>
         </article>
-      </main>
+
+        {/* Sticky Sidebar Beside Article */}
+        <aside className="article-sidebar-sticky" aria-label="Kitchen Helpline & Contact Form">
+          <ArticleStickyContact
+            articleTitle={article.title}
+            linkedProduct={linkedProduct}
+          />
+        </aside>
+      </div>
+    </main>
 
       {/* Instant Order Modal */}
       {instantOrderProd && (
