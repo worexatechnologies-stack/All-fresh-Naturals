@@ -8,10 +8,12 @@ export interface ArticleSection {
   content: string[];
   quote?: string;
   bulletList?: string[];
+  footerContent?: string[];
   subsections?: {
     title: string;
     content: string[];
     bulletList?: string[];
+    footerContent?: string[];
   }[];
   recipe?: {
     ingredients: string[];
@@ -144,8 +146,8 @@ export const ARTICLES_DATA: Article[] = [
           {
             title: 'Can Be Made Into a Versatile Traditional Beverage',
             content: [
-              'Ragi malt can be prepared in various forms. For example:',
-              'For comprehensive details, please visit our: [Advantages of Ragi Malt](https://allfreshnaturals.com/products/ragi-malt)'
+              'Ragi malt can be prepared in various forms.',
+              'For example:'
             ],
             bulletList: [
               'It can be made either sweet or salty',
@@ -154,6 +156,9 @@ export const ARTICLES_DATA: Article[] = [
               'It can be prepared with buttermilk',
               'It can have spices like cardamom in it',
               'It can be prepared with a very small amount of jaggery or other sugar forms'
+            ],
+            footerContent: [
+              'For comprehensive details, please visit our: [Advantages of Ragi Malt](https://allfreshnaturals.com/products/ragi-malt)'
             ]
           }
         ]
@@ -195,14 +200,17 @@ export const ARTICLES_DATA: Article[] = [
         id: 'best-time-to-drink',
         heading: 'What Is the Best Time to Drink Ragi Malt?',
         content: [
-          'There is no universally proven best time to drink ragi malt. Many people enjoy it as:',
-          'The best timing [depends on your overall diet](https://allfreshnaturals.com/products/ragi-malt), routine, appetite, and individual nutritional needs.'
+          'There is no universally proven best time to drink ragi malt.',
+          'Many people enjoy it as:'
         ],
         bulletList: [
           'A breakfast drink',
           'A mid-morning meal',
           'An evening snack',
           'Part of a balanced post-activity meal'
+        ],
+        footerContent: [
+          'The best timing [depends on your overall diet](https://allfreshnaturals.com/products/ragi-malt), routine, appetite, and individual nutritional needs.'
         ]
       },
       {

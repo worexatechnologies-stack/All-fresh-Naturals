@@ -89,28 +89,40 @@ export default function ArticleDetailPage() {
       }
       const linkText = match[1];
       const linkUrl = match[2];
-      const isInternalRagi = linkUrl.includes('products/ragi-malt');
+      const isInternal = linkUrl.startsWith('/') || linkUrl.includes('allfreshnaturals.com');
+      let internalPath = linkUrl;
+      if (linkUrl.includes('allfreshnaturals.com')) {
+        try {
+          const parsed = new URL(linkUrl);
+          internalPath = parsed.pathname + parsed.search + parsed.hash;
+        } catch {
+          internalPath = linkUrl.replace(/^https?:\/\/(www\.)?allfreshnaturals\.com/, '') || '/';
+        }
+      }
 
-      elements.push(
-        <a
-          key={match.index}
-          href={isInternalRagi ? '#featured-product-callout' : linkUrl}
-          onClick={(e) => {
-            if (isInternalRagi) {
-              e.preventDefault();
-              const el = document.getElementById('featured-product-callout');
-              if (el) {
-                el.scrollIntoView({ behavior: 'smooth' });
-              }
-            }
-          }}
-          className="reader-inline-link"
-          target={isInternalRagi ? undefined : '_blank'}
-          rel={isInternalRagi ? undefined : 'noopener noreferrer'}
-        >
-          {linkText}
-        </a>
-      );
+      if (isInternal) {
+        elements.push(
+          <Link
+            key={match.index}
+            to={internalPath}
+            className="reader-inline-link"
+          >
+            {linkText}
+          </Link>
+        );
+      } else {
+        elements.push(
+          <a
+            key={match.index}
+            href={linkUrl}
+            className="reader-inline-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {linkText}
+          </a>
+        );
+      }
       lastIdx = linkRegex.lastIndex;
     }
 
@@ -630,6 +642,9 @@ export default function ArticleDetailPage() {
                     ))}
                   </ul>
                 )}
+                {sec.footerContent && sec.footerContent.map((p, fIdx) => (
+                  <p key={`f-${fIdx}`} className="reader-paragraph">{renderFormattedText(p)}</p>
+                ))}
                 {sec.subsections && sec.subsections.map((sub, subIdx) => (
                   <div key={subIdx} className="reader-subsection-block">
                     <h3 className="reader-subsection-h3">{sub.title}</h3>
@@ -643,6 +658,9 @@ export default function ArticleDetailPage() {
                         ))}
                       </ul>
                     )}
+                    {sub.footerContent && sub.footerContent.map((p, sfIdx) => (
+                      <p key={`sf-${sfIdx}`} className="reader-paragraph">{renderFormattedText(p)}</p>
+                    ))}
                   </div>
                 ))}
                 {sec.recipe && (
