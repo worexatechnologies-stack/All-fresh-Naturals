@@ -86,6 +86,14 @@ export default function ArticlesPage() {
                   to={`/articles/${article.slug}`}
                   className="aesthetic-article-card"
                   style={{ textDecoration: 'none', color: 'inherit' }}
+                  onClick={(e) => {
+                    // Prevent multiple dispatches and ensure instant navigation anywhere on mobile
+                    e.preventDefault();
+                    navigate(`/articles/${article.slug}`);
+                  }}
+                  role="link"
+                  tabIndex={0}
+                  aria-label={`Read article: ${article.title}`}
                 >
                   <div className="article-card-thumb-wrap">
                     <img

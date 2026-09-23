@@ -7,8 +7,14 @@ export default function FloatingWhatsApp() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
-  // Hide floating widget on admin pages to prevent overlap with admin action buttons
-  if (location.pathname.startsWith('/admin')) {
+  // Hide floating widget on admin and article pages to prevent overlap with article cards and accidental triggers
+  if (
+    location.pathname.startsWith('/admin') ||
+    location.pathname.startsWith('/articles') ||
+    location.pathname.startsWith('/article') ||
+    location.pathname.startsWith('/blogs') ||
+    location.pathname.startsWith('/blog')
+  ) {
     return null;
   }
   const waUrl = `https://wa.me/${BUSINESS_WHATSAPP_NUMBER}?text=${encodeURIComponent('Hello All Fresh Naturals! I would like to know more about your products.')}`;

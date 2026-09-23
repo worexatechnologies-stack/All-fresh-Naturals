@@ -2372,11 +2372,29 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   cursor: pointer;
-  content-visibility: auto;
-  contain-intrinsic-size: 380px;
+  pointer-events: auto !important;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
-.aesthetic-article-card:hover {
+.aesthetic-article-card * {
+  pointer-events: none;
+}
+
+.related-article-page-card {
+  pointer-events: auto !important;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+.related-article-page-card * {
+  pointer-events: none;
+}
+
+.aesthetic-article-card:hover,
+.aesthetic-article-card:active {
   transform: translateY(-6px);
   border-color: rgba(16, 185, 129, 0.4);
   box-shadow: 0 16px 36px rgba(15, 57, 35, 0.1);

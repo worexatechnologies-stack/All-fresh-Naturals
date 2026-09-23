@@ -1,5 +1,5 @@
 import { useState, useEffect, type ReactNode } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import {
   Clock,
   Calendar,
@@ -25,6 +25,7 @@ import type { Product } from '../data/products';
 
 export default function ArticleDetailPage() {
   const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
   const [copiedLink, setCopiedLink] = useState(false);
   const [instantOrderProd, setInstantOrderProd] = useState<Product | null>(null);
   const [addedProdId, setAddedProdId] = useState<string | null>(null);
@@ -840,6 +841,10 @@ export default function ArticleDetailPage() {
                   <Link
                     key={rel.id}
                     to={`/articles/${rel.slug}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate(`/articles/${rel.slug}`);
+                    }}
                     style={{
                       textDecoration: 'none',
                       color: 'inherit',
