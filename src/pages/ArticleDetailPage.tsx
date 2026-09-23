@@ -631,7 +631,7 @@ export default function ArticleDetailPage() {
           <div className="reader-content-flow" style={{ marginBottom: '36px' }}>
             {article.sections.map((sec, sIdx) => (
               <div key={sIdx} id={sec.id} className="reader-section-block">
-                {sec.heading && <h2 className="reader-section-h2">{sec.heading}</h2>}
+                {sec.heading && <h2 className="reader-section-h2">{renderFormattedText(sec.heading)}</h2>}
                 {sec.content.map((p, pIdx) => (
                   <p key={pIdx} className="reader-paragraph">{renderFormattedText(p)}</p>
                 ))}
@@ -647,7 +647,7 @@ export default function ArticleDetailPage() {
                 ))}
                 {sec.subsections && sec.subsections.map((sub, subIdx) => (
                   <div key={subIdx} className="reader-subsection-block">
-                    <h3 className="reader-subsection-h3">{sub.title}</h3>
+                    <h3 className="reader-subsection-h3">{renderFormattedText(sub.title)}</h3>
                     {sub.content.map((p, pIdx) => (
                       <p key={pIdx} className="reader-paragraph">{renderFormattedText(p)}</p>
                     ))}

@@ -319,13 +319,15 @@ export const ARTICLES_DATA: Article[] = [
         content: [
           'ABC stands for Apple, Beetroot, and Carrot.',
           'ABC Malt combines these three ingredients in a convenient malt-based format. Instead of preparing or consuming Apple, Beetroot, and Carrot separately, a packaged ABC Malt can provide an easy option for incorporating their flavours and nutritional qualities into your routine.',
-          'Each ingredient contributes different naturally occurring nutrients and plant compounds:',
-          'The exact nutritional value of an ABC Malt depends on the product\'s formulation, serving size, processing methods, and other ingredients. Therefore, consumers should check the product\'s nutrition information and ingredient list before making it part of their regular diet.'
+          'Each ingredient contributes different naturally occurring nutrients and plant compounds:'
         ],
         bulletList: [
           'Apple: Provides carbohydrates and naturally occurring plant compounds.',
           'Beetroot: Contains naturally occurring nitrates and betalain pigments.',
           'Carrot: Provides beta-carotene, which the body can convert into vitamin A.'
+        ],
+        footerContent: [
+          'The exact nutritional value of an ABC Malt depends on the product\'s formulation, serving size, processing methods, and other ingredients. Therefore, consumers should check the product\'s nutrition information and ingredient list before making it part of their regular diet.'
         ]
       },
       {
@@ -403,8 +405,7 @@ export const ARTICLES_DATA: Article[] = [
           'Can ABC Malt help with weight loss?',
           'ABC Malt can be included in a weight-management diet, but no single food or drink automatically causes weight loss.',
           'Overall calorie intake, portion sizes, physical activity, sleep, and the quality of the entire diet are more important.',
-          'When choosing an ABC Malt product, it is useful to check:',
-          'A balanced approach is more sustainable than relying on one drink for weight management.'
+          'When choosing an ABC Malt product, it is useful to check:'
         ],
         bulletList: [
           'Serving size',
@@ -413,6 +414,9 @@ export const ARTICLES_DATA: Article[] = [
           'Fibre content',
           'Ingredient list',
           'Protein content'
+        ],
+        footerContent: [
+          'A balanced approach is more sustainable than relying on one drink for weight management.'
         ]
       },
       {
@@ -420,9 +424,7 @@ export const ARTICLES_DATA: Article[] = [
         heading: 'ABC Malt for Everyday Wellness',
         content: [
           'Wellness is not about one specific ingredient.',
-          'Wellness is built through consistent habits such as:',
-          'ABC Malt can fit into this routine as a convenient food or beverage option.',
-          'The key is to use it as part of a balanced lifestyle rather than expecting it to provide all the nutrients your body needs.'
+          'It is built through consistent habits such as:'
         ],
         bulletList: [
           'Eating a variety of fruits and vegetables',
@@ -431,6 +433,10 @@ export const ARTICLES_DATA: Article[] = [
           'Drinking enough water',
           'Getting adequate sleep',
           'Maintaining appropriate portion sizes'
+        ],
+        footerContent: [
+          'ABC Malt can fit into this routine as a convenient food or beverage option.',
+          'The key is to use it as part of a balanced lifestyle rather than expecting it to provide all the nutrients your body needs.'
         ]
       },
       {
@@ -438,8 +444,7 @@ export const ARTICLES_DATA: Article[] = [
         heading: 'Why Choose AllFresh Naturals ABC Malt?',
         content: [
           'When choosing a packaged health or nutrition product, consumers often want convenience without compromising on ingredient quality. AllFresh Naturals can position its ABC Malt around the familiar combination of Apple, Beetroot, and Carrot and the convenience of enjoying them in a simple format. When evaluating any packaged malt, consumers should look at the complete ingredient and nutrition information rather than judging a product only by its front-of-pack claims.',
-          'Important factors include:',
-          'Providing these facts enables buyers to select products wisely. [Benefits of Drinking ABC Malt Daily](https://allfreshnaturals.com/products/abc-malt)'
+          'Important factors include:'
         ],
         bulletList: [
           'Ingredient transparency',
@@ -450,6 +455,9 @@ export const ARTICLES_DATA: Article[] = [
           'Manufacturing and quality standards',
           'Product freshness',
           'Packaging information'
+        ],
+        footerContent: [
+          'Providing these facts enables buyers to select products wisely. [Benefits of Drinking ABC Malt Daily](https://allfreshnaturals.com/products/abc-malt)'
         ]
       },
       {
@@ -470,19 +478,18 @@ export const ARTICLES_DATA: Article[] = [
           {
             title: 'Evening',
             content: ['Depending on your overall diet, it can be included as part of a light snack.']
-          },
-          {
-            title: 'Serving Size Guidance',
-            content: ['The appropriate serving size should always follow the product\'s packaging instructions.']
           }
+        ],
+        footerContent: [
+          'The appropriate serving size should always follow the product\'s packaging instructions.'
         ]
       },
       {
         id: 'fresh-vs-malt',
-        heading: 'Is ABC Malt Better Than Fresh Fruits and Vegetables?',
+        heading: 'Is [ABC Malt Better](https://allfreshnaturals.com/products/abc-malt) Than Fresh Fruits and Vegetables?',
         content: [
           'ABC Malt should not automatically be considered better than whole fruits and vegetables.',
-          'Whole fruits and vegetables provide fibre and require chewing, which can influence fullness and eating behaviour. The advantage of a malt product is primarily convenience. For a healthy diet, the best approach is usually variety: include whole fruits and vegetables regularly while using convenient products when they fit your lifestyle and nutritional needs. [Is ABC Malt Better](https://allfreshnaturals.com/products/abc-malt)'
+          'Whole fruits and vegetables provide fibre and require chewing, which can influence fullness and eating behaviour. The advantage of a malt product is primarily convenience. For a healthy diet, the best approach is usually variety: include whole fruits and vegetables regularly while using convenient products when they fit your lifestyle and nutritional needs.'
         ]
       },
       {
