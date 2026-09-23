@@ -5,7 +5,6 @@ import {
   Send,
   CheckCircle2,
   ShieldCheck,
-  Sparkles,
   HelpCircle,
   ChevronDown
 } from 'lucide-react';
@@ -80,9 +79,7 @@ export default function ArticleStickyContact({ articleTitle, linkedProduct }: Ar
       <div className="sticky-contact-header">
         <div className="sticky-header-row">
           <h3 className="sticky-contact-title">Quick Kitchen Inquiry</h3>
-          <span className="sticky-badge">
-            <Sparkles size={11} /> Helpline
-          </span>
+          <span className="sticky-badge">Kitchen Helpline</span>
         </div>
         <p className="sticky-contact-subtitle">
           Have doubts on dosage, sprouted grains, or fresh packs? Ask our team directly.
