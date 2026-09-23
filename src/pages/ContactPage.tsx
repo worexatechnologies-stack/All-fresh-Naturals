@@ -1,6 +1,21 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { MapPin, Phone, Mail, MessageSquare, Clock, Send, CheckCircle2, Leaf, ExternalLink } from 'lucide-react';
+import { 
+  MapPin, 
+  Phone, 
+  Mail, 
+  MessageSquare, 
+  Clock, 
+  Send, 
+  CheckCircle2, 
+  Leaf, 
+  ExternalLink,
+  User,
+  Tag,
+  ArrowUpRight,
+  ShieldCheck,
+  Sparkles
+} from 'lucide-react';
 import { BUSINESS_WHATSAPP_NUMBER } from '../config/whatsapp';
 import { useAuth } from '../context/AuthContext';
 
@@ -131,11 +146,12 @@ export default function ContactPage() {
           content="en_US"
         />
       </Helmet>
+
       {/* Hero Banner Header */}
       <section className="contact-hero-banner">
-        <div className="container">
+        <div className="container contact-hero-container">
           <div className="contact-badge-pill">
-            <Leaf size={14} /> WE'RE HERE TO HELP YOU
+            <Leaf size={14} className="contact-badge-leaf" /> WE'RE HERE TO HELP YOU
           </div>
           <h1 className="contact-hero-title">Contact All Fresh Naturals</h1>
           <p className="contact-hero-subtitle">
@@ -145,13 +161,18 @@ export default function ContactPage() {
       </section>
 
       {/* Main Container */}
-      <div className="container" style={{ paddingBottom: '48px' }}>
+      <div className="container contact-main-container">
         {/* Quick Touchpoint Cards Grid */}
         <div className="contact-quick-grid">
           {/* Phone */}
           <a href="tel:+918553428079" className="contact-quick-card">
-            <div className="contact-icon-badge phone">
-              <Phone size={22} />
+            <div className="contact-quick-top">
+              <div className="contact-icon-badge phone">
+                <Phone size={22} />
+              </div>
+              <span className="contact-quick-arrow">
+                <ArrowUpRight size={16} />
+              </span>
             </div>
             <span className="contact-quick-label">Call Support</span>
             <span className="contact-quick-val">+91 85534 28079</span>
@@ -163,10 +184,15 @@ export default function ContactPage() {
             href={`https://wa.me/${BUSINESS_WHATSAPP_NUMBER}`}
             target="_blank"
             rel="noreferrer"
-            className="contact-quick-card"
+            className="contact-quick-card contact-quick-card--whatsapp"
           >
-            <div className="contact-icon-badge whatsapp">
-              <MessageSquare size={22} />
+            <div className="contact-quick-top">
+              <div className="contact-icon-badge whatsapp">
+                <MessageSquare size={22} />
+              </div>
+              <span className="contact-quick-arrow">
+                <ArrowUpRight size={16} />
+              </span>
             </div>
             <span className="contact-quick-label">WhatsApp Chat</span>
             <span className="contact-quick-val">+91 85534 28079</span>
@@ -175,8 +201,13 @@ export default function ContactPage() {
 
           {/* Email */}
           <a href="mailto:poori.monika@gmail.com" className="contact-quick-card">
-            <div className="contact-icon-badge email">
-              <Mail size={22} />
+            <div className="contact-quick-top">
+              <div className="contact-icon-badge email">
+                <Mail size={22} />
+              </div>
+              <span className="contact-quick-arrow">
+                <ArrowUpRight size={16} />
+              </span>
             </div>
             <span className="contact-quick-label">Email Us</span>
             <span className="contact-quick-val">poori.monika@gmail.com</span>
@@ -184,9 +215,12 @@ export default function ContactPage() {
           </a>
 
           {/* Business Hours */}
-          <div className="contact-quick-card" style={{ cursor: 'default' }}>
-            <div className="contact-icon-badge hours">
-              <Clock size={22} />
+          <div className="contact-quick-card contact-quick-card--static">
+            <div className="contact-quick-top">
+              <div className="contact-icon-badge hours">
+                <Clock size={22} />
+              </div>
+              <span className="contact-quick-chip">Bangalore</span>
             </div>
             <span className="contact-quick-label">Kitchen Hours</span>
             <span className="contact-quick-val">Mon to Sat: 9 AM to 7 PM</span>
@@ -197,30 +231,37 @@ export default function ContactPage() {
         {/* 2-Column Split Layout */}
         <div className="contact-split-grid">
           {/* Left: Location & Google Maps */}
-          <div className="contact-card-box">
-            <h2 className="contact-card-title">Our Home Kitchen</h2>
-            <p className="contact-card-sub">
-              Every batch of our clean nutrition is prepared right here in Uttarahalli, Bengaluru.
-            </p>
+          <div className="contact-card-box contact-kitchen-card">
+            <div className="contact-card-header">
+              <div className="contact-header-badge">
+                <MapPin size={14} /> Bengaluru Kitchen
+              </div>
+              <h2 className="contact-card-title">Our Home Kitchen</h2>
+              <p className="contact-card-sub">
+                Every batch of our clean nutrition is prepared right here in Uttarahalli, Bengaluru.
+              </p>
+            </div>
 
             {/* Address Pill */}
             <div className="contact-address-box">
-              <MapPin size={24} style={{ color: 'var(--accent-color)', flexShrink: 0, marginTop: '2px' }} />
+              <div className="contact-address-icon-wrap">
+                <MapPin size={22} />
+              </div>
               <div className="contact-address-text">
-                <strong>All Fresh Naturals Kitchen</strong>
-                <p style={{ margin: '2px 0 0', color: 'var(--text-light)', fontSize: '0.88rem' }}>
+                <strong className="contact-address-name">All Fresh Naturals Kitchen</strong>
+                <p className="contact-address-lines">
                   No. 251/B, 4th Main, Anjineya Temple Street,<br />Uttarahalli, Bengaluru, Karnataka – 560061
                 </p>
               </div>
             </div>
 
             {/* Map Embed Card */}
-            <div style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: '0 4px 14px rgba(0,0,0,0.06)' }}>
+            <div className="contact-map-wrap">
               <iframe
                 title="All Fresh Naturals NO.251/B Building Location"
                 src="https://maps.google.com/maps?q=NO.251/B+Building,+4th+main,+Anjineya+temple+street,+Uttarahalli,+Bangalore+-+560061&t=&z=17&ie=UTF8&iwloc=&output=embed"
                 width="100%"
-                height="260"
+                height="280"
                 style={{ border: 0, display: 'block' }}
                 allowFullScreen
                 loading="lazy"
@@ -230,50 +271,44 @@ export default function ContactPage() {
                 href="https://www.google.com/maps/search/?api=1&query=NO.251%2FB+Building,+4th+main,+Anjineya+temple+street,+Uttarahalli,+Bangalore+-+560061"
                 target="_blank"
                 rel="noreferrer"
-                style={{
-                  position: 'absolute',
-                  bottom: '12px',
-                  right: '12px',
-                  backgroundColor: 'var(--primary-color)',
-                  color: '#ffffff',
-                  padding: '8px 16px',
-                  borderRadius: '20px',
-                  fontSize: '0.82rem',
-                  fontWeight: 700,
-                  textDecoration: 'none',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  boxShadow: '0 4px 14px rgba(0,0,0,0.3)',
-                  zIndex: 2,
-                  border: '1px solid rgba(255,255,255,0.3)'
-                }}
+                className="contact-map-btn"
               >
                 <ExternalLink size={14} /> Open in Google Maps
               </a>
             </div>
+
+            {/* Kitchen Assurance Trust Strip */}
+            <div className="contact-kitchen-chips">
+              <div className="contact-kitchen-chip">
+                <Leaf size={14} color="#15803d" />
+                <span>100% Sprouted & Natural</span>
+              </div>
+              <div className="contact-kitchen-chip">
+                <ShieldCheck size={14} color="#0d9488" />
+                <span>FSSAI Lic. 21226186000460</span>
+              </div>
+            </div>
           </div>
 
           {/* Right: Direct Contact Form */}
-          <div className="contact-card-box">
-            <h2 className="contact-card-title">Send Us a Message</h2>
-            <p className="contact-card-sub">
-              Fill out the form below and we'll reply directly via WhatsApp or email promptly.
-            </p>
+          <div className="contact-card-box contact-form-card">
+            <div className="contact-card-header">
+              <div className="contact-header-badge contact-header-badge--form">
+                <MessageSquare size={14} /> Quick Assistance
+              </div>
+              <h2 className="contact-card-title">Send Us a Message</h2>
+              <p className="contact-card-sub">
+                Fill out the form below and we'll reply directly via WhatsApp or email promptly.
+              </p>
+            </div>
 
             {submitted ? (
-              <div
-                style={{
-                  textAlign: 'center',
-                  padding: '36px 20px',
-                  background: '#f0fdf4',
-                  borderRadius: '16px',
-                  border: '1px solid #bbf7d0'
-                }}
-              >
-                <CheckCircle2 size={56} style={{ color: '#16a34a', margin: '0 auto 12px' }} />
-                <h3 style={{ fontFamily: 'var(--font-serif)', color: '#166534', fontSize: '1.4rem', marginBottom: '6px' }}>Message Sent!</h3>
-                <p style={{ color: '#15803d', fontSize: '0.9rem', marginBottom: '20px' }}>
+              <div className="contact-success-box">
+                <div className="contact-success-icon-wrap">
+                  <CheckCircle2 size={48} />
+                </div>
+                <h3 className="contact-success-title">Message Sent!</h3>
+                <p className="contact-success-desc">
                   Thank you for reaching out. We have opened your query in WhatsApp and will get back to you shortly.
                 </p>
                 <button
@@ -283,84 +318,111 @@ export default function ContactPage() {
                     setSubmitted(false);
                     setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
                   }}
-                  style={{ maxWidth: '240px', margin: '0 auto' }}
+                  style={{ maxWidth: '260px', margin: '0 auto' }}
                 >
                   Send Another Message
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit}>
-                <div className="contact-form-group">
-                  <label className="contact-form-label" htmlFor="contact-name">
-                    Full Name *
-                  </label>
-                  <input
-                    id="contact-name"
-                    type="text"
-                    className="contact-form-input"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                  />
+              <form onSubmit={handleSubmit} className="contact-form">
+                <div className="contact-form-row">
+                  <div className="contact-form-group">
+                    <label className="contact-form-label" htmlFor="contact-name">
+                      Full Name <span className="contact-required-mark">*</span>
+                    </label>
+                    <div className="contact-input-wrap">
+                      <User size={16} className="contact-input-icon" />
+                      <input
+                        id="contact-name"
+                        type="text"
+                        className="contact-form-input"
+                        placeholder="e.g. Ramesh Kumar"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="contact-form-group">
+                    <label className="contact-form-label" htmlFor="contact-phone">
+                      Phone / WhatsApp No. (Optional)
+                    </label>
+                    <div className="contact-input-wrap">
+                      <Phone size={16} className="contact-input-icon" />
+                      <input
+                        id="contact-phone"
+                        type="tel"
+                        className="contact-form-input"
+                        placeholder="+91 98765 43210"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      />
+                    </div>
+                  </div>
                 </div>
 
-                <div className="contact-form-group">
-                  <label className="contact-form-label" htmlFor="contact-email">
-                    Email Address *
-                  </label>
-                  <input
-                    id="contact-email"
-                    type="email"
-                    className="contact-form-input"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                  />
-                </div>
+                <div className="contact-form-row">
+                  <div className="contact-form-group">
+                    <label className="contact-form-label" htmlFor="contact-email">
+                      Email Address <span className="contact-required-mark">*</span>
+                    </label>
+                    <div className="contact-input-wrap">
+                      <Mail size={16} className="contact-input-icon" />
+                      <input
+                        id="contact-email"
+                        type="email"
+                        className="contact-form-input"
+                        placeholder="yourname@gmail.com"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        required
+                      />
+                    </div>
+                  </div>
 
-                <div className="contact-form-group">
-                  <label className="contact-form-label" htmlFor="contact-phone">
-                    Phone / WhatsApp No. (Optional)
-                  </label>
-                  <input
-                    id="contact-phone"
-                    type="tel"
-                    className="contact-form-input"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  />
-                </div>
-
-                <div className="contact-form-group">
-                  <label className="contact-form-label" htmlFor="contact-subject">
-                    Subject
-                  </label>
-                  <input
-                    id="contact-subject"
-                    type="text"
-                    className="contact-form-input"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  />
+                  <div className="contact-form-group">
+                    <label className="contact-form-label" htmlFor="contact-subject">
+                      Subject
+                    </label>
+                    <div className="contact-input-wrap">
+                      <Tag size={16} className="contact-input-icon" />
+                      <input
+                        id="contact-subject"
+                        type="text"
+                        className="contact-form-input"
+                        placeholder="e.g. Bulk Order / Product Query"
+                        value={formData.subject}
+                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="contact-form-group">
                   <label className="contact-form-label" htmlFor="contact-message">
-                    Your Message / Inquiry *
+                    Your Message / Inquiry <span className="contact-required-mark">*</span>
                   </label>
-                  <textarea
-                    id="contact-message"
-                    rows={4}
-                    className="contact-form-textarea"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    required
-                  />
+                  <div className="contact-input-wrap contact-textarea-wrap">
+                    <MessageSquare size={16} className="contact-input-icon contact-textarea-icon" />
+                    <textarea
+                      id="contact-message"
+                      rows={4}
+                      className="contact-form-textarea"
+                      placeholder="Write your question, feedback, or custom requirements here..."
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      required
+                    />
+                  </div>
                 </div>
 
                 <button type="submit" className="contact-btn-submit">
                   <Send size={18} /> Send Message via WhatsApp
                 </button>
+                <p className="contact-form-subhint">
+                  Direct connection with our artisan kitchen team • Fast response
+                </p>
               </form>
             )}
           </div>
