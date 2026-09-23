@@ -9,6 +9,11 @@ export interface ArticleSection {
   quote?: string;
   bulletList?: string[];
   footerContent?: string[];
+  table?: {
+    headers: string[];
+    rows: string[][];
+    caption?: string;
+  };
   subsections?: {
     title: string;
     content: string[];
@@ -547,7 +552,7 @@ export const ARTICLES_DATA: Article[] = [
   {
     id: 'homemade-ragi-malt',
     slug: 'homemade-ragi-malt',
-    title: 'Homemade Ragi Malt: Recipe, Benefits, Nutrition, and How to Make It',
+    title: 'Homemade Ragi Malt: Recipe, Benefits, Nutrition, and How to Make It.',
     category: 'Recipes & Tips',
     readTime: '6 min read',
     publishedDate: '18 September 2026',
@@ -556,7 +561,7 @@ export const ARTICLES_DATA: Article[] = [
       role: 'Founder & Artisan Maker',
       avatarInitials: 'P'
     },
-    summary: 'Homemade ragi malt is a simple, nutritious drink prepared using finger millet along with water or milk and optional natural sweeteners. Discover its complete health benefits, simple step-by-step recipe, preparation tips, and FAQs.',
+    summary: 'Homemade ragi malt is a simple, nutritious drink prepared using ragi, also known as finger millet, along with water or milk and optional ingredients such as jaggery, cardamom, or nuts. Research has also examined its protein, fibre, mineral, and polyphenol content.',
     coverImage: homemadeRagiMaltCover,
     featured: false,
     keyTakeaways: [],
@@ -579,16 +584,14 @@ export const ARTICLES_DATA: Article[] = [
         id: 'introduction',
         heading: 'Introduction',
         content: [
-          'Homemade ragi malt is a simple, nutritious drink prepared using ragi, also known as finger millet, along with water or milk and optional ingredients such as jaggery, cardamom, or nuts. Ragi is naturally rich in dietary fibre and minerals, particularly calcium, making it a popular traditional grain in India. Research has also examined its protein, fibre, mineral, and polyphenol content.',
-          'Unlike packaged drinks that may contain several additional ingredients, homemade ragi malt allows you to control the ingredients, sweetness, and consistency according to your preference.'
+          'Homemade ragi malt is a simple, nutritious drink prepared using ragi, also known as finger millet, along with water or milk and optional ingredients such as jaggery, cardamom, or nuts. Ragi is naturally rich in dietary fibre and minerals, particularly calcium, making it a popular traditional grain in India. Research has also examined its protein, fibre, mineral, and polyphenol content. Unlike packaged drinks that may contain several additional ingredients, homemade ragi malt allows you to control the ingredients, sweetness, and consistency according to your preference.'
         ]
       },
       {
         id: 'what-is-homemade-ragi-malt',
         heading: 'What Is Homemade Ragi Malt?',
         content: [
-          'Homemade ragi malt is a traditional preparation made from ragi flour or ragi malt powder. The flour is mixed with water to form a smooth slurry and then cooked properly before adding milk, jaggery, or other ingredients.',
-          'Ragi is the common Indian name for finger millet (Eleusine coracana). It has been consumed in India for generations and is used in preparations such as porridge, dosa, roti, mudde, and malt. Finger millet is notable for its calcium, dietary fibre, and mineral content. However, the nutritional value of the final drink depends on the ingredients and preparation method used.'
+          'Homemade ragi malt is a traditional preparation made from ragi flour or ragi malt powder. The flour is mixed with water to form a smooth slurry and then cooked properly before adding milk, jaggery, or other ingredients. Ragi is the common Indian name for finger millet (Eleusine coracana). It has been consumed in India for generations and is used in preparations such as porridge, dosa, roti, mudde, and malt. Finger millet is notable for its calcium, dietary fibre, and mineral content. However, the nutritional value of the final drink depends on the ingredients and preparation method used'
         ]
       },
       {
@@ -600,15 +603,21 @@ export const ARTICLES_DATA: Article[] = [
         subsections: [
           {
             title: 'Provides Dietary Fibre',
-            content: ['Ragi contains dietary fibre, which contributes to overall digestive health and can help make meals more filling. The amount of fibre in the finished malt depends on how much ragi is used and how the drink is prepared.']
+            content: [
+              'Ragi contains dietary fibre, which contributes to overall digestive health and can help make meals more filling. The amount of fibre in the finished malt depends on how much ragi is used and how the drink is prepared.'
+            ]
           },
           {
             title: 'Contains Calcium',
-            content: ['Finger millet is known for its relatively high calcium content compared with many commonly consumed cereals. Calcium is an important mineral for maintaining normal bones and teeth. However, homemade ragi malt should be considered part of an overall balanced diet rather than a standalone source of calcium.']
+            content: [
+              'Finger millet is known for its relatively high calcium content compared with many commonly consumed cereals. Calcium is an important mineral for maintaining normal bones and teeth. However, homemade ragi malt should be considered part of an overall balanced diet rather than a standalone source of calcium.'
+            ]
           },
           {
             title: 'Provides Energy',
-            content: ['Ragi contains carbohydrates that provide energy. When prepared with milk, nuts or other ingredients, homemade ragi malt can become a more substantial breakfast or snack.']
+            content: [
+              'Ragi contains carbohydrates that provide energy. When prepared with milk, nuts or other ingredients, homemade ragi malt can become a more substantial breakfast or snack.'
+            ]
           },
           {
             title: 'Can Be a Convenient Breakfast Option',
@@ -624,12 +633,15 @@ export const ARTICLES_DATA: Article[] = [
           },
           {
             title: 'Contains Plant Compounds',
-            content: ['Finger millet contains polyphenols and other naturally occurring plant compounds. Research has investigated their antioxidant properties, although many specific health effects require stronger human evidence.']
+            content: [
+              'Finger millet contains polyphenols and other naturally occurring plant compounds. Research has investigated their antioxidant properties, although many specific health effects require stronger human evidence.'
+            ]
           },
           {
             title: 'Can Be Customized Easily',
             content: [
-              'One advantage of making ragi malt at home is flexibility. The choice depends on your taste and dietary requirements. [Homemade Ragi Malt Powder](https://allfreshnaturals.com/products/ragi-malt)'
+              'One advantage of making ragi malt at home is flexibility.',
+              'You can add:'
             ],
             bulletList: [
               'Milk',
@@ -640,15 +652,22 @@ export const ARTICLES_DATA: Article[] = [
               'Dates',
               'Banana',
               'Cinnamon'
+            ],
+            footerContent: [
+              'The choice depends on your taste and dietary requirements. [Homemade Ragi Malt Powder](https://allfreshnaturals.com/products/ragi-malt)'
             ]
           },
           {
             title: 'Suitable for Different Age Groups',
-            content: ['Ragi-based foods are traditionally used in Indian diets for children and adults. However, the appropriate ingredients, texture, and portion size should be adjusted according to age and individual dietary needs. For young children, avoid making assumptions about nutritional requirements and introduce foods according to appropriate feeding guidance.']
+            content: [
+              'Ragi-based foods are traditionally used in Indian diets for children and adults. However, the appropriate ingredients, texture, and portion size should be adjusted according to age and individual dietary needs. For young children, avoid making assumptions about nutritional requirements and introduce foods according to appropriate feeding guidance.'
+            ]
           },
           {
             title: 'Helps Add More Whole Grains to the Diet',
-            content: ['Including different grains in the diet can improve dietary variety. Ragi provides an alternative to commonly consumed cereals such as rice and wheat.']
+            content: [
+              'Including different grains in the diet can improve dietary variety. Ragi provides an alternative to commonly consumed cereals such as rice and wheat.'
+            ]
           }
         ]
       },
@@ -660,6 +679,7 @@ export const ARTICLES_DATA: Article[] = [
         ],
         recipe: {
           ingredients: [
+            'For approximately one serving:',
             '2 tablespoons ragi flour',
             '1 cup water',
             '½ cup milk, optional',
@@ -668,14 +688,14 @@ export const ARTICLES_DATA: Article[] = [
             'A few chopped nuts, optional'
           ],
           method: [
-            'Step 1: Prepare the Ragi Slurry — Take 2 tablespoons of ragi flour in a bowl. Add a small amount of room-temperature water and mix thoroughly until there are no lumps.',
-            'Step 2: Cook the Ragi — Transfer the ragi mixture to a saucepan. Add the remaining water and cook on low to medium heat while stirring continuously until the mixture thickens and the raw flour smell disappears.',
-            'Step 3: Add Milk — If you prefer a creamy ragi malt, add warm milk after the ragi has cooked. Continue stirring for another minute or two. Milk is optional.',
-            'Step 4: Add Jaggery — Turn the heat down and add jaggery according to your preferred sweetness, or use dates or leave out added sweeteners.',
+            'Step 1: Prepare the Ragi Slurry — Take 2 tablespoons of ragi flour in a bowl. Add a small amount of room-temperature water and mix thoroughly until there are no lumps. This step is important because adding ragi flour directly to hot water can create lumps.',
+            'Step 2: Cook the Ragi — Transfer the ragi mixture to a saucepan. Add the remaining water and cook on low to medium heat while stirring continuously. Cook until the mixture thickens and the raw flour smell disappears.',
+            'Step 3: Add Milk — If you prefer a creamy ragi malt, add warm milk after the ragi has cooked. Continue stirring for another minute or two. Milk is optional, so you can also prepare ragi malt entirely with water.',
+            'Step 4: Add Jaggery — Turn the heat down and add jaggery according to your preferred sweetness. You can also use dates or simply leave out added sweeteners.',
             'Step 5: Add Flavour — Add a small pinch of cardamom powder for flavour. You can also add crushed nuts if desired.',
             'Step 6: Serve Warm — Mix everything well and serve the homemade ragi malt warm.'
           ],
-          note: 'You can adjust the quantities depending on the desired consistency (thin, medium, or thick).'
+          note: 'You can adjust the quantities depending on the desired consistency.'
         }
       },
       {
@@ -703,6 +723,9 @@ export const ARTICLES_DATA: Article[] = [
           'Curd',
           'Sprouts',
           'Other protein-rich foods'
+        ],
+        footerContent: [
+          'This can make the overall meal more balanced.'
         ]
       },
       {
@@ -710,8 +733,7 @@ export const ARTICLES_DATA: Article[] = [
         heading: 'Is Ragi Malt Good for Weight Management?',
         content: [
           'Ragi malt can be included in a weight-management diet, but ragi malt itself is not a weight-loss drink. The total calories depend on the amount of ragi, milk, jaggery, nuts, and other ingredients used.',
-          'If you are trying to manage calorie intake, pay attention to:',
-          '[Ragi\'s fibre content may contribute to fullness](https://allfreshnaturals.com/products/ragi-malt), but weight management depends on overall dietary intake, physical activity, and other lifestyle factors.'
+          'If you are trying to manage calorie intake, pay attention to:'
         ],
         bulletList: [
           'Portion size',
@@ -719,22 +741,28 @@ export const ARTICLES_DATA: Article[] = [
           'Quantity of nuts',
           'Type and amount of milk',
           'Overall daily diet'
+        ],
+        footerContent: [
+          '[Ragi\'s fibre content may contribute to fullness](https://allfreshnaturals.com/products/ragi-malt), but weight management depends on overall dietary intake, physical activity, and other lifestyle factors.'
         ]
       },
       {
         id: 'homemade-vs-packaged',
         heading: 'Homemade Ragi Malt vs Packaged Ragi Malt',
-        content: [
-          'Comparing homemade preparation with packaged alternatives shows clear advantages in customization and ingredient control:',
+        content: [],
+        table: {
+          headers: ['Feature', 'Homemade Ragi Malt', 'Packaged Ragi Malt'],
+          rows: [
+            ['Ingredient control', 'High', 'Depends on product'],
+            ['Sweetness', 'Fully adjustable', 'Usually predetermined'],
+            ['Preparation', 'Requires cooking', 'Often more convenient'],
+            ['Customization', 'Easy', 'Limited'],
+            ['Portion control', 'Easy', 'Depends on serving'],
+            ['Add-ons', 'Can be customized', 'Depends on formulation']
+          ]
+        },
+        footerContent: [
           'Homemade preparation gives you greater control over what goes into your drink.'
-        ],
-        bulletList: [
-          'Ingredient control: High for Homemade vs Depends on product for Packaged',
-          'Sweetness: Fully adjustable at home vs Usually predetermined in packaged mixes',
-          'Preparation: Requires cooking at home vs Often more instant or convenient',
-          'Customization: Easy to add fresh spices, nuts, or fruits vs Limited in packaged mixes',
-          'Portion control: Easy to scale at home vs Depends on serving size',
-          'Add-ons: Can be customized per bowl vs Depends on factory formulation'
         ]
       },
       {
@@ -743,19 +771,38 @@ export const ARTICLES_DATA: Article[] = [
         content: [
           'A few simple changes can make your homemade preparation more suitable for everyday eating.'
         ],
-        bulletList: [
-          'Use Moderate Sweetness: Jaggery can add sweetness, but it still contributes sugar and calories. Use an amount appropriate for your preference.',
-          'Add Protein-Rich Foods: Ragi malt itself should not be considered a complete meal in every situation. Pairing it with protein-rich foods can create a more balanced breakfast.',
-          'Add Nuts or Seeds: Almonds, walnuts, chia seeds, or other seeds can add texture and nutrients.',
-          'Avoid Excessive Add-Ins: Adding large amounts of sugar, jaggery, sweetened condensed milk, or high-calorie toppings can significantly change the nutritional profile of the drink.'
+        subsections: [
+          {
+            title: 'Use Moderate Sweetness',
+            content: [
+              'Jaggery can add sweetness, but it still contributes sugar and calories. Use an amount appropriate for your preference.'
+            ]
+          },
+          {
+            title: 'Add Protein-Rich Foods',
+            content: [
+              'Ragi malt itself should not be considered a complete meal in every situation. Pairing it with protein-rich foods can create a more balanced breakfast.'
+            ]
+          },
+          {
+            title: 'Add Nuts or Seeds',
+            content: [
+              'Almonds, walnuts, chia seeds, or other seeds can add texture and nutrients.'
+            ]
+          },
+          {
+            title: 'Avoid Excessive Add-Ins',
+            content: [
+              'Adding large amounts of sugar, jaggery, sweetened condensed milk, or high-calorie toppings can significantly change the nutritional profile of the drink.'
+            ]
+          }
         ]
       },
       {
         id: 'preparation-tips',
         heading: 'Ragi Malt Preparation Tips',
         content: [
-          'Follow these tips for smoother and better-tasting homemade ragi malt:',
-          'Proper rinsing and preparation of millet grains, as well as soaking, can [help with cooking time](https://allfreshnaturals.com/products/ragi-malt) and digestibility for whole millet grains.'
+          'Follow these tips for smoother and better-tasting homemade ragi malt:'
         ],
         bulletList: [
           '1. Always mix ragi flour with cool or room-temperature water first.',
@@ -765,6 +812,9 @@ export const ARTICLES_DATA: Article[] = [
           '5. Add jaggery according to taste rather than automatically using a large quantity.',
           '6. Use fresh ingredients.',
           '7. Store prepared malt safely and consume it fresh whenever possible.'
+        ],
+        footerContent: [
+          'The FAQ also recommends proper rinsing and preparation of millet grains and notes that soaking can [help with cooking time](https://allfreshnaturals.com/products/ragi-malt) and digestibility for whole millet grains.'
         ]
       },
       {
@@ -778,43 +828,43 @@ export const ARTICLES_DATA: Article[] = [
     ],
     faqs: [
       {
-        question: 'Is homemade ragi malt healthy?',
+        question: '1) Is homemade ragi malt healthy?',
         answer: 'Homemade ragi malt can be a nutritious addition to a balanced diet because ragi provides dietary fibre and minerals such as calcium. Its overall nutritional value depends on the ingredients and portion size.'
       },
       {
-        question: 'Can I drink ragi malt every day?',
+        question: '2) Can I drink ragi malt every day?',
         answer: 'Ragi malt can be included regularly as part of a varied diet. However, dietary variety is important, so it is better not to rely on one food or drink for all nutritional needs.'
       },
       {
-        question: 'Can I make ragi malt without jaggery?',
+        question: '3) Can I make ragi malt without jaggery?',
         answer: 'Yes. You can prepare ragi malt without jaggery or use naturally sweet ingredients such as fruit or dates according to your preference.'
       },
       {
-        question: 'Can I make ragi malt with water?',
+        question: '4) Can I make ragi malt with water?',
         answer: 'Yes. Ragi malt can be prepared entirely with water. Milk is optional.'
       },
       {
-        question: 'Does ragi malt help with digestion?',
+        question: '5) Does ragi malt help with digestion?',
         answer: 'Ragi contains dietary fibre, which contributes to digestive health. However, individual responses can vary, and ragi malt should not be considered a treatment for digestive problems.'
       },
       {
-        question: 'Is ragi malt good for children?',
+        question: '6) Is ragi malt good for children?',
         answer: 'Ragi is traditionally used in children\'s foods, but preparation, texture, and ingredients should be age-appropriate. For infants and young children, follow recommended complementary-feeding guidance.'
       },
       {
-        question: 'Can ragi malt be consumed at night?',
+        question: '7) Can ragi malt be consumed at night?',
         answer: 'Yes, it can be consumed at different times of the day depending on individual preference. Portion size and the ingredients added are important considerations.'
       },
       {
-        question: 'Is ragi malt good for weight loss?',
+        question: '8) Is ragi malt good for weight loss?',
         answer: 'Ragi malt can fit into a weight-management diet, but it does not directly cause weight loss. The overall calorie intake and dietary pattern matter.'
       },
       {
-        question: 'Can I add fruits to ragi malt?',
+        question: '9) Can I add fruits to ragi malt?',
         answer: 'Yes. Banana, dates, or other fruits can be added for flavour and sweetness. Remember that these additions also change the drink\'s carbohydrate and calorie content.'
       },
       {
-        question: 'What is the best way to make smooth ragi malt?',
+        question: '10) What is the best way to make smooth ragi malt?',
         answer: 'Mix ragi flour with room-temperature water first to create a lump-free slurry, then cook it while stirring continuously.'
       }
     ],

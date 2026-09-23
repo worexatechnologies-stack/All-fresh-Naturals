@@ -3160,6 +3160,47 @@ h1, h2, h3, h4, h5, h6 {
   color: #78350f;
 }
 
+/* Comparison Table */
+.reader-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin: 20px 0 24px;
+  border-radius: 16px;
+  border: 1.5px solid #e2ece5;
+  background: #ffffff;
+  box-shadow: 0 4px 16px rgba(44, 90, 62, 0.04);
+}
+.reader-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.94rem;
+}
+.reader-table th {
+  background: #f4f8f5;
+  color: #20402e;
+  font-weight: 700;
+  padding: 14px 18px;
+  border-bottom: 2px solid #dde9e1;
+  font-size: 0.95rem;
+}
+.reader-table td {
+  padding: 13px 18px;
+  border-bottom: 1px solid #edf4f0;
+  color: #3b5043;
+  line-height: 1.5;
+}
+.reader-table tr:last-child td {
+  border-bottom: none;
+}
+.reader-table tr:hover td {
+  background: #fbfdfc;
+}
+.reader-table td:first-child {
+  font-weight: 600;
+  color: #20402e;
+}
+
 /* FAQ Section */
 .reader-faq-section {
   background: #fbfdfa;

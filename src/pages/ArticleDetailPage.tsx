@@ -345,7 +345,7 @@ export default function ArticleDetailPage() {
             content="en_US"
           />
         </Helmet>
-      ) : article.id === 'homemade-ragi-malt-recipe' ? (
+      ) : (article.id === 'homemade-ragi-malt' || article.id === 'homemade-ragi-malt-recipe') ? (
         <Helmet>
           <title id="metaTitle">Homemade Ragi Malt: Nutrition &amp; Health Benefits | AllFresh Naturals</title>
 
@@ -641,6 +641,29 @@ export default function ArticleDetailPage() {
                       <li key={bIdx}>{renderFormattedText(bItem)}</li>
                     ))}
                   </ul>
+                )}
+                {sec.table && (
+                  <div className="reader-table-wrap">
+                    <table className="reader-table">
+                      {sec.table.caption && <caption>{sec.table.caption}</caption>}
+                      <thead>
+                        <tr>
+                          {sec.table.headers.map((h, hIdx) => (
+                            <th key={hIdx}>{renderFormattedText(h)}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {sec.table.rows.map((row, rIdx) => (
+                          <tr key={rIdx}>
+                            {row.map((cell, cIdx) => (
+                              <td key={cIdx}>{renderFormattedText(cell)}</td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 )}
                 {sec.footerContent && sec.footerContent.map((p, fIdx) => (
                   <p key={`f-${fIdx}`} className="reader-paragraph">{renderFormattedText(p)}</p>
