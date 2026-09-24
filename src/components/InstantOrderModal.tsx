@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -20,6 +20,7 @@ export default function InstantOrderModal({ product, isOpen, onClose }: InstantO
   const navigate = useNavigate();
   const { placeNewOrder } = useOrder();
   const { user, isAuthenticated, openAuthModal } = useAuth();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const [quantity, setQuantity] = useState(1);
   const [name, setName] = useState('');
@@ -43,6 +44,9 @@ export default function InstantOrderModal({ product, isOpen, onClose }: InstantO
       setCity('Bengaluru');
       setState('Karnataka');
       setPincode('');
+      if (formRef.current) {
+        formRef.current.scrollTop = 0;
+      }
     }
   }, [isOpen, product]);
 
@@ -90,24 +94,7 @@ export default function InstantOrderModal({ product, isOpen, onClose }: InstantO
       hour: '2-digit', minute: '2-digit',
     });
 
-    let msg = `🌿 *NEW ORDER ALL FRESH NATURALS*\n`;
-    msg += `━━━━━━━━━━━━━━━━━━━━━━\n`;
-    msg += `🔖 *Order ID:* #${orderId}\n`;
-    msg += `📅 *Date:* ${formattedDate}\n\n`;
-    msg += `📦 *PRODUCT:*\n`;
-    msg += `• ${product.name} (${product.size})\n`;
-    msg += `• Qty: ${quantity} × ₹${product.price} = ₹${subtotal}\n`;
-    msg += `• Delivery: ${deliveryFee === 0 ? 'FREE (order ≥ ₹999)' : `₹${deliveryFee}`}\n`;
-    msg += `• *Total: ₹${grandTotal}*\n\n`;
-    msg += `👤 *DELIVER TO:*\n`;
-    msg += `• Name: ${name}\n`;
-    msg += `• Phone: ${phone}\n`;
-    msg += `• Address: ${address}\n`;
-    msg += `• City & PIN: ${city}  ${pincode}\n`;
-    msg += `━━━━━━━━━━━━━━━━━━━━━━\n`;
-    msg += `_Prepared fresh, delivered with love 🌱_`;
-
-    msg = [
+    const msg = [
       '*NEW ORDER | ALL FRESH NATURALS*',
       '',
       `Order ID: #${orderId}`,
@@ -191,7 +178,7 @@ export default function InstantOrderModal({ product, isOpen, onClose }: InstantO
             <div className="iom-header-img-wrap">
               <img src={product.image} alt={product.name} className="iom-header-img" />
             </div>
-            <div>
+            <div className="iom-header-info">
               <span className="iom-header-badge">⚡ INSTANT ORDER</span>
               <h3 className="iom-header-title">{product.name}</h3>
               <p className="iom-header-price">
@@ -204,7 +191,7 @@ export default function InstantOrderModal({ product, isOpen, onClose }: InstantO
           </button>
         </div>
 
-        <form onSubmit={handleSendOrder} className="iom-form">
+        <form ref={formRef} onSubmit={handleSendOrder} className="iom-form">
           <div className="iom-body">
             {/* Quantity & Summary Card */}
             <div className="iom-qty-card">
@@ -234,8 +221,9 @@ export default function InstantOrderModal({ product, isOpen, onClose }: InstantO
               </div>
 
               <div className="iom-qty-right">
+                <span className="iom-total-label">Total Amount</span>
                 <div className="iom-total-price">₹{grandTotal}</div>
-                <div className="iom-delivery-tag">
+                <div className={`iom-delivery-tag ${deliveryFee === 0 ? 'iom-delivery-tag--free' : ''}`}>
                   {deliveryFee === 0 ? '🎉 FREE Delivery' : '+ ₹50 Standard Delivery'}
                 </div>
               </div>
@@ -243,7 +231,8 @@ export default function InstantOrderModal({ product, isOpen, onClose }: InstantO
 
             {/* Delivery Details Section */}
             <div className="iom-section-header">
-              <MapPin size={15} /> <span>Delivery Address Details</span>
+              <span className="iom-section-icon"><MapPin size={15} /></span>
+              <span>Delivery Address Details</span>
             </div>
 
             <div className="iom-inputs-grid">

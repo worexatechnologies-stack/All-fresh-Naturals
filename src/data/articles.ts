@@ -1,6 +1,9 @@
-import ragiDualMockup from '../assets/benifits-of-ragi-malt.jpg';
-import abcDualMockup from '../assets/benifits-of-abc-malt.jpg';
+import ragiDualMockup from '../assets/benefits-of-ragi-malt.jpg';
+import abcDualMockup from '../assets/benefits-of-abc-malt.jpg';
 import homemadeRagiMaltCover from '../assets/homemade-ragi-malt.jpg';
+import bestRagiMaltPowderCover from '../assets/best-ragi-malt-powder.jpg';
+import homemadeAbcMaltCover from '../assets/homemade-abc-malt.jpg';
+import abcDrinkCover from '../assets/apple-beetroot-carrot-drink.jpg';
 
 export interface ArticleSection {
   id?: string;
@@ -869,5 +872,1022 @@ export const ARTICLES_DATA: Article[] = [
       }
     ],
     relatedProductId: 'ragi-malt'
+  },
+  {
+    id: 'apple-beetroot-carrot-drink',
+    slug: 'apple-beetroot-carrot-drink',
+    aliases: ['abc-drink', 'abc-juice', 'apple-beetroot-carrot-juice'],
+    title: 'Apple Beetroot Carrot Drink: Benefits, Recipe, Nutrition and Precautions',
+    category: 'Natural Wellness',
+    readTime: '6 min read',
+    publishedDate: '24 September 2026',
+    author: {
+      name: 'Poornima',
+      role: 'Founder & Artisan Maker',
+      avatarInitials: 'P'
+    },
+    summary: 'Discover the benefits of Apple Beetroot Carrot Drink, how to prepare it, its nutritional value, fiber considerations, natural sugars, and important precautions.',
+    coverImage: abcDrinkCover,
+    featured: false,
+    keyTakeaways: [],
+    tableOfContents: [
+      { id: 'introduction', label: 'Introduction' },
+      { id: 'what-is-abc-drink', label: 'What Is Apple Beetroot Carrot Drink?' },
+      { id: 'benefits-of-abc-drink', label: 'What Are the Benefits of Apple Beetroot Carrot Drink?' },
+      { id: 'fibre-content', label: 'Does Apple Beetroot Carrot Drink Contain Fibre?' },
+      { id: 'blended-vs-strained', label: 'Blended vs Strained ABC Drink' },
+      { id: 'how-to-make', label: 'How to Make Apple Beetroot Carrot Drink at Home' },
+      { id: 'should-you-strain', label: 'Should You Strain Apple Beetroot Carrot Drink?' },
+      { id: 'contain-sugar', label: 'Does Apple Beetroot Carrot Drink Contain Sugar?' },
+      { id: 'is-superfood', label: 'Is Apple Beetroot Carrot Drink a Superfood?' },
+      { id: 'best-time-to-drink', label: 'When Is the Best Time to Drink ABC Drink?' },
+      { id: 'weight-loss', label: 'Can Apple Beetroot Carrot Drink Help With Weight Loss?' },
+      { id: 'important-precautions', label: 'Important Precautions' },
+      { id: 'abc-vs-whole-fruits', label: 'Drinking ABC Juice vs Whole Fruits and Vegetables' },
+      { id: 'conclusion', label: 'Conclusion' },
+      { id: 'faqs', label: 'Frequently Asked Questions' }
+    ],
+    sections: [
+      {
+        id: 'introduction',
+        heading: 'Introduction',
+        content: [
+          'Apple Beetroot Carrot Drink is a popular fruit-and-vegetable drink made by combining apple, beetroot and carrot. The combination provides a naturally colourful drink containing nutrients and plant compounds from all three ingredients. Carrots are particularly known for their beta-carotene, which the body can convert into vitamin A. Often called ABC drink or ABC juice, this combination can be prepared by blending the ingredients with water or extracting their juice.',
+          'However, the preparation method matters. Completely straining the drink can remove much of the natural dietary fibre present in the whole fruits and vegetables. For that reason, a blended version that retains the pulp can be a better way to preserve more of the original food\'s fibre.'
+        ]
+      },
+      {
+        id: 'what-is-abc-drink',
+        heading: 'What Is Apple Beetroot Carrot Drink?',
+        content: [
+          'Apple Beetroot Carrot Drink is a simple combination of:'
+        ],
+        bulletList: [
+          'Apple - provides natural sweetness and plant nutrients.',
+          'Beetroot - contributes naturally occurring nitrates and other plant compounds.',
+          'Carrot - provides beta-carotene and other carotenoids.'
+        ],
+        footerContent: [
+          'The ingredients can be blended together with water and consumed as a thick drink, or they can be juiced and strained.',
+          'There is no single standard recipe. [The nutritional content varies](https://allfreshnaturals.com/products/abc-malt) depending on the quantities used, whether the pulp is retained, and whether additional ingredients such as sugar, honey, or other sweeteners are added.'
+        ]
+      },
+      {
+        id: 'benefits-of-abc-drink',
+        heading: 'What Are the Benefits of Apple Beetroot Carrot Drink?',
+        content: [],
+        subsections: [
+          {
+            title: 'Provides Plant-Based Nutrients',
+            content: [
+              'Apple, beetroot, and carrot each contain different nutrients and naturally occurring plant compounds. Combining them can provide dietary variety in one drink. However, it should be considered part of an overall balanced diet rather than a replacement for a varied diet.'
+            ]
+          },
+          {
+            title: 'Carrots Provide Beta-Carotene',
+            content: [
+              'Carrots are an important dietary source of beta-carotene, a provitamin A carotenoid. The body can convert some beta-carotene into vitamin A. Vitamin A is important for normal vision, immune function, and growth and development. This makes carrot an important nutritional component of the ABC drink.'
+            ]
+          },
+          {
+            title: 'Beetroot Contains Naturally Occurring Nitrates',
+            content: [
+              'Beetroot contains dietary nitrate, which has been studied for its potential effects on blood flow and exercise performance. Recent research has found that beetroot juice supplementation may produce a small improvement in measures such as VO₂max/VO₂peak in some healthy adults, although results can vary and this evidence relates specifically to studied beetroot preparations-not automatically to every homemade ABC drink. Therefore, it is better to describe beetroot as a nutrient-rich ingredient rather than claiming that ABC drink treats or prevents a particular health condition.'
+            ]
+          },
+          {
+            title: 'Naturally Sweet Flavour',
+            content: [
+              'Apple and carrot provide natural sweetness, which can make the drink pleasant without needing added sugar. If the ingredients are naturally sweet enough, there may be no need to add sugar, honey, or syrup.'
+            ]
+          },
+          {
+            title: 'Adds Variety to Your Diet',
+            content: [
+              'Eating a variety of fruits and vegetables is an important part of a balanced dietary pattern. An Apple Beetroot Carrot Drink can be one convenient way to include these ingredients, particularly for people who enjoy fruit and vegetable-based drinks.'
+            ]
+          },
+          {
+            title: 'Provides Colourful Plant Compounds',
+            content: [
+              'The bright red, orange and natural fruit colours come from different plant pigments and compounds. Carrots, for example, contain carotenoids such as beta-carotene. The combination of apple, beetroot and carrot therefore creates a naturally colourful drink without requiring artificial colours.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'fibre-content',
+        heading: 'Does Apple Beetroot Carrot Drink Contain Fibre?',
+        content: [
+          'Yes, but the amount of fibre depends heavily on how the drink is prepared. If you blend the whole apple and carrot and retain the pulp, more of their natural fibre remains in the drink. However, if you juice the ingredients and completely strain the pulp, much of the dietary fibre is removed.'
+        ]
+      },
+      {
+        id: 'blended-vs-strained',
+        heading: 'Blended vs Strained ABC Drink',
+        content: [],
+        table: {
+          headers: ['Preparation', 'Fibre retention', 'Texture'],
+          rows: [
+            ['Whole ingredients blended', 'Higher', 'Thick/pulpy'],
+            ['Lightly strained', 'Moderate', 'Smoother'],
+            ['Completely strained', 'Lower', 'Clearer / thinner']
+          ]
+        },
+        footerContent: [
+          'Therefore, if your goal is to retain more dietary fibre, blending and keeping the pulp is preferable to completely straining the drink.'
+        ]
+      },
+      {
+        id: 'how-to-make',
+        heading: 'How to Make Apple Beetroot Carrot Drink at Home',
+        content: [],
+        recipe: {
+          ingredients: [
+            '1 medium apple',
+            '1 small beetroot',
+            '1 - 2 medium carrots',
+            '½-1 cup water',
+            'A small piece of ginger, optional',
+            'Lemon juice, optional'
+          ],
+          method: [
+            'Step 1: Wash the ingredients - Make sure to wash the apple, beetroot, and carrots thoroughly under clean, running water..',
+            'Step 2: Prepare the ingredients - Peel the beetroot if preferred and remove the carrot ends. Cut everything into small pieces. You can leave the apple skin on if it has been properly washed and you prefer to retain more of the fruit.',
+            'Step 3: Blend - Add the apple, beetroot, and carrot to a blender. Add water and blend until smooth.',
+            'Step 4: Check the consistency - Add more water if you prefer a thinner drink.',
+            'Step 5: Avoid excessive straining - For more fibre, drink the blended mixture without completely removing the pulp.',
+            'Step 6: Add optional ingredients - You can add a small amount of ginger or lemon juice for flavour.',
+            'Step 7: Serve fresh - Freshly prepared ABC drink is generally best consumed soon after preparation.'
+          ],
+          note: 'For approximately 1–2 servings.'
+        }
+      },
+      {
+        id: 'should-you-strain',
+        heading: 'Should You Strain Apple Beetroot Carrot Drink?',
+        content: [
+          'You can strain it, but completely removing the pulp reduces the fibre you would otherwise get from the whole fruits and vegetables. If you prefer a smooth drink, light straining is an option. If preserving dietary fibre is important to you, keep as much pulp as practical. The idea that straining “strips away all nutrition” would be too broad. Some nutrients and plant compounds remain in the liquid, but fibre is one component that can be substantially reduced when pulp is removed.'
+        ]
+      },
+      {
+        id: 'contain-sugar',
+        heading: 'Does Apple Beetroot Carrot Drink Contain Sugar?',
+        content: [
+          'Yes. Apple and carrot naturally contain sugars, even when no added sugar is used. This is an important point when preparing ABC drink regularly. Natural sugar from whole fruits and vegetables is different from adding refined sugar, but the total carbohydrate and sugar content of the drink still depends on how much apple and carrot you use.'
+        ],
+        subsections: [
+          {
+            title: 'If You Are Watching Sugar Intake',
+            content: [
+              'Consider:'
+            ],
+            bulletList: [
+              'Using a moderate amount of apple.',
+              'Avoiding added sugar, honey, or syrup.',
+              'Keeping the portion size reasonable.',
+              'Retaining the pulp rather than completely straining the drink.',
+              'Considering the total carbohydrate content of your overall meal.'
+            ],
+            footerContent: [
+              'People with diabetes or those monitoring blood-glucose levels should pay attention to portion size and discuss suitable dietary choices with their healthcare professional or dietitian.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'is-superfood',
+        heading: 'Is Apple Beetroot Carrot Drink a Superfood?',
+        content: [
+          'The term “superfood” is mainly a marketing term rather than a scientific classification. Apple, beetroot, and carrot are nutritious foods, but drinking ABC juice does not automatically provide every nutrient your body needs.',
+          'A healthy diet should consist of a variety of foods, including:'
+        ],
+        bulletList: [
+          'Fruits',
+          'Vegetables',
+          'Whole grains',
+          'Pulses and legumes',
+          'Protein sources',
+          'Nuts and seeds',
+          'Healthy fats'
+        ],
+        footerContent: [
+          'ABC drink can complement a balanced diet rather than replace it. [Apple Beet Carrot Juice](https://allfreshnaturals.com/products/abc-malt)'
+        ]
+      },
+      {
+        id: 'best-time-to-drink',
+        heading: 'When Is the Best Time to Drink ABC Drink?',
+        content: [
+          'There is no universally established “best time” to drink Apple Beetroot Carrot Drink.',
+          'You can have it:'
+        ],
+        bulletList: [
+          'With breakfast',
+          'As part of a morning meal',
+          'As an afternoon drink',
+          'Alongside a balanced snack'
+        ],
+        footerContent: [
+          'The more important factors are the portion size, ingredients, and your overall dietary pattern.'
+        ]
+      },
+      {
+        id: 'weight-loss',
+        heading: 'Can Apple Beetroot Carrot Drink Help With Weight Loss?',
+        content: [
+          'ABC drinks should not be considered a weight-loss drink by itself. Weight management depends on overall energy intake, food choices, physical activity, and lifestyle. A homemade drink without added sugar may fit into a balanced diet, but drinking large quantities can still add calories and naturally occurring sugars. If weight management is your goal, consuming whole fruits and vegetables or a blended version with retained pulp may also provide more fibre and chewing compared with a fully strained juice.'
+        ]
+      },
+      {
+        id: 'important-precautions',
+        heading: 'Important Precautions',
+        content: [
+          'Apple Beetroot Carrot Drink is made from common foods, but a few points are worth remembering.'
+        ],
+        subsections: [
+          {
+            title: '1. Avoid Excessive Consumption',
+            content: [
+              'More is not necessarily better. Drinking large quantities is unnecessary and can add substantial amounts of natural sugar and calories.'
+            ]
+          },
+          {
+            title: '2. Don\'t Remove All the Fibre',
+            content: [
+              'If you completely strain the drink, you lose much of the fibre contained in the fruit and vegetables.',
+              'A blended version can retain more of the original fibre.'
+            ]
+          },
+          {
+            title: '3. Be Careful With Added Sweeteners',
+            content: [
+              'Apple and carrot can already provide considerable sweetness.',
+              'Adding sugar, honey, or syrup increases the overall sugar content.'
+            ]
+          },
+          {
+            title: '4. Consider Individual Dietary Needs',
+            content: [
+              'People with diabetes or specific dietary restrictions should consider the portion and ingredients carefully.'
+            ]
+          },
+          {
+            title: '5. Freshness Matters',
+            content: [
+              'Wash ingredients properly and prepare the drink using clean equipment. If storing it, follow appropriate food-safety practices and refrigeration.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'abc-vs-whole-fruits',
+        heading: 'Drinking ABC Juice vs Whole Fruits and Vegetables',
+        content: [
+          'Drinking ABC juice is convenient, but it is not necessarily better than eating whole fruits and vegetables.'
+        ],
+        table: {
+          headers: ['Factor', 'ABC Drink', 'Whole Fruits & Vegetables'],
+          rows: [
+            ['Convenience', 'High', 'Moderate'],
+            ['Fibre', 'Depends on preparation', 'Naturally retained'],
+            ['Chewing', 'Little', 'More'],
+            ['Portion control', 'Can be easy to overconsume', 'Often easier'],
+            ['Preparation', 'Quick', 'Minimal'],
+            ['Variety', 'Easy to combine', 'Easy to diversify']
+          ]
+        },
+        footerContent: [
+          'A blended drink with the pulp retained can provide a middle ground between [convenience and fibre retention.](https://allfreshnaturals.com/products/abc-malt)'
+        ]
+      },
+      {
+        id: 'conclusion',
+        heading: 'Conclusion',
+        content: [
+          'Apple Beetroot Carrot Drink is a simple combination of apple, beetroot, and carrot that can add variety and nutrients to your daily diet. Carrots provide beta-carotene, beetroot contains naturally occurring nitrates, and apples contribute their own nutrients and natural sweetness. The preparation method is important. Completely straining the drink can significantly reduce the dietary fibre that would otherwise remain in the whole ingredients. Blending the ingredients and retaining the pulp is one option for keeping more of that fibre.',
+          'It is also important to remember that natural does not mean unlimited. Apple and carrot contain naturally occurring sugars, so portion size matters, particularly for people monitoring their carbohydrate or blood-glucose intake. Rather than calling ABC drink a miracle or “superfood,” it is more accurate to view it as a convenient combination of nutritious fruits and vegetables that can complement a balanced diet.',
+          'Note: The nutritional composition of Apple Beetroot Carrot Drink varies according to the ingredients, quantities, and preparation method. This information is for general educational purposes and is not personalized medical or dietary advice.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is Apple Beetroot Carrot Drink?',
+        answer: 'It is a drink made by combining apple, beetroot, and carrot. It is commonly known as ABC drink or ABC juice.'
+      },
+      {
+        question: 'What are the benefits of Apple Beetroot Carrot Drink?',
+        answer: 'It provides nutrients and plant compounds from apple, beetroot, and carrot. Carrot provides beta-carotene, while beetroot contains naturally occurring dietary nitrate.'
+      },
+      {
+        question: 'Is ABC drink healthy?',
+        answer: 'It can be part of a balanced diet when prepared with nutritious ingredients and consumed in reasonable portions. It should not be treated as a cure or replacement for a balanced diet.'
+      },
+      {
+        question: 'Should ABC drink be strained?',
+        answer: 'It does not have to be. Keeping the pulp can help retain more dietary fibre.'
+      },
+      {
+        question: 'Does ABC drink contain natural sugar?',
+        answer: 'Yes. Apples and carrots naturally contain sugars. The total amount depends on the quantity used.'
+      },
+      {
+        question: 'Can people with diabetes drink ABC juice?',
+        answer: 'People with diabetes may need to monitor portions and carbohydrate intake. Because individual dietary requirements differ, it is best to follow advice from a healthcare professional or registered dietitian.'
+      },
+      {
+        question: 'Can I drink ABC juice every day?',
+        answer: 'It can be included regularly if it fits your overall diet and portion needs. Variety is still important.'
+      },
+      {
+        question: 'Is ABC drink good for weight loss?',
+        answer: 'ABC drink does not directly cause weight loss. Weight management depends on overall diet, calorie intake, physical activity, and lifestyle.'
+      }
+    ],
+    relatedProductId: 'abc-malt'
+  },
+  {
+    id: 'homemade-abc-malt',
+    slug: 'homemade-abc-malt',
+    aliases: ['homemade-abc-malt-recipe', 'how-to-make-abc-malt-at-home', 'homemade-abc-malt-powder'],
+    title: 'Homemade ABC Malt: Apple, Beetroot and Carrot Malt Recipe, Benefits and Nutrition',
+    category: 'Natural Wellness',
+    readTime: '6 min read',
+    publishedDate: '24 September 2026',
+    author: {
+      name: 'Poornima',
+      role: 'Founder & Artisan Maker',
+      avatarInitials: 'P'
+    },
+    summary: 'Learn how to make homemade ABC Malt with apple, beetroot, and carrot. Discover its ingredients, preparation, nutritional benefits, serving ideas, and precautions.',
+    coverImage: homemadeAbcMaltCover,
+    featured: false,
+    keyTakeaways: [],
+    tableOfContents: [
+      { id: 'introduction', label: 'Introduction' },
+      { id: 'what-is-homemade-abc-malt', label: 'What Is Homemade ABC Malt?' },
+      { id: 'different-from-abc-juice', label: 'What Makes ABC Malt Different From ABC Juice?' },
+      { id: 'ingredients', label: 'What Are the Ingredients in Homemade ABC Malt?' },
+      { id: 'how-to-make', label: 'How to Make Homemade ABC Malt' },
+      { id: 'step-by-step-recipe', label: 'Step-by-Step Homemade ABC Malt Recipe' },
+      { id: 'how-to-prepare-drink', label: 'How to Prepare ABC Malt Drink' },
+      { id: 'potential-benefits', label: 'What Are the Potential Benefits of Homemade ABC Malt?' },
+      { id: 'better-than-abc-juice', label: 'Is Homemade ABC Malt Better Than ABC Juice?' },
+      { id: 'drink-every-day', label: 'Can You Drink Homemade ABC Malt Every Day?' },
+      { id: 'important-things-to-remember', label: 'Important Things to Remember' },
+      { id: 'conclusion', label: 'Conclusion' },
+      { id: 'faqs', label: 'Frequently Asked Questions' }
+    ],
+    sections: [
+      {
+        id: 'introduction',
+        heading: 'Introduction',
+        content: [
+          'Homemade ABC Malt is a nutritious drink mix prepared using apple, beetroot, and carrot, often combined with ingredients such as nuts, cardamom, and a natural sweetener. Unlike ABC juice, which is usually consumed as a fresh liquid, ABC Malt is prepared as a dry mix that can be added to warm milk or water. The combination of apple, beetroot, and carrot brings different flavours, colours, and nutrients to the recipe.',
+          'Adding nuts and seeds can also make the malt more filling and nutritionally varied. The nutritional value varies based on ingredient choices and amounts. Thus, homemade ABC Malt can be tailored to your family\'s preferences.'
+        ]
+      },
+      {
+        id: 'what-is-homemade-abc-malt',
+        heading: 'What Is Homemade ABC Malt?',
+        content: [
+          'Homemade ABC Malt is a powdered health-drink mix made from A -Apple, B - Beetroot, and C - Carrot.',
+          'The ingredients are cleaned, dried, and powdered before being combined with other ingredients such as:'
+        ],
+        bulletList: [
+          'Almonds',
+          'Cashews',
+          'Cardamom',
+          'Dates',
+          'Jaggery or country sugar',
+          'Other nuts or seeds'
+        ],
+        footerContent: [
+          'The dry mixture can then be stored properly and used to prepare a warm drink.',
+          'Commercial ABC malt products also commonly use combinations of [apple, beetroot, carrot, nuts,](https://allfreshnaturals.com/products/abc-malt) cardamom, and natural sweeteners, although recipes differ between products.'
+        ]
+      },
+      {
+        id: 'different-from-abc-juice',
+        heading: 'What Makes ABC Malt Different From ABC Juice?',
+        content: [
+          'The main difference is the form in which the ingredients are consumed.'
+        ],
+        table: {
+          headers: ['ABC Malt', 'ABC Juice'],
+          rows: [
+            ['Dry powdered mix', 'Fresh liquid drink'],
+            ['Usually prepared with milk or water', 'Usually blended or juiced with water'],
+            ['Can include nuts and spices', 'Usually focuses on apple, beetroot, and carrot'],
+            ['Convenient to store', 'Best prepared fresh'],
+            ['Can be served warm', 'Usually served fresh or chilled'],
+            ['Fibre depends on processing', 'Fibre can be reduced significantly if strained']
+          ]
+        },
+        footerContent: [
+          'ABC Malt is therefore better understood as a fruit-and-vegetable-based malt drink, rather than simply another name for ABC juice.'
+        ]
+      },
+      {
+        id: 'ingredients',
+        heading: 'What Are the Ingredients in Homemade ABC Malt?',
+        content: [
+          'A simple homemade ABC Malt can contain:'
+        ],
+        subsections: [
+          {
+            title: '1. Apple',
+            content: [
+              'Apple provides natural sweetness and contributes dietary fibre and plant compounds. When apple is processed into a powder, the nutritional composition depends on the drying and processing method.'
+            ]
+          },
+          {
+            title: '2. Beetroot',
+            content: [
+              'Beetroot gives ABC Malt its characteristic colour and earthy flavour. Beetroot also contains naturally occurring dietary nitrate. Research has investigated beetroot-derived nitrate for effects on blood pressure and vascular function, although results from specific beetroot preparations should not automatically be applied to every homemade ABC Malt.'
+            ]
+          },
+          {
+            title: '3. Carrot',
+            content: [
+              'Carrots are particularly known for their beta-carotene content. Beta-carotene is a provitamin A carotenoid that the body can convert into vitamin A. Vitamin A contributes to normal vision and immune function.'
+            ]
+          },
+          {
+            title: '4. Almonds and Cashews',
+            content: [
+              'Nuts can add texture, protein, fats, and minerals to the malt. They can also make the drink more satisfying than a simple fruit-and-vegetable powder.'
+            ]
+          },
+          {
+            title: '5. Cardamom',
+            content: [
+              'Cardamom adds a pleasant aroma and flavour without requiring a large amount of additional sweetener.'
+            ]
+          },
+          {
+            title: '6. Natural Sweetener',
+            content: [
+              'Depending on the recipe, dates, jaggery or country sugar can be used. However, natural sweeteners still contribute sugars, so the quantity should be kept moderate.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'how-to-make',
+        heading: 'How to Make Homemade ABC Malt',
+        content: [],
+        recipe: {
+          ingredients: [
+            'Dried apple pieces or apple powder',
+            'Dried beetroot pieces or beetroot powder',
+            'Dried carrot pieces or carrot powder',
+            'Almonds',
+            'Cashews',
+            'Cardamom',
+            'Dates or a small amount of jaggery, optional'
+          ],
+          method: [],
+          note: 'For a basic homemade preparation. The proportions can be adjusted according to taste.'
+        },
+        footerContent: [
+          'The proportions can be adjusted according to taste. [ABC Malt Home Made](https://allfreshnaturals.com/products/abc-malt)'
+        ]
+      },
+      {
+        id: 'step-by-step-recipe',
+        heading: 'Step-by-Step Homemade ABC Malt Recipe',
+        content: [],
+        subsections: [
+          {
+            title: 'Step 1: Wash the Ingredients',
+            content: [
+              'Wash fresh apples, beetroot, and carrots thoroughly.',
+              'Remove unwanted portions and cut the ingredients into thin pieces.'
+            ]
+          },
+          {
+            title: 'Step 2: Dry the Ingredients',
+            content: [
+              'The fruits and vegetables need to be dried properly before making a powder.',
+              'They can be dehydrated using a suitable food dehydrator or another controlled drying method.',
+              'Proper drying is important because moisture can reduce the shelf life of homemade powder.'
+            ]
+          },
+          {
+            title: 'Step 3: Prepare the Nut Mix',
+            content: [
+              'Lightly roast almonds and cashews if desired.',
+              'Allow them to cool completely before grinding.'
+            ]
+          },
+          {
+            title: 'Step 4: Powder the Dried Ingredients',
+            content: [
+              'Once the apple, beetroot, and carrot pieces are completely dry, grind them separately into fine powders.'
+            ]
+          },
+          {
+            title: 'Step 5: Add Cardamom',
+            content: [
+              'Add a small amount of cardamom powder for flavour.'
+            ]
+          },
+          {
+            title: 'Step 6: Combine Everything',
+            content: [
+              'Mix the apple, beetroot, and carrot powders with the nut powder and other selected ingredients.',
+              'Ensure you mix the ingredients thoroughly so that they are evenly distributed.'
+            ]
+          },
+          {
+            title: 'Step 7: Store Properly',
+            content: [
+              'Transfer the finished ABC Malt powder into a clean, completely dry, airtight container.',
+              'Keep it in a cool, dry location and ensure it is protected from moisture.'
+            ]
+          }
+        ],
+        footerContent: [
+          'For homemade preparations, shelf life depends strongly on how well the [ingredients were dried](https://allfreshnaturals.com/products/abc-malt) and how the powder is stored.'
+        ]
+      },
+      {
+        id: 'how-to-prepare-drink',
+        heading: 'How to Prepare ABC Malt Drink',
+        content: [
+          'Preparing the drink is simple.'
+        ],
+        recipe: {
+          ingredients: [
+            '1–2 teaspoons homemade ABC Malt',
+            '1 glass warm milk or water'
+          ],
+          method: [
+            '1. Heat the milk or water.',
+            '2. Allow it to become warm rather than boiling.',
+            '3. Add the ABC Malt powder.',
+            '4. Stir thoroughly to remove lumps.',
+            '5. Adjust the quantity according to your preferred thickness.',
+            '6. Serve warm.'
+          ],
+          note: 'If your homemade mixture already contains dates, jaggery, or another sweetener, additional sugar may not be necessary.'
+        }
+      },
+      {
+        id: 'potential-benefits',
+        heading: 'What Are the Potential Benefits of Homemade ABC Malt?',
+        content: [],
+        subsections: [
+          {
+            title: 'Provides a Variety of Plant Foods',
+            content: [
+              'Apple, beetroot, and carrot each contribute different nutrients and plant compounds.',
+              'Combining them can be a convenient way to add more variety to your diet.'
+            ]
+          },
+          {
+            title: 'Contains Dietary Fibre',
+            content: [
+              'If the preparation retains components of the whole fruits and vegetables, ABC Malt can contribute dietary fibre.',
+              'However, the actual amount depends on the processing method.'
+            ]
+          },
+          {
+            title: 'Provides Beta-Carotene',
+            content: [
+              'Carrots are a significant source of beta-carotene, which the body can convert into vitamin A.',
+              'Vitamin A has important roles in normal vision and immune function.'
+            ]
+          },
+          {
+            title: 'Provides Natural Energy',
+            content: [
+              'Apples and carrots contain carbohydrates, while nuts can contribute fats and protein.',
+              'Together, these ingredients can make ABC Malt a more substantial drink than a simple fruit juice.'
+            ]
+          },
+          {
+            title: 'Adds Nuts to the Diet',
+            content: [
+              'Adding almonds and cashews provides additional nutrients and can improve the texture and taste of the drink.'
+            ]
+          },
+          {
+            title: 'Convenient for Breakfast',
+            content: [
+              'A warm glass of ABC Malt can be included as part of breakfast or as a snack.',
+              'For a more balanced meal, it can be paired with other protein-rich foods, fruit, or a regular breakfast.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'better-than-abc-juice',
+        heading: 'Is Homemade ABC Malt Better Than ABC Juice?',
+        content: [
+          'Neither should automatically be considered “better.” They are simply different preparations. If ABC juice is completely strained, much of the original fibre from the fruits and vegetables can be removed. A malt made from dried whole ingredients may retain more of the ingredient components, depending on how it is processed. The choice depends on your nutritional goals, taste, and convenience.'
+        ]
+      },
+      {
+        id: 'drink-every-day',
+        heading: 'Can You Drink Homemade ABC Malt Every Day?',
+        content: [
+          'Homemade ABC Malt can be included regularly as part of a varied diet. However, portion size matters, especially if the recipe contains dates, jaggery, country sugar, or large quantities of nuts. It is also better to consume a variety of foods rather than relying on one drink every day for nutrition.'
+        ]
+      },
+      {
+        id: 'important-things-to-remember',
+        heading: 'Important Things to Remember',
+        content: [],
+        subsections: [
+          {
+            title: 'Don\'t Add Too Much Sweetener',
+            content: [
+              'Apple and carrot already provide natural sweetness.',
+              'Adding large amounts of jaggery, dates, or sugar can significantly increase the total sugar content.'
+            ]
+          },
+          {
+            title: 'Keep the Powder Dry',
+            content: [
+              'Moisture is one of the biggest concerns with homemade powdered foods.',
+              'Always use a dry spoon and close the container immediately after use.'
+            ]
+          },
+          {
+            title: 'Don\'t Make Unsupported Health Claims',
+            content: [
+              'ABC Malt can be described as a nutritious fruit-and-vegetable-based drink, but it should not be marketed as a cure for disease or as a substitute for medical treatment.'
+            ]
+          },
+          {
+            title: 'Check Nut Allergies',
+            content: [
+              'If almonds or cashews are included, people with nut allergies should avoid the product or use a suitable alternative.'
+            ],
+            footerContent: [
+              'For additional details, visit our: [Homemade ABC Malt Powder](https://allfreshnaturals.com/products/abc-malt)'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'conclusion',
+        heading: 'Conclusion',
+        content: [
+          'Homemade ABC Malt is a simple way to combine apple, beetroot and carrot into a convenient powdered drink. With optional ingredients such as almonds, cashews, cardamom and dates, the recipe can be customized for flavour and nutrition. The biggest advantage of making ABC Malt at home is control over the ingredients. You can choose the quality of the fruits and vegetables, adjust the sweetness, and decide whether to include nuts or other ingredients.',
+          'At the same time, homemade preparation requires proper drying and storage. Keeping the powder completely dry is essential for maintaining its quality. ABC Malt should be viewed as one nutritious addition to a varied diet, not as a miracle drink or replacement for balanced meals. Whether served with warm milk in the morning or enjoyed as an evening drink, homemade ABC Malt offers a convenient and traditional way to bring apple, beetroot and carrot into your daily routine.',
+          'Note: The nutritional value and shelf life of homemade ABC Malt depend on the ingredients, drying method, proportions, and storage conditions.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is Homemade ABC Malt?',
+        answer: 'Homemade ABC Malt is a powdered drink mix made primarily from apple, beetroot and carrot, often combined with nuts, cardamom and a natural sweetener.'
+      },
+      {
+        question: 'What does ABC stand for?',
+        answer: 'ABC stands for Apple, Beetroot and Carrot.'
+      },
+      {
+        question: 'Is ABC Malt the same as ABC juice?',
+        answer: 'No. ABC juice is generally a fresh liquid preparation, while ABC Malt is a powdered drink mix that is usually prepared with warm milk or water.'
+      },
+      {
+        question: 'Can I add dates to ABC Malt?',
+        answer: 'Yes. Dates can provide sweetness and can reduce the need for additional sugar. They still contribute natural sugars, so use them in moderation.'
+      },
+      {
+        question: 'How do you make ABC Malt at home?',
+        answer: 'Dry the apple, beetroot, and carrot properly, powder them separately, combine them with optional nuts and cardamom, and store the mixture in an airtight container.'
+      }
+    ],
+    relatedProductId: 'abc-malt'
+  },
+  {
+    id: 'best-ragi-malt-powder',
+    slug: 'best-ragi-malt-powder',
+    aliases: ['ragi-malt-powder', 'ragi-malt-powder-online'],
+    title: 'Best Ragi Malt Powder: Benefits, Nutrition, How to Choose & How to Use',
+    category: 'Millet Science',
+    readTime: '6 min read',
+    publishedDate: '24 September 2026',
+    author: {
+      name: 'Poornima',
+      role: 'Founder & Artisan Maker',
+      avatarInitials: 'P'
+    },
+    summary: 'Looking for the best ragi malt powder? Learn about ragi malt benefits, nutrition, how to choose a quality powder, preparation methods, and why ragi malt can be part of a balanced diet',
+    coverImage: bestRagiMaltPowderCover,
+    featured: false,
+    keyTakeaways: [],
+    tableOfContents: [
+      { id: 'introduction', label: 'Introduction' },
+      { id: 'what-is-ragi-malt-powder', label: 'What Is Ragi Malt Powder?' },
+      { id: 'why-is-it-popular', label: 'Why Is Ragi Malt Powder Popular?' },
+      { id: 'benefits-of-ragi-malt-powder', label: 'What Are the Benefits of Ragi Malt Powder?' },
+      { id: 'how-to-choose', label: 'How Do You Choose the Best Ragi Malt Powder?' },
+      { id: 'how-to-prepare', label: 'How to Prepare Ragi Malt Powder' },
+      { id: 'drink-every-day', label: 'Can You Drink Ragi Malt Every Day?' },
+      { id: 'good-for-breakfast', label: 'Is Ragi Malt Good for Breakfast?' },
+      { id: 'why-choose-allfresh-naturals', label: 'Why Choose AllFresh Naturals for Ragi-Based Products?' },
+      { id: 'malt-powder-vs-flour', label: 'Ragi Malt Powder vs Ragi Flour' },
+      { id: 'common-mistakes', label: 'Common Mistakes When Buying Ragi Malt Powder' },
+      { id: 'conclusion', label: 'Conclusion' },
+      { id: 'faqs', label: 'Frequently Asked Questions' }
+    ],
+    sections: [
+      {
+        id: 'introduction',
+        heading: 'Introduction',
+        content: [
+          'The best ragi malt powder is one that offers good-quality ragi, a simple ingredient profile, convenient preparation, and a taste that fits easily into your daily routine. Ragi, also known as finger millet, is a traditional Indian grain valued for its dietary fibre, minerals, and other nutrients. Ragi can be prepared in several ways, and malt powder makes it convenient to enjoy as a warm or chilled drink.',
+          'For people looking for a simple breakfast option or a traditional grain-based drink, ragi malt can be an easy addition to a balanced diet. With AllFresh Naturals, the focus can be on bringing familiar, wholesome ingredients into a convenient everyday format.'
+        ]
+      },
+      {
+        id: 'what-is-ragi-malt-powder',
+        heading: 'What Is Ragi Malt Powder?',
+        content: [
+          'Ragi malt powder is a prepared powder made primarily from ragi, or finger millet. Depending on the product, it may contain additional ingredients such as nuts, spices, or natural sweeteners.',
+          'Ragi is an important traditional millet in India. It provides carbohydrates, dietary fibre, protein, and several minerals. FAO information identifies finger millet as a source of iron and notes its content of nutrients such as thiamine, copper, magnesium, phosphorus, and selenium.',
+          'The term “malt” generally refers to the processing of the grain before it is converted into a powder. Traditional ragi malt preparation may involve processes such as soaking, germination or sprouting, drying, and grinding.'
+        ]
+      },
+      {
+        id: 'why-is-it-popular',
+        heading: 'Why Is Ragi Malt Powder Popular?',
+        content: [
+          'Ragi malt has become popular because it combines a traditional grain with convenient preparation.',
+          'Instead of preparing ragi from scratch every morning, a ready powder can be mixed with water or milk and prepared within minutes.',
+          'Some common reasons people choose ragi malt include:'
+        ],
+        bulletList: [
+          'Easy preparation',
+          'Traditional ragi-based nutrition',
+          'Convenient breakfast option',
+          'Suitable for different recipes',
+          'Good source of dietary fibre',
+          'Provides carbohydrates for energy',
+          'Can be enjoyed with milk or water',
+          'Easy to include in a regular meal routine'
+        ],
+        footerContent: [
+          'Ragi is also naturally gluten-free as a grain, although people with strict dietary requirements should check the product label and manufacturing information for possible cross-contact.'
+        ]
+      },
+      {
+        id: 'benefits-of-ragi-malt-powder',
+        heading: 'What Are the Benefits of Ragi Malt Powder?',
+        content: [],
+        subsections: [
+          {
+            title: 'Provides Dietary Fibre',
+            content: [
+              'Ragi is high in dietary fiber, which can aid in normal digestive function and promote a feeling of fullness when included as part of a balanced diet. FAO data lists around 11.2 g of dietary fibre per 100 g of finger millet in one nutrient table. Actual values can vary depending on the variety and processing method. A ragi malt drink can therefore be one way to include this traditional grain in your daily food routine.'
+            ]
+          },
+          {
+            title: 'Contains Calcium',
+            content: [
+              'Ragi is well-known for its high calcium content. Nutritional references describe finger millet as a cereal rich in calcium. Calcium is an essential mineral required for normal bones and teeth, among other physiological functions. Ragi malt should be viewed as part of a balanced diet rather than a substitute for diverse nutrition.'
+            ]
+          },
+          {
+            title: 'Provides Important Minerals',
+            content: [
+              'Finger millet, also known as ragi, is rich in minerals. Depending on the variety and processing methods, it can contain iron, magnesium, phosphorus, potassium, and calcium. The FAO recognizes finger millet as a significant source of iron and also notes its content of magnesium, phosphorus, selenium, and various other micronutrients.'
+            ]
+          },
+          {
+            title: 'Convenient Source of Traditional Nutrition',
+            content: [
+              'One of the biggest advantages of malt powder is convenience. Traditional ragi preparation can require cleaning, soaking, grinding, and cooking. A prepared powder simplifies the process. For busy mornings, ragi malt can be prepared quickly and served as a breakfast drink or snack.'
+            ]
+          },
+          {
+            title: 'Can Be Part of a Balanced Breakfast',
+            content: [
+              'Ragi malt can be paired with other nutritious foods to create a more balanced breakfast.',
+              'For example, you can enjoy it with:'
+            ],
+            bulletList: [
+              'Fresh fruit',
+              'Nuts and seeds',
+              'Eggs',
+              'Vegetable dishes',
+              'A balanced breakfast meal'
+            ],
+            footerContent: [
+              'The [exact nutritional value](https://allfreshnaturals.com/products/ragi-malt) of the finished drink depends on the powder\'s ingredients and what you add during preparation.'
+            ]
+          },
+          {
+            title: 'Versatile Ingredient',
+            content: [
+              'Ragi malt powder does not have to be used only as a drink.',
+              'It can also be incorporated into:'
+            ],
+            bulletList: [
+              'Ragi porridge',
+              'Smoothies',
+              'Breakfast bowls',
+              'Pancakes',
+              'Ragi-based recipes',
+              'Homemade snacks'
+            ],
+            footerContent: [
+              'This makes a good-quality powder useful beyond a single preparation method.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'how-to-choose',
+        heading: 'How Do You Choose the Best Ragi Malt Powder?',
+        content: [
+          'When searching for the best ragi malt powder, don\'t choose only based on packaging or marketing claims.',
+          'Check the ingredient label and consider the following factors.'
+        ],
+        subsections: [
+          {
+            title: 'Check the Ingredients',
+            content: [
+              'Ragi should be clearly identified on the ingredient list. If you want a simple everyday product, look for a formulation that doesn\'t contain unnecessary ingredients.'
+            ]
+          },
+          {
+            title: 'Check Added Sugar',
+            content: [
+              'Some malt powders may contain sugar or other sweeteners. If you are monitoring your sugar intake, check the nutrition panel and ingredient list before purchasing. You can also control sweetness yourself when preparing plain ragi malt. At we will use pure jaggery powder'
+            ]
+          },
+          {
+            title: 'Look at the Processing Method',
+            content: [
+              'Some ragi products use sprouted or malted ragi. Sprouting and malting are traditional processing methods that can change the grain\'s characteristics. However, the nutritional profile of the finished product depends on the exact processing method.'
+            ]
+          },
+          {
+            title: 'Check the Nutrition Information',
+            content: [
+              'Look at:'
+            ],
+            bulletList: [
+              'Serving size',
+              'Calories',
+              'Carbohydrates',
+              'Protein',
+              'Dietary fibre',
+              'Added sugars',
+              'Fat',
+              'Mineral content'
+            ],
+            footerContent: [
+              'This gives you a better understanding of what you are actually consuming.'
+            ]
+          },
+          {
+            title: 'Check Packaging and Storage Instructions',
+            content: [
+              'A good food product should have clear information about:'
+            ],
+            bulletList: [
+              'Ingredients',
+              'Nutrition',
+              'Net quantity',
+              'Batch information',
+              'Manufacturing/expiry dates',
+              'Storage instructions',
+              'Manufacturer details'
+            ],
+            footerContent: [
+              'Always store the powder according to the instructions on the package. [Best Ragi Malt Powder](https://allfreshnaturals.com/products/ragi-malt)'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'how-to-prepare',
+        heading: 'How to Prepare Ragi Malt Powder',
+        content: [
+          'One of the simplest ways to prepare ragi malt is as a warm drink.'
+        ],
+        recipe: {
+          ingredients: [
+            '2–3 teaspoons ragi malt powder',
+            '1 cup water or milk',
+            'Sweetener, if desired',
+            'Cardamom or other flavouring, optional'
+          ],
+          method: [
+            'Add the ragi malt powder to a small amount of water.',
+            'Mix thoroughly to make a smooth paste without lumps.',
+            'Add the remaining water or milk.',
+            'Cook while stirring until the mixture reaches the desired consistency.',
+            'Add a suitable sweetener if required.',
+            'Serve warm.'
+          ],
+          note: 'The quantity can be adjusted according to the product instructions and your preferred consistency.'
+        }
+      },
+      {
+        id: 'drink-every-day',
+        heading: 'Can You Drink Ragi Malt Every Day?',
+        content: [
+          'Yes, ragi can be included regularly as part of a varied and balanced diet. However, eating one food every day does not automatically make a diet healthy. Portion size, preparation method, and the other foods in your diet matter.',
+          'For example, adding large amounts of sugar to a ragi drink can significantly change its nutritional profile. If you want a lighter everyday drink, you can control the amount of sweetener used. People with specific dietary or medical requirements should follow advice from their healthcare professional.'
+        ]
+      },
+      {
+        id: 'good-for-breakfast',
+        heading: 'Is Ragi Malt Good for Breakfast?',
+        content: [
+          'Ragi malt can be a convenient breakfast option because it is quick to prepare and provides carbohydrates, fibre, and several nutrients found naturally in finger millet. For a more balanced breakfast, pair the drink with a source of protein and other whole foods.'
+        ]
+      },
+      {
+        id: 'why-choose-allfresh-naturals',
+        heading: 'Why Choose AllFresh Naturals for Ragi-Based Products?',
+        content: [
+          'At AllFresh Naturals, the focus is on making traditional, familiar ingredients convenient for modern lifestyles. Ragi has been part of Indian food traditions for generations, and a convenient malt powder makes it easier to include this grain in everyday meals. When choosing an AllFresh Naturals ragi malt product, consumers should check the product label for the exact ingredients, preparation instructions, and nutritional information. The goal is simple: make traditional nutrition easier to enjoy without making exaggerated health promises.'
+        ]
+      },
+      {
+        id: 'malt-powder-vs-flour',
+        heading: 'Ragi Malt Powder vs Ragi Flour',
+        content: [],
+        table: {
+          headers: ['Feature', 'Ragi Malt Powder', 'Ragi Flour'],
+          rows: [
+            ['Preparation', 'Usually quicker', 'Requires more preparation'],
+            ['Main use', 'Drinks and porridges', 'Cooking and baking'],
+            ['Convenience', 'High', 'Moderate'],
+            ['Breakfast drink', 'Very convenient', 'Requires additional preparation'],
+            ['Recipes', 'Drinks, porridge, snacks', 'Dosa, roti, mudde, baking and more']
+          ]
+        },
+        footerContent: [
+          'Both can be useful. The better choice depends on how you plan to use ragi. [Ragi Malt Powder Online](https://allfreshnaturals.com/products/ragi-malt)'
+        ]
+      },
+      {
+        id: 'common-mistakes',
+        heading: 'Common Mistakes When Buying Ragi Malt Powder',
+        content: [
+          'Avoid choosing a product simply because it says “healthy” or “natural” on the front of the package.',
+          'Common mistakes include:'
+        ],
+        bulletList: [
+          'Not checking the ingredient list',
+          'Ignoring added sugar',
+          'Not checking the nutrition panel',
+          'Buying based only on price',
+          'Ignoring expiry dates',
+          'Not following storage instructions',
+          'Assuming every ragi malt product has the same ingredients'
+        ],
+        footerContent: [
+          'Taking a moment to check labels can help you make a more informed choice.'
+        ]
+      },
+      {
+        id: 'conclusion',
+        heading: 'Conclusion',
+        content: [
+          'Choosing the best ragi malt powder is about more than selecting a product with attractive packaging or health-focused marketing. Look at the ingredients, nutrition information, processing method, added sugar, and overall product quality. Ragi itself is a nutrient-rich traditional grain containing dietary fibre and important minerals, including calcium and iron.',
+          'For consumers looking for a convenient way to include ragi in their daily routine, a well-formulated ragi malt powder can be a practical option for breakfast, snacks, or homemade drinks. AllFresh Naturals brings the convenience of traditional ingredients into everyday food choices, helping make simple, familiar nutrition easier to enjoy.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is the best ragi malt powder?',
+        answer: 'The best ragi malt powder depends on your preferences and dietary needs. Look for clear ingredients, suitable nutrition information, appropriate processing, and convenient preparation.'
+      },
+      {
+        question: 'Is ragi malt healthy?',
+        answer: 'Ragi malt can be part of a balanced diet. Ragi naturally provides dietary fibre and several minerals, including calcium and iron.'
+      },
+      {
+        question: 'Can I drink ragi malt every day?',
+        answer: 'Ragi can be consumed regularly as part of a varied diet. Pay attention to serving size and added ingredients such as sugar.'
+      },
+      {
+        question: 'Is ragi malt good for breakfast?',
+        answer: 'Yes. Ragi malt can be a convenient breakfast drink. For better dietary variety, combine it with other nutritious foods such as fruit, nuts, or a protein source.'
+      },
+      {
+        question: 'Does ragi malt contain calcium?',
+        answer: 'Ragi naturally contains calcium and is recognised as a calcium-rich millet. The actual amount in a malt product depends on its formulation and processing.'
+      }
+    ],
+    relatedProductId: 'ragi-malt'
   }
 ];
+
+
+

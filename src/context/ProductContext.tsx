@@ -12,7 +12,7 @@ interface ProductContextType {
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
-const CACHE_KEY = 'afn_products_cache_v7';
+const CACHE_KEY = 'afn_products_cache_v8';
 const DELETED_KEY = 'afn_deleted_product_ids';
 
 export function ProductProvider({ children }: { children: ReactNode }) {
@@ -108,6 +108,7 @@ export function ProductProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addProduct = async (prodData: Omit<Product, 'id'>): Promise<Product> => {

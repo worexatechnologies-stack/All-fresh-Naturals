@@ -38,6 +38,62 @@ class MongoDBCollection {
         return $this->hasExtension && ($this->manager !== null);
     }
 
+    private function callBridge(array $payload): ?array {
+        $bridgeScript = __DIR__ . '/../scripts/mongo_bridge.py';
+        if (!file_exists($bridgeScript)) {
+            return null;
+        }
+
+        $descriptorspec = [
+            0 => ["pipe", "r"],
+            1 => ["pipe", "w"],
+            2 => ["pipe", "w"]
+        ];
+
+        // Locate real python binary (avoid WindowsApps store stub)
+        $pythonBin = 'python';
+        $candidates = [
+            'C:\\Program Files\\Python313\\python.exe',
+            'C:\\Program Files\\Python312\\python.exe',
+            'C:\\Program Files\\Python311\\python.exe',
+            'C:\\Python313\\python.exe',
+            '/usr/bin/python3',
+            '/usr/local/bin/python3'
+        ];
+        foreach ($candidates as $candidate) {
+            if (file_exists($candidate)) {
+                $pythonBin = '"' . $candidate . '"';
+                break;
+            }
+        }
+
+        $cmd = "{$pythonBin} \"{$bridgeScript}\"";
+        $process = @proc_open($cmd, $descriptorspec, $pipes);
+        if (!is_resource($process)) {
+            return null;
+        }
+
+        fwrite($pipes[0], json_encode($payload));
+        fclose($pipes[0]);
+
+        $output = stream_get_contents($pipes[1]);
+        $err = stream_get_contents($pipes[2]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+        proc_close($process);
+
+        if (!empty($err)) {
+            error_log("MongoDB Bridge error: " . $err);
+        }
+
+        if (!$output) return null;
+        $res = json_decode($output, true);
+        if (isset($res['success']) && $res['success']) {
+            return $res;
+        }
+        return null;
+    }
+
     public function find(array $filter = [], array $options = []): array {
         if ($this->isConnectedToAtlas()) {
             try {
@@ -59,8 +115,25 @@ class MongoDBCollection {
             }
         }
 
-        // Fallback to local DB layer
-        return $this->fallbackFind($filter);
+        // Fast path: try local PDO database layer (0.001s)
+        $fallback = $this->fallbackFind($filter);
+        if (!empty($fallback)) {
+            return $fallback;
+        }
+
+        // Optional Python MongoDB Bridge call ONLY if explicitly enabled
+        if (getenv('ENABLE_PYTHON_BRIDGE') === 'true') {
+            $bridgeRes = $this->callBridge([
+                'action' => 'find',
+                'collection' => $this->collectionName,
+                'filter' => !empty($filter) ? $filter : new stdClass()
+            ]);
+            if ($bridgeRes && isset($bridgeRes['data']) && is_array($bridgeRes['data']) && !empty($bridgeRes['data'])) {
+                return $bridgeRes['data'];
+            }
+        }
+
+        return [];
     }
 
     public function findOne(array $filter = []): ?array {
@@ -84,8 +157,25 @@ class MongoDBCollection {
             }
         }
 
+        // Fast path: try local PDO database layer (0.001s)
         $fallback = $this->fallbackFind($filter);
-        return !empty($fallback) ? $fallback[0] : null;
+        if (!empty($fallback)) {
+            return $fallback[0];
+        }
+
+        // Optional Python MongoDB Bridge call ONLY if explicitly enabled
+        if (getenv('ENABLE_PYTHON_BRIDGE') === 'true') {
+            $bridgeRes = $this->callBridge([
+                'action' => 'findOne',
+                'collection' => $this->collectionName,
+                'filter' => !empty($filter) ? $filter : new stdClass()
+            ]);
+            if ($bridgeRes && isset($bridgeRes['data']) && !empty($bridgeRes['data'])) {
+                return $bridgeRes['data'];
+            }
+        }
+
+        return null;
     }
 
     public function insertOne(array $document, bool $allowFallback = true): bool {
@@ -95,6 +185,9 @@ class MongoDBCollection {
         if (!isset($document['updated_at'])) {
             $document['updated_at'] = date('Y-m-d H:i:s');
         }
+
+        // Instant local write (0.001s)
+        $fallbackSuccess = $allowFallback ? $this->fallbackInsert($document) : false;
 
         $atlasSuccess = false;
         if ($this->isConnectedToAtlas()) {
@@ -108,19 +201,31 @@ class MongoDBCollection {
             }
         }
 
-        // Fallback insert / local persistence sync
-        $fallbackSuccess = $allowFallback ? $this->fallbackInsert($document) : false;
-        return $atlasSuccess || $fallbackSuccess;
+        if (!$atlasSuccess && getenv('ENABLE_PYTHON_BRIDGE') === 'true') {
+            $bridgeRes = $this->callBridge([
+                'action' => 'insertOne',
+                'collection' => $this->collectionName,
+                'document' => $document
+            ]);
+            if ($bridgeRes && !empty($bridgeRes['success'])) {
+                $atlasSuccess = true;
+            }
+        }
+
+        return $fallbackSuccess || $atlasSuccess;
     }
 
     public function updateOne(array $filter, array $updateData): bool {
         $updateData['updated_at'] = date('Y-m-d H:i:s');
-        $atlasSuccess = false;
+        
+        // Instant local update (0.001s)
+        $fallbackSuccess = $this->fallbackUpdate($filter, $updateData);
 
+        $atlasSuccess = false;
         if ($this->isConnectedToAtlas()) {
             try {
                 $bulk = new MongoDB\Driver\BulkWrite();
-                $bulk->update($filter, ['$set' => $updateData], ['multi' => false, 'upsert' => true]);
+                $bulk->update($filter, ['$set' => $updateData], ['multi' => false, 'upsert' => false]);
                 $result = $this->manager->executeBulkWrite("{$this->dbName}.{$this->collectionName}", $bulk);
                 $atlasSuccess = ($result->getModifiedCount() > 0 || $result->getMatchedCount() > 0 || $result->getUpsertedCount() > 0);
             } catch (Exception $e) {
@@ -128,13 +233,26 @@ class MongoDBCollection {
             }
         }
 
-        $fallbackSuccess = $this->fallbackUpdate($filter, $updateData);
-        return $atlasSuccess || $fallbackSuccess;
+        if (!$atlasSuccess && getenv('ENABLE_PYTHON_BRIDGE') === 'true') {
+            $bridgeRes = $this->callBridge([
+                'action' => 'updateOne',
+                'collection' => $this->collectionName,
+                'filter' => !empty($filter) ? $filter : new stdClass(),
+                'update' => $updateData
+            ]);
+            if ($bridgeRes && !empty($bridgeRes['success'])) {
+                $atlasSuccess = true;
+            }
+        }
+
+        return $fallbackSuccess || $atlasSuccess;
     }
 
     public function deleteOne(array $filter): bool {
-        $atlasSuccess = false;
+        // Instant local delete (0.001s)
+        $fallbackSuccess = $this->fallbackDelete($filter);
 
+        $atlasSuccess = false;
         if ($this->isConnectedToAtlas()) {
             try {
                 $bulk = new MongoDB\Driver\BulkWrite();
@@ -146,13 +264,25 @@ class MongoDBCollection {
             }
         }
 
-        $fallbackSuccess = $this->fallbackDelete($filter);
-        return $atlasSuccess || $fallbackSuccess;
+        if (!$atlasSuccess && getenv('ENABLE_PYTHON_BRIDGE') === 'true') {
+            $bridgeRes = $this->callBridge([
+                'action' => 'deleteOne',
+                'collection' => $this->collectionName,
+                'filter' => !empty($filter) ? $filter : new stdClass()
+            ]);
+            if ($bridgeRes && !empty($bridgeRes['success'])) {
+                $atlasSuccess = true;
+            }
+        }
+
+        return $fallbackSuccess || $atlasSuccess;
     }
 
     public function deleteMany(array $filter = []): bool {
-        $atlasSuccess = false;
+        // Instant local delete (0.001s)
+        $fallbackSuccess = $this->fallbackDelete($filter);
 
+        $atlasSuccess = false;
         if ($this->isConnectedToAtlas()) {
             try {
                 $bulk = new MongoDB\Driver\BulkWrite();
@@ -164,8 +294,18 @@ class MongoDBCollection {
             }
         }
 
-        $fallbackSuccess = $this->fallbackDelete($filter);
-        return $atlasSuccess || $fallbackSuccess;
+        if (!$atlasSuccess && getenv('ENABLE_PYTHON_BRIDGE') === 'true') {
+            $bridgeRes = $this->callBridge([
+                'action' => 'deleteMany',
+                'collection' => $this->collectionName,
+                'filter' => !empty($filter) ? $filter : new stdClass()
+            ]);
+            if ($bridgeRes && !empty($bridgeRes['success'])) {
+                $atlasSuccess = true;
+            }
+        }
+
+        return $fallbackSuccess || $atlasSuccess;
     }
 
     public function count(array $filter = []): int {

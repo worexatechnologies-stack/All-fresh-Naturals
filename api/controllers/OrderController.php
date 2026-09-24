@@ -177,20 +177,44 @@ class OrderController {
         $items = $row['items'] ?? '[]';
         $itemsArr = is_string($items) ? (json_decode($items, true) ?: []) : (is_array($items) ? $items : []);
 
+        // Also generate human-readable items string for frontend display & metrics
+        $itemsString = '';
+        if (is_array($itemsArr) && !empty($itemsArr)) {
+            $parts = [];
+            foreach ($itemsArr as $it) {
+                if (is_string($it)) {
+                    $parts[] = trim($it, '"');
+                } elseif (is_array($it)) {
+                    $pName = $it['product']['name'] ?? ($it['name'] ?? 'Product');
+                    $qty = $it['quantity'] ?? 1;
+                    $parts[] = "{$pName} x{$qty}";
+                }
+            }
+            $itemsString = implode(', ', $parts);
+        }
+        if (empty($itemsString)) {
+            $itemsString = is_string($items) ? trim($items, '"') : '1 item';
+        }
+
+        $totalVal = (float)($row['totalAmount'] ?? ($row['total'] ?? 0));
+
         return [
-            'id' => $row['id'] ?? '',
+            'id' => $row['id'] ?? ($row['orderId'] ?? ''),
             'orderId' => $row['orderId'] ?? ($row['id'] ?? ''),
             'userId' => $row['userId'] ?? '',
-            'customerName' => $row['customerName'] ?? '',
-            'customerEmail' => $row['customerEmail'] ?? '',
-            'customerPhone' => $row['customerPhone'] ?? '',
+            'customerName' => $row['customerName'] ?? ($row['name'] ?? 'Customer'),
+            'customerEmail' => $row['customerEmail'] ?? ($row['email'] ?? ''),
+            'customerPhone' => $row['customerPhone'] ?? ($row['phone'] ?? ''),
             'shippingAddress' => $shippingObj,
-            'items' => $itemsArr,
-            'totalAmount' => (float)($row['totalAmount'] ?? 0),
+            'items' => $itemsString,
+            'itemsDetail' => $itemsArr,
+            'total' => $totalVal,
+            'totalAmount' => $totalVal,
             'paymentMethod' => $row['paymentMethod'] ?? 'COD',
             'paymentStatus' => $row['paymentStatus'] ?? 'Pending',
             'status' => $row['status'] ?? 'Confirmed',
             'notes' => $row['notes'] ?? '',
+            'date' => $row['created_at'] ?? date('Y-m-d H:i:s'),
             'created_at' => $row['created_at'] ?? date('Y-m-d H:i:s'),
             'updated_at' => $row['updated_at'] ?? date('Y-m-d H:i:s')
         ];

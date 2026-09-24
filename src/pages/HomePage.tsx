@@ -40,8 +40,6 @@ const FAQS = [
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const openProductsPage = () => navigate('/products');
-  const openAboutPage = () => navigate('/about');
   const { products } = useProducts();
   const { addToCart } = useCart();
   const { user, isAuthenticated, openAuthModal } = useAuth();
@@ -287,22 +285,22 @@ export default function HomePage() {
             </p>
 
             <div className="nh-hero-actions" data-lenis-prevent="true">
-              <button
-                type="button"
+              <Link
+                to="/products"
                 className="nh-btn nh-btn--solid"
                 data-lenis-prevent="true"
-                onClick={openProductsPage}
+                style={{ textDecoration: 'none' }}
               >
                 Explore Products <ArrowRight size={16} />
-              </button>
-              <button
-                type="button"
+              </Link>
+              <Link
+                to="/about"
                 className="nh-btn nh-btn--outline"
                 data-lenis-prevent="true"
-                onClick={openAboutPage}
+                style={{ textDecoration: 'none' }}
               >
                 Our Story <Leaf size={14} />
-              </button>
+              </Link>
             </div>
 
             <div className="nh-hero-chips">
@@ -697,14 +695,14 @@ export default function HomePage() {
             </div>
 
             <div className="nh-story-actions nh-scroll-reveal" data-lenis-prevent="true">
-              <button
-                type="button"
+              <Link
+                to="/about"
                 className="nh-btn nh-btn--solid"
                 data-lenis-prevent="true"
-                onClick={openAboutPage}
+                style={{ textDecoration: 'none' }}
               >
                 Discover Our Full Story <ArrowRight size={16} />
-              </button>
+              </Link>
             </div>
           </div>
         </div>

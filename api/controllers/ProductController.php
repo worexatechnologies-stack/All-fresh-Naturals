@@ -81,7 +81,8 @@ class ProductController {
             $badge = $data['badge'] ?? 'Natural Choice';
             $tagline = $data['tagline'] ?? '';
             $description = $data['description'] ?? '';
-            $size = $data['size'] ?? '500g';
+            $originalPrice = isset($data['original_price']) ? floatval($data['original_price']) : (isset($data['originalPrice']) ? floatval($data['originalPrice']) : null);
+            $size = $data['size'] ?? '250gm';
             $image = $data['image'] ?? '';
             $altImage = $data['altImage'] ?? '';
             $ingredients = is_array($data['ingredients'] ?? null) ? json_encode($data['ingredients']) : json_encode([]);
@@ -91,7 +92,7 @@ class ProductController {
 
             $doc = [
                 'id' => $id, 'name' => $name, 'badge' => $badge, 'tagline' => $tagline,
-                'description' => $description, 'price' => $price, 'size' => $size,
+                'description' => $description, 'price' => $price, 'original_price' => $originalPrice, 'size' => $size,
                 'image' => $image, 'altImage' => $altImage, 'ingredients' => $ingredients,
                 'benefits' => $benefits, 'usage_instructions' => $usage, 'created_at' => $now, 'updated_at' => $now
             ];
@@ -124,6 +125,8 @@ class ProductController {
             if (isset($data['tagline'])) $updateData['tagline'] = $data['tagline'];
             if (isset($data['description'])) $updateData['description'] = $data['description'];
             if (isset($data['price'])) $updateData['price'] = floatval($data['price']);
+            if (isset($data['original_price'])) $updateData['original_price'] = floatval($data['original_price']);
+            if (isset($data['originalPrice'])) $updateData['original_price'] = floatval($data['originalPrice']);
             if (isset($data['size'])) $updateData['size'] = $data['size'];
             if (isset($data['image'])) $updateData['image'] = $data['image'];
             if (isset($data['altImage'])) $updateData['altImage'] = $data['altImage'];
@@ -162,7 +165,7 @@ class ProductController {
             'description' => $row['description'] ?? '',
             'price' => (float)($row['price'] ?? 0),
             'originalPrice' => isset($row['original_price']) ? (float)$row['original_price'] : (isset($row['originalPrice']) ? (float)$row['originalPrice'] : null),
-            'size' => $row['size'] ?? '250g Pouch',
+            'size' => $row['size'] ?? '250gm',
             'image' => $row['image'] ?? '',
             'altImage' => $row['altImage'] ?? '',
             'ingredients' => is_string($row['ingredients'] ?? null) ? (json_decode($row['ingredients'], true) ?: []) : (is_array($row['ingredients'] ?? null) ? $row['ingredients'] : []),

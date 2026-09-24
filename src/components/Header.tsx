@@ -199,22 +199,20 @@ export default function Header() {
         </div>
       </header>
 
-      {/* ── Mobile Menu Drawer Portal ── */}
-      {createPortal(
+      {/* ── Mobile Menu Drawer Portal (Only mounted when menuOpen is true to completely prevent touch collisions) ── */}
+      {menuOpen && createPortal(
         <>
-          {menuOpen && (
-            <div
-              className="afn-mobile-backdrop"
-              onClick={() => setMenuOpen(false)}
-              aria-hidden="true"
-              style={{ pointerEvents: 'auto' }}
-            />
-          )}
           <div
-            className={`afn-mobile-drawer${menuOpen ? ' afn-mobile-drawer--open' : ''}`}
-            aria-hidden={!menuOpen}
+            className="afn-mobile-backdrop"
+            onClick={() => setMenuOpen(false)}
+            aria-hidden="true"
+            style={{ pointerEvents: 'auto' }}
+          />
+          <div
+            className="afn-mobile-drawer afn-mobile-drawer--open"
+            aria-hidden={false}
             data-lenis-prevent="true"
-            style={{ pointerEvents: menuOpen ? 'auto' : 'none' }}
+            style={{ pointerEvents: 'auto' }}
           >
             <div className="afn-mobile-drawer-top">
               <div

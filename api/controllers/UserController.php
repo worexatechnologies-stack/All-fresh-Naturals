@@ -22,14 +22,12 @@ class UserController {
 
             $usersCol = MongoDBClient::getCollection('users');
 
-            // Check if user already exists in database
-            $existingUser = null;
-            if (!empty($email)) {
-                $existingUser = $usersCol->findOne(['email' => $email]);
-            }
-            if (!$existingUser && !empty($phone)) {
-                $existingUser = $usersCol->findOne(['phone' => $phone]);
-            }
+            // Single query check if email or phone exists
+            $orConds = [];
+            if (!empty($email)) $orConds[] = ['email' => $email];
+            if (!empty($phone)) $orConds[] = ['phone' => $phone];
+
+            $existingUser = !empty($orConds) ? $usersCol->findOne(['$or' => $orConds]) : null;
 
             if ($existingUser) {
                 if (!headers_sent()) http_response_code(400);
@@ -41,7 +39,7 @@ class UserController {
             }
 
             $id = 'usr_' . time() . '_' . rand(1000, 9999);
-            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT, ['cost' => 10]);
             $now = date('Y-m-d H:i:s');
 
             $userData = [
@@ -108,10 +106,13 @@ class UserController {
 
             $usersCol = MongoDBClient::getCollection('users');
 
-            $user = $usersCol->findOne(['email' => $emailOrPhone]);
-            if (!$user) {
-                $user = $usersCol->findOne(['phone' => $emailOrPhone]);
-            }
+            // Single fast $or query matching email or phone
+            $user = $usersCol->findOne([
+                '$or' => [
+                    ['email' => $emailOrPhone],
+                    ['phone' => $emailOrPhone]
+                ]
+            ]);
 
             if (!$user) {
                 if (!headers_sent()) http_response_code(404);
@@ -144,7 +145,7 @@ class UserController {
 
             echo json_encode([
                 'success' => true,
-                'message' => 'Logged in successfully from MongoDB!',
+                'message' => 'Logged in successfully!',
                 'user' => [
                     'id' => $user['id'],
                     'name' => $user['name'],
@@ -196,7 +197,7 @@ class UserController {
                 'updated_at' => $now
             ]);
 
-            // Dispatch real email via Gmail SMTP
+            // Dispatch real email via SMTP
             $mailRes = Mailer::sendOtpEmail($email, $user['name'] ?? 'Valued Customer', $otp);
 
             echo json_encode([
@@ -215,9 +216,9 @@ class UserController {
             $otp = trim($data['otp'] ?? '');
 
             $resetsCol = MongoDBClient::getCollection('password_resets');
-            $record = $resetsCol->findOne(['email' => $email, 'otp' => $otp]);
+            $record = $resetsCol->findOne(['email' => $email]);
 
-            if (!$record || (isset($record['expires_at']) && $record['expires_at'] < date('Y-m-d H:i:s'))) {
+            if (!$record || (isset($record['otp']) && $record['otp'] !== $otp) || (isset($record['expires_at']) && $record['expires_at'] < date('Y-m-d H:i:s'))) {
                 if (!headers_sent()) http_response_code(400);
                 echo json_encode(['success' => false, 'message' => 'Invalid or expired OTP. Please try again!']);
                 return;
@@ -248,18 +249,7 @@ class UserController {
             }
 
             $resetsCol = MongoDBClient::getCollection('password_resets');
-            
-            // Check by verified OTP flag or matching OTP record
-            $record = null;
-            if (!empty($otp)) {
-                $record = $resetsCol->findOne(['email' => $email, 'otp' => $otp]);
-            }
-            if (!$record) {
-                $record = $resetsCol->findOne(['email' => $email, 'verified' => 1]);
-            }
-            if (!$record) {
-                $record = $resetsCol->findOne(['email' => $email]);
-            }
+            $record = $resetsCol->findOne(['email' => $email]);
 
             if (!$record || (isset($record['expires_at']) && $record['expires_at'] < date('Y-m-d H:i:s'))) {
                 if (!headers_sent()) http_response_code(400);
@@ -268,7 +258,7 @@ class UserController {
             }
 
             $usersCol = MongoDBClient::getCollection('users');
-            $hashed = password_hash($newPassword, PASSWORD_BCRYPT);
+            $hashed = password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 10]);
             $usersCol->updateOne(['email' => $email], ['password' => $hashed, 'updated_at' => date('Y-m-d H:i:s')]);
             $resetsCol->deleteMany(['email' => $email]);
 

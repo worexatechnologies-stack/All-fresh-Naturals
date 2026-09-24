@@ -193,8 +193,8 @@ class Database {
 
         // Ensure default products have the correct updated pricing & size
         try {
-            $db->exec("UPDATE products SET price = 399.00, original_price = 599.00, size = '250g Pouch' WHERE id = 'abc_malt' OR id = 'abc-malt'");
-            $db->exec("UPDATE products SET price = 199.00, original_price = 399.00, size = '250g Pouch' WHERE id = 'ragi_malt' OR id = 'ragi-malt'");
+            $db->exec("UPDATE products SET price = 399.00, original_price = 599.00, size = '250gm' WHERE id = 'abc_malt' OR id = 'abc-malt'");
+            $db->exec("UPDATE products SET price = 199.00, original_price = 399.00, size = '250gm' WHERE id = 'ragi_malt' OR id = 'ragi-malt'");
         } catch (Exception $e) {}
 
         // 4. Orders
@@ -267,9 +267,9 @@ class Database {
                 'A delicious and nourishing health drink mix made with the goodness of Apple, Beetroot, Carrot, Jaggery, Nuts and Cardamom (Elaichi). Prepared with care by All Fresh Naturals.',
                 399.00,
                 599.00,
-                '250g Pouch',
-                '/src/assets/abc_malt_dual_mockup.jpg',
-                '/src/assets/abc_malt_back_info.jpg',
+                '250gm',
+                '/assets/abc_malt_dual_mockup.jpg',
+                '/assets/abc_malt_back_info.jpg',
                 json_encode(['Apple', 'Beetroot', 'Carrot', 'Jaggery', 'Almonds', 'Cashews', 'Cardamom (Elaichi)']),
                 json_encode([
                     'Supports Everyday Energy & Vitality',
@@ -296,9 +296,9 @@ class Database {
                 'A wholesome health mix made from carefully selected natural ingredients such as ragi, jowar, wheat, rice, nuts, green gram, fenugreek, dry ginger, pepper, jeera, and other grains. Rich in calcium, iron, protein, and fiber.',
                 199.00,
                 399.00,
-                '250g Pouch',
-                '/src/assets/ragi_malt_front_mockup.jpg',
-                '/src/assets/ragi_malt_back_info.jpg',
+                '250gm',
+                '/assets/ragi_malt_front_mockup.jpg',
+                '/assets/ragi_malt_back_info.jpg',
                 json_encode(['Ragi (Finger Millet)', 'Jowar', 'Wheat', 'Rice', 'Almonds', 'Cashews', 'Green Gram', 'Fenugreek', 'Dry Ginger', 'Black Pepper', 'Jeera']),
                 json_encode([
                     'Rich Source of Natural Calcium & Bone Strength',

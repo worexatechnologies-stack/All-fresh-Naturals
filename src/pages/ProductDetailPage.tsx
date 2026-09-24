@@ -144,7 +144,7 @@ export default function ProductDetailPage() {
           <meta
             id="ogImage"
             property="og:image"
-            content="https://allfreshnaturals.com/src/assets/abc_malt_dual_mockup.jpg"
+            content="https://allfreshnaturals.com/assets/abc_malt_dual_mockup.jpg"
           />
 
           <meta
@@ -243,7 +243,7 @@ export default function ProductDetailPage() {
           <meta
             id="ogImage"
             property="og:image"
-            content="https://allfreshnaturals.com/src/assets/ragi_malt_bag_mockup.jpg"
+            content="https://allfreshnaturals.com/assets/ragi_malt_dual_mockup.jpg"
           />
 
           <meta

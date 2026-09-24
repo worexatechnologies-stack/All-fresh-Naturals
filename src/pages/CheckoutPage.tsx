@@ -13,6 +13,37 @@ import { openWhatsAppMessage } from '../config/whatsapp';
 type Step = 1 | 2 | 3;
 type PaymentMethod = 'upi' | 'cod' | 'credit_card' | 'debit_card' | 'bank';
 
+interface StepHeaderProps {
+  step: Step;
+  title: string;
+  icon: React.ReactNode;
+  isActive: boolean;
+  isCompleted: boolean;
+  onClick: () => void;
+}
+
+function StepHeader({ step, title, icon, isActive, isCompleted, onClick }: StepHeaderProps) {
+  return (
+    <button
+      className={`checkout-step-header ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`}
+      onClick={onClick}
+      type="button"
+    >
+      <div className="step-header-left">
+        <span className={`step-number-badge ${isCompleted ? 'done' : ''}`}>
+          {isCompleted ? <CheckCircle2 size={18} /> : step}
+        </span>
+        <span className="step-header-icon">{icon}</span>
+        <span className="step-header-title">{title}</span>
+      </div>
+      {isCompleted && !isActive && (
+        <span className="step-edit-tag"><Edit3 size={13} /> Change</span>
+      )}
+      {isActive ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+    </button>
+  );
+}
+
 export default function CheckoutPage() {
   const { cartItems, cartCount, cartSubtotal, clearCart } = useCart();
   const { user, isAuthenticated, addOrder } = useAuth();
@@ -241,29 +272,6 @@ export default function CheckoutPage() {
     );
   }
 
-  const StepHeader = ({ step, title, icon }: { step: Step; title: string; icon: React.ReactNode }) => {
-    const isActive = currentStep === step;
-    const isCompleted = completedSteps.has(step);
-    return (
-      <button
-        className={`checkout-step-header ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`}
-        onClick={() => { if (isCompleted || step <= currentStep) setCurrentStep(step); }}
-        type="button"
-      >
-        <div className="step-header-left">
-          <span className={`step-number-badge ${isCompleted ? 'done' : ''}`}>
-            {isCompleted ? <CheckCircle2 size={18} /> : step}
-          </span>
-          <span className="step-header-icon">{icon}</span>
-          <span className="step-header-title">{title}</span>
-        </div>
-        {isCompleted && !isActive && (
-          <span className="step-edit-tag"><Edit3 size={13} /> Change</span>
-        )}
-        {isActive ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-      </button>
-    );
-  };
 
   return (
     <section className="checkout-section">
@@ -276,7 +284,14 @@ export default function CheckoutPage() {
 
             {/* === STEP 1: DELIVERY ADDRESS === */}
             <div className="checkout-step-block">
-              <StepHeader step={1} title="Delivery Address" icon={<MapPin size={18} />} />
+              <StepHeader
+                step={1}
+                title="Delivery Address"
+                icon={<MapPin size={18} />}
+                isActive={currentStep === 1}
+                isCompleted={completedSteps.has(1)}
+                onClick={() => { if (completedSteps.has(1) || 1 <= currentStep) setCurrentStep(1); }}
+              />
               {currentStep === 1 && (
                 <div className="checkout-step-body">
                   {/* If user has saved addresses, display quick selector */}
@@ -374,7 +389,14 @@ export default function CheckoutPage() {
 
             {/* === STEP 2: PAYMENT METHOD (Cash on Delivery Only) === */}
             <div className="checkout-step-block">
-              <StepHeader step={2} title="Payment Method" icon={<CreditCard size={18} />} />
+              <StepHeader
+                step={2}
+                title="Payment Method"
+                icon={<CreditCard size={18} />}
+                isActive={currentStep === 2}
+                isCompleted={completedSteps.has(2)}
+                onClick={() => { if (completedSteps.has(2) || 2 <= currentStep) setCurrentStep(2); }}
+              />
               {currentStep === 2 && (
                 <div className="checkout-step-body">
                   <div className="payment-methods-grid">
@@ -413,7 +435,14 @@ export default function CheckoutPage() {
 
             {/* === STEP 3: REVIEW & PLACE ORDER === */}
             <div className="checkout-step-block">
-              <StepHeader step={3} title="Review & Place Order" icon={<Package size={18} />} />
+              <StepHeader
+                step={3}
+                title="Review & Place Order"
+                icon={<Package size={18} />}
+                isActive={currentStep === 3}
+                isCompleted={completedSteps.has(3)}
+                onClick={() => { if (completedSteps.has(3) || 3 <= currentStep) setCurrentStep(3); }}
+              />
               {currentStep === 3 && (
                 <div className="checkout-step-body">
                   <h4 className="review-section-label">Order Items</h4>

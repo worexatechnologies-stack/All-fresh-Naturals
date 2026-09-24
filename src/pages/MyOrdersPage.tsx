@@ -107,7 +107,7 @@ export default function MyOrdersPage() {
     const matchesSearch =
       !q ||
       o.id.toLowerCase().includes(q) ||
-      o.items?.toLowerCase().includes(q) ||
+      String(o.items || '').toLowerCase().includes(q) ||
       o.status?.toLowerCase().includes(q);
 
     return matchesTab && matchesSearch;
@@ -792,7 +792,7 @@ export default function MyOrdersPage() {
                         </div>
                       ) : (
                         <div style={{ background: '#f8fafc', padding: '12px 14px', borderRadius: '10px', fontSize: '0.88rem', color: '#334155', border: '1px solid #f1f5f9' }}>
-                          📦 {order.items}
+                          📦 {typeof order.items === 'string' ? order.items : (Array.isArray(order.items) ? JSON.stringify(order.items) : String(order.items || '1 item'))}
                         </div>
                       )}
                     </div>

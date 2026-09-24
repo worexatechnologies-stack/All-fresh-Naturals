@@ -13,8 +13,7 @@ import {
   User,
   Tag,
   ArrowUpRight,
-  ShieldCheck,
-  Sparkles
+  ShieldCheck
 } from 'lucide-react';
 import { BUSINESS_WHATSAPP_NUMBER } from '../config/whatsapp';
 import { useAuth } from '../context/AuthContext';

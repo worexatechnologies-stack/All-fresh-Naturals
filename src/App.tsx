@@ -10,7 +10,6 @@ import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
 import AuthModal from './components/AuthModal';
 import AdminAuthModal from './components/AdminAuthModal';
-import FloatingWhatsApp from './components/FloatingWhatsApp';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import SmoothScroll from './components/SmoothScroll';
@@ -99,7 +98,6 @@ function AppContent() {
       <CartDrawer />
       <AuthModal />
       <AdminAuthModal />
-      {!isAdminPage && <FloatingWhatsApp />}
     </>
   );
 }

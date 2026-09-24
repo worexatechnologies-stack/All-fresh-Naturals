@@ -65,6 +65,30 @@ function phpBackendPlugin(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), phpBackendPlugin()],
+  build: {
+    chunkSizeWarningLimit: 800,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('three')) {
+              return 'vendor-three';
+            }
+            if (id.includes('gsap') || id.includes('lenis')) {
+              return 'vendor-anim';
+            }
+            if (id.includes('lucide-react')) {
+              return 'vendor-icons';
+            }
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom') || id.includes('react-helmet-async')) {
+              return 'vendor-react';
+            }
+            return 'vendor';
+          }
+        }
+      }
+    }
+  },
   server: {
     port: 5173,
     host: true,

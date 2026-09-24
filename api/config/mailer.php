@@ -99,7 +99,7 @@ class Mailer {
         string $subject,
         string $htmlBody
     ): array {
-        $timeout = 15;
+        $timeout = 4;
         $context = stream_context_create([
             'ssl' => [
                 'verify_peer' => false,
@@ -122,7 +122,7 @@ class Mailer {
             return self::fallbackMail($toEmail, $subject, $htmlBody, $fromEmail, $fromName);
         }
 
-        stream_set_timeout($socket, $timeout);
+        stream_set_timeout($socket, 4);
 
         $read = function() use ($socket) {
             $data = '';

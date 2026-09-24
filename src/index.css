@@ -9745,9 +9745,28 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Auth Modal Top Action Buttons (Cross & Close) ── */
 .am-close-cross-btn,
-.am-back-btn,
 .am-close-btn,
 .auth-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  left: auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1.5px solid rgba(15, 57, 35, 0.2);
+  color: #0f3923;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+  z-index: 100;
+}
+
+.am-back-btn {
   position: absolute;
   top: 18px;
   left: 18px;
@@ -10216,10 +10235,11 @@ h1, h2, h3, h4, h5, h6 {
     overflow: visible;
   }
   .am-close-cross-btn,
-  .am-back-btn {
+  .am-close-btn,
+  .auth-modal-close {
     top: 14px !important;
-    left: 14px !important;
-    right: auto !important;
+    right: 14px !important;
+    left: auto !important;
     width: 38px !important;
     height: 38px !important;
     z-index: 100 !important;
@@ -10228,11 +10248,10 @@ h1, h2, h3, h4, h5, h6 {
     color: #0f3923 !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18) !important;
   }
-  .am-close-btn,
-  .auth-modal-close {
+  .am-back-btn {
     top: 14px !important;
-    right: 14px !important;
-    left: auto !important;
+    left: 14px !important;
+    right: auto !important;
     width: 38px !important;
     height: 38px !important;
     z-index: 100 !important;
@@ -18419,3 +18438,634 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* ==========================================================================
+   INSTANT ORDER MODAL (PREMIUM BOTANICAL REDESIGN)
+   ========================================================================== */
+.iom-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 26, 17, 0.78);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  z-index: 1000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: manipulation;
+  animation: iomFadeIn 0.22s ease-out;
+}
+
+@keyframes iomFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes iomCardPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.iom-card {
+  background: #ffffff;
+  border-radius: 26px;
+  width: 100%;
+  max-width: 500px;
+  max-height: min(88vh, 760px);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Header and footer stay pinned; form scrolls in-between */
+  position: relative;
+  box-shadow: 0 28px 75px -12px rgba(10, 30, 18, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.65) inset;
+  border: 1px solid rgba(22, 101, 52, 0.15);
+  animation: iomCardPop 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Modal Header - Fixed at top, NEVER scrolls away */
+.iom-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: radial-gradient(130% 120% at 0% 0%, #15452e 0%, #0d3120 50%, #071e13 100%);
+  color: #ffffff;
+  border-radius: 25px 25px 0 0;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.iom-header::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 130px;
+  height: 130px;
+  background: radial-gradient(circle, rgba(74, 222, 128, 0.18) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.iom-header-product {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+.iom-header-img-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ffffff 0%, #f6f3eb 100%);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), 0 0 0 1.5px rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+
+.iom-header-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+}
+
+.iom-header-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.iom-header-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #fef08a;
+  background: rgba(245, 158, 11, 0.22);
+  border: 1px solid rgba(251, 191, 36, 0.45);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  width: fit-content;
+  margin-bottom: 3px;
+  line-height: 1.2;
+}
+
+.iom-header-title {
+  font-family: var(--font-serif, 'Playfair Display', Georgia, serif);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.25;
+  margin: 0;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.iom-header-price {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #86efac;
+  margin: 2px 0 0;
+  line-height: 1.2;
+}
+
+.iom-header-unit {
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.iom-close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  margin-left: 8px;
+}
+
+.iom-close-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: rotate(90deg) scale(1.08);
+}
+
+/* Form Container - Scrolls cleanly between fixed header and fixed footer */
+.iom-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.iom-form::-webkit-scrollbar {
+  width: 6px;
+}
+
+.iom-form::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.iom-form::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.iom-form::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.iom-body {
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Quantity & Summary Card */
+.iom-qty-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #fdfcf9 0%, #f6f2e8 100%);
+  border: 1.5px solid #eae3d5;
+  border-radius: 18px;
+  padding: 14px 18px;
+  box-shadow: 0 4px 14px rgba(15, 45, 28, 0.04);
+}
+
+.iom-qty-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.iom-field-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #16462f;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.iom-stepper {
+  display: inline-flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1.5px solid #d4cdbf;
+  border-radius: 999px;
+  padding: 2px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.iom-stepper button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #faf7f2;
+  border: none;
+  color: #0f3923;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.iom-stepper button:hover:not(:disabled) {
+  background: #16462f;
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+.iom-stepper button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: transparent;
+}
+
+.iom-stepper-val {
+  min-width: 34px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #0f3923;
+}
+
+.iom-qty-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.iom-total-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #78716c;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.iom-total-price {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #0f3923;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 1px 0;
+}
+
+.iom-delivery-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #166534;
+  background: rgba(22, 101, 52, 0.08);
+  border: 1px solid rgba(22, 101, 52, 0.15);
+  padding: 3px 10px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.iom-delivery-tag--free {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #86efac;
+}
+
+/* Section Header */
+.iom-section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #0f3923;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+}
+
+.iom-section-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: rgba(22, 101, 52, 0.1);
+  color: #166534;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Input Fields Grid */
+.iom-inputs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+}
+
+.iom-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.iom-field--full {
+  grid-column: 1 / -1;
+}
+
+.iom-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1f2937;
+  letter-spacing: 0.01em;
+}
+
+.iom-req {
+  color: #ef4444;
+  font-weight: 800;
+  margin-left: 2px;
+}
+
+.iom-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.iom-input-icon {
+  position: absolute;
+  left: 12px;
+  color: #9ca3af;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.iom-input-wrap:focus-within .iom-input-icon {
+  color: #15803d;
+}
+
+.iom-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px 10px 38px;
+  border-radius: 12px;
+  border: 1.5px solid #ded9ce;
+  background: #faf9f5;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #111827;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.iom-input--sm {
+  padding-left: 12px !important;
+}
+
+.iom-input:focus,
+.iom-textarea:focus {
+  background: #ffffff;
+  border-color: #15803d;
+  box-shadow: 0 0 0 3.5px rgba(21, 128, 61, 0.14), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.iom-input--error {
+  border-color: #ef4444 !important;
+  background: #fef2f2 !important;
+}
+
+.iom-error-msg {
+  font-size: 0.72rem;
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.iom-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1.5px solid #ded9ce;
+  background: #faf9f5;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #111827;
+  outline: none;
+  resize: none;
+  min-height: 60px;
+  transition: all 0.2s ease;
+}
+
+/* City, State, PIN Row */
+.iom-city-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+/* Trust Guarantee Badges */
+.iom-trust-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.iom-trust-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #14532d;
+  background: linear-gradient(135deg, rgba(22, 101, 52, 0.06) 0%, rgba(22, 101, 52, 0.02) 100%);
+  border: 1px solid rgba(22, 101, 52, 0.16);
+  border-radius: 12px;
+  padding: 8px 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.iom-trust-tag:hover {
+  background: rgba(22, 101, 52, 0.1);
+  border-color: rgba(22, 101, 52, 0.3);
+  transform: translateY(-1px);
+}
+
+.iom-trust-tag svg {
+  color: #16a34a;
+  flex-shrink: 0;
+}
+
+/* Footer Submit - Fixed at bottom of modal */
+.iom-footer {
+  padding: 14px 22px 18px;
+  border-top: 1px solid #ede8df;
+  background: #ffffff;
+  border-radius: 0 0 25px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+  z-index: 20;
+  box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.iom-submit-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #25D366 0%, #16a34a 100%);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 20px -2px rgba(37, 211, 102, 0.42), 0 2px 4px rgba(0, 0, 0, 0.08);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.iom-submit-btn svg {
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+}
+
+.iom-submit-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #28e26d 0%, #15803d 100%);
+  box-shadow: 0 10px 28px -2px rgba(37, 211, 102, 0.55), 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.iom-submit-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+}
+
+.iom-privacy-note {
+  font-size: 0.72rem;
+  color: #6b7280;
+  text-align: center;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  line-height: 1.35;
+}
+
+.iom-privacy-note svg {
+  color: #16a34a;
+  flex-shrink: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .iom-overlay {
+    padding: 10px;
+  }
+  .iom-card {
+    border-radius: 20px;
+    max-height: 92vh;
+  }
+  .iom-header {
+    padding: 14px 16px;
+    border-radius: 19px 19px 0 0;
+  }
+  .iom-header-img-wrap {
+    width: 48px;
+    height: 48px;
+  }
+  .iom-header-title {
+    font-size: 1.02rem;
+  }
+  .iom-body {
+    padding: 14px 16px;
+    gap: 13px;
+  }
+  .iom-qty-card {
+    padding: 12px 14px;
+    border-radius: 16px;
+  }
+  .iom-inputs-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .iom-city-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .iom-city-row .iom-field:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+  .iom-trust-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .iom-trust-tag {
+    justify-content: flex-start;
+    padding: 7px 10px;
+  }
+  .iom-footer {
+    padding: 12px 16px 16px;
+    border-radius: 0 0 19px 19px;
+  }
+  .iom-submit-btn {
+    padding: 12px 18px;
+    font-size: 0.94rem;
+  }
+}

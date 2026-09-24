@@ -218,7 +218,7 @@ export default function ArticleDetailPage() {
             content="Looking to learn about the benefits of ragi malt? Discover its nutritional value and how this traditional drink may support digestion, bone health, energy, and overall wellness."
           />
 
-          <meta
+          <meta 
             id="author"
             name="author"
             content="Akshay"
@@ -426,6 +426,303 @@ export default function ArticleDetailPage() {
             id="canonical"
             rel="canonical"
             href="https://allfreshnaturals.com/articles/homemade-ragi-malt"
+          />
+
+          <meta
+            id="indexingStatus"
+            name="robots"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+          />
+
+          <meta
+            id="Publisher"
+            property="publisher"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            property="og:locale"
+            content="en_US"
+          />
+        </Helmet>
+      ) : (article.id === 'apple-beetroot-carrot-drink' || article.slug === 'apple-beetroot-carrot-drink') ? (
+        <Helmet>
+          <title id="metaTitle">Apple Beetroot Carrot Drink: Benefits, Recipe &amp; Nutrition</title>
+
+          <meta
+            name="description"
+            id="metaDescription"
+            content="Discover the benefits of Apple Beetroot Carrot Drink, how to prepare it, its nutritional value, fiber considerations, natural sugars, and important precautions."
+          />
+
+          <meta
+            name="keywords"
+            id="metaKeywords"
+            content="Apple Beetroot Carrot Drink, abc drink, abc juice, apple beetroot carrot juice, abc drink benefits, abc juice recipe, abc drink nutrition"
+          />
+
+          <meta
+            id="ogTitle"
+            property="og:title"
+            content="Apple Beetroot Carrot Drink: Benefits, Recipe &amp; Nutrition"
+          />
+
+          <meta
+            id="ogType"
+            property="og:type"
+            content="article"
+          />
+
+          <meta
+            id="ogDescription"
+            property="og:description"
+            content="Discover the benefits of Apple Beetroot Carrot Drink, how to prepare it, its nutritional value, fiber considerations, natural sugars, and important precautions."
+          />
+
+          <meta
+            id="ogUrl"
+            property="og:url"
+            content="https://allfreshnaturals.com/articles/apple-beetroot-carrot-drink"
+          />
+
+          <meta
+            id="ogSiteName"
+            property="og:site_name"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            id="ogImage"
+            property="og:image"
+            content="https://allfreshnaturals.com/assets/apple-beetroot-carrot-drink.jpg"
+          />
+
+          <meta
+            id="twitterSite"
+            name="twitter:site"
+            content="https://twitter.com/"
+          />
+
+          <meta
+            id="twitterTitle"
+            name="twitter:title"
+            content="Apple Beetroot Carrot Drink: Benefits, Recipe &amp; Nutrition"
+          />
+
+          <meta
+            id="twitterDescription"
+            name="twitter:description"
+            content="Discover the benefits of Apple Beetroot Carrot Drink, how to prepare it, its nutritional value, fiber considerations, natural sugars, and important precautions."
+          />
+
+          <meta
+            id="author"
+            name="author"
+            content="Poornima"
+          />
+
+          <link
+            id="canonical"
+            rel="canonical"
+            href="https://allfreshnaturals.com/articles/apple-beetroot-carrot-drink"
+          />
+
+          <meta
+            id="indexingStatus"
+            name="robots"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+          />
+
+          <meta
+            id="Publisher"
+            property="publisher"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            property="og:locale"
+            content="en_US"
+          />
+        </Helmet>
+      ) : (article.id === 'homemade-abc-malt' || article.slug === 'homemade-abc-malt') ? (
+        <Helmet>
+          <title id="metaTitle">Homemade ABC Malt: Apple, Beetroot &amp; Carrot Recipe</title>
+
+          <meta
+            name="description"
+            id="metaDescription"
+            content="Learn how to make homemade ABC Malt with apple, beetroot, and carrot. Discover its ingredients, preparation, nutritional benefits, serving ideas, and precautions."
+          />
+
+          <meta
+            name="keywords"
+            id="metaKeywords"
+            content="Homemade ABC Malt, ABC Malt Home Made, Homemade ABC Malt Powder, ABC malt recipe, how to make abc malt at home"
+          />
+
+          <meta
+            id="ogTitle"
+            property="og:title"
+            content="Homemade ABC Malt: Apple, Beetroot &amp; Carrot Recipe"
+          />
+
+          <meta
+            id="ogType"
+            property="og:type"
+            content="article"
+          />
+
+          <meta
+            id="ogDescription"
+            property="og:description"
+            content="Learn how to make homemade ABC Malt with apple, beetroot, and carrot. Discover its ingredients, preparation, nutritional benefits, serving ideas, and precautions."
+          />
+
+          <meta
+            id="ogUrl"
+            property="og:url"
+            content="https://allfreshnaturals.com/articles/homemade-abc-malt"
+          />
+
+          <meta
+            id="ogSiteName"
+            property="og:site_name"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            id="ogImage"
+            property="og:image"
+            content="https://allfreshnaturals.com/assets/homemade-abc-malt.jpg"
+          />
+
+          <meta
+            id="twitterSite"
+            name="twitter:site"
+            content="https://twitter.com/"
+          />
+
+          <meta
+            id="twitterTitle"
+            name="twitter:title"
+            content="Homemade ABC Malt: Apple, Beetroot &amp; Carrot Recipe"
+          />
+
+          <meta
+            id="twitterDescription"
+            name="twitter:description"
+            content="Learn how to make homemade ABC Malt with apple, beetroot, and carrot. Discover its ingredients, preparation, nutritional benefits, serving ideas, and precautions."
+          />
+
+          <meta
+            id="author"
+            name="author"
+            content="Poornima"
+          />
+
+          <link
+            id="canonical"
+            rel="canonical"
+            href="https://allfreshnaturals.com/articles/homemade-abc-malt"
+          />
+
+          <meta
+            id="indexingStatus"
+            name="robots"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+          />
+
+          <meta
+            id="Publisher"
+            property="publisher"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            property="og:locale"
+            content="en_US"
+          />
+        </Helmet>
+      ) : (article.id === 'best-ragi-malt-powder' || article.slug === 'best-ragi-malt-powder') ? (
+        <Helmet>
+          <title id="metaTitle">Best Ragi Malt Powder: Benefits, Nutrition &amp; How to Choose</title>
+
+          <meta
+            name="description"
+            id="metaDescription"
+            content="Looking for the best ragi malt powder? Learn about ragi malt benefits, nutrition, how to choose a quality powder, preparation methods, and why ragi malt can be part of a balanced diet"
+          />
+
+          <meta
+            name="keywords"
+            id="metaKeywords"
+            content="Best ragi malt powder, ragi malt powder, ragi malt powder online, best ragi malt, ragi malt powder benefits, buy ragi malt powder"
+          />
+
+          <meta
+            id="ogTitle"
+            property="og:title"
+            content="Best Ragi Malt Powder: Benefits, Nutrition &amp; How to Choose"
+          />
+
+          <meta
+            id="ogType"
+            property="og:type"
+            content="article"
+          />
+
+          <meta
+            id="ogDescription"
+            property="og:description"
+            content="Looking for the best ragi malt powder? Learn about ragi malt benefits, nutrition, how to choose a quality powder, preparation methods, and why ragi malt can be part of a balanced diet"
+          />
+
+          <meta
+            id="ogUrl"
+            property="og:url"
+            content="https://allfreshnaturals.com/articles/best-ragi-malt-powder"
+          />
+
+          <meta
+            id="ogSiteName"
+            property="og:site_name"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            id="ogImage"
+            property="og:image"
+            content="https://allfreshnaturals.com/assets/best-ragi-malt-powder.jpg"
+          />
+
+          <meta
+            id="twitterSite"
+            name="twitter:site"
+            content="https://twitter.com/"
+          />
+
+          <meta
+            id="twitterTitle"
+            name="twitter:title"
+            content="Best Ragi Malt Powder: Benefits, Nutrition &amp; How to Choose"
+          />
+
+          <meta
+            id="twitterDescription"
+            name="twitter:description"
+            content="Looking for the best ragi malt powder? Learn about ragi malt benefits, nutrition, how to choose a quality powder, preparation methods, and why ragi malt can be part of a balanced diet"
+          />
+
+          <meta
+            id="author"
+            name="author"
+            content="Poornima"
+          />
+
+          <link
+            id="canonical"
+            rel="canonical"
+            href="https://allfreshnaturals.com/articles/best-ragi-malt-powder"
           />
 
           <meta
@@ -735,7 +1032,7 @@ export default function ArticleDetailPage() {
             <div id="faqs" className="reader-faq-section">
               <div className="faq-section-header">
                 <h2 className="reader-section-h2" style={{ marginTop: 0, marginBottom: '6px' }}>Frequently Asked Questions</h2>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>Clear answers to everyday questions about ragi malt nutrition, safety, and consumption.</p>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>Clear answers to everyday questions about nutrition, preparation, and health benefits.</p>
               </div>
               <div className="faq-items-list">
                 {article.faqs.map((faq, fIdx) => (

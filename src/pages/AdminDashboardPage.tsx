@@ -65,14 +65,14 @@ export default function AdminDashboardPage() {
   // Dynamic patrons list from real orders
   const realCustomersMap = new Map<string, { id: string; name: string; email: string; phone: string; city: string; totalOrders: number; totalSpent: number }>();
   orders.forEach((o, idx) => {
-    const key = o.phone || o.customerName;
+    const key = o.phone || o.customerName || `cust_${idx}`;
     if (!realCustomersMap.has(key)) {
       realCustomersMap.set(key, {
         id: `CUST-${1000 + idx + 1}`,
-        name: o.customerName,
-        email: o.email || `${o.phone}@customer.afn`,
-        phone: o.phone,
-        city: o.city,
+        name: o.customerName || 'Customer',
+        email: o.email || `${o.phone || idx}@customer.afn`,
+        phone: o.phone || '',
+        city: o.city || '',
         totalOrders: 1,
         totalSpent: o.total || 0
       });
@@ -806,12 +806,16 @@ export default function AdminDashboardPage() {
                             <div style={{ fontWeight: 600, color: '#0f172a' }}>{ord.customerName}</div>
                             <div style={{ fontSize: '0.78rem', color: '#64748b' }}>{ord.phone} &bull; {ord.city}</div>
                           </td>
-                          <td data-label="Items">{ord.items}</td>
+                          <td data-label="Items">
+                            {typeof ord.items === 'string'
+                              ? ord.items
+                              : (Array.isArray(ord.items) ? JSON.stringify(ord.items) : String(ord.items || '1 item'))}
+                          </td>
                           <td data-label="Total"><strong style={{ color: '#059669' }}>₹{ord.total}</strong></td>
                           <td data-label="Status">
                             <select
                               value={ord.status}
-                              onChange={(e) => handleUpdateOrderStatus(ord.id, e.target.value as any)}
+                              onChange={(e) => handleUpdateOrderStatus(ord.id, e.target.value as AdminOrder['status'])}
                               className="admin-select-sm"
                             >
                               <option value="Pending WhatsApp">Pending WhatsApp</option>
@@ -859,7 +863,12 @@ export default function AdminDashboardPage() {
                 </h3>
                 <div style={{ margin: '20px 0' }}>
                   {products.map((p) => {
-                    const prodOrders = orders.filter((o) => o.items.toLowerCase().includes(p.name.toLowerCase()));
+                    const prodOrders = orders.filter((o) => {
+                      const itemsStr = typeof o?.items === 'string'
+                        ? o.items
+                        : (Array.isArray(o?.items) ? JSON.stringify(o.items) : String(o?.items || ''));
+                      return itemsStr.toLowerCase().includes((p.name || '').toLowerCase());
+                    });
                     const perc = orders.length > 0 ? Math.round((prodOrders.length / orders.length) * 100) : 0;
                     return (
                       <div key={p.id} style={{ marginBottom: '18px' }}>
@@ -1703,7 +1712,9 @@ export default function AdminDashboardPage() {
 
                   <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '12px 14px' }}>
                     <div style={{ fontSize: '0.88rem', color: '#1e293b', marginBottom: '8px', fontWeight: 500 }}>
-                      {selectedOrder.items}
+                      {typeof selectedOrder.items === 'string'
+                        ? selectedOrder.items
+                        : (Array.isArray(selectedOrder.items) ? JSON.stringify(selectedOrder.items) : String(selectedOrder.items || '1 item'))}
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '8px', borderTop: '1px solid #f1f5f9' }}>
                       <span style={{ fontSize: '0.82rem', color: '#64748b' }}>Order Total (Inc. Delivery):</span>
