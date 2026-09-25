@@ -447,24 +447,24 @@ export default function ArticleDetailPage() {
         </Helmet>
       ) : (article.id === 'apple-beetroot-carrot-drink' || article.slug === 'apple-beetroot-carrot-drink') ? (
         <Helmet>
-          <title id="metaTitle">Apple Beetroot Carrot Drink: Benefits, Recipe &amp; Nutrition</title>
+          <title id="metaTitle">Apple Beetroot Carrot Drink: Health Benefits | AllFresh Naturals</title>
 
           <meta
             name="description"
             id="metaDescription"
-            content="Discover the benefits of Apple Beetroot Carrot Drink, how to prepare it, its nutritional value, fiber considerations, natural sugars, and important precautions."
+            content="Discover the benefits of Apple Beetroot Carrot Drink, including its nutritional value and potential benefits for energy, digestion, immunity, and overall wellness."
           />
 
           <meta
             name="keywords"
             id="metaKeywords"
-            content="Apple Beetroot Carrot Drink, abc drink, abc juice, apple beetroot carrot juice, abc drink benefits, abc juice recipe, abc drink nutrition"
+            content="apple beetroot carrot drink, apple beet carrot juice, apple beetroot carrot juice, apple beet and carrot juice, beetroot and carrot and apple juice"
           />
 
           <meta
             id="ogTitle"
             property="og:title"
-            content="Apple Beetroot Carrot Drink: Benefits, Recipe &amp; Nutrition"
+            content="Apple Beetroot Carrot Drink | Nutrition, Health Benefits &amp; Wellness Guide"
           />
 
           <meta
@@ -476,7 +476,7 @@ export default function ArticleDetailPage() {
           <meta
             id="ogDescription"
             property="og:description"
-            content="Discover the benefits of Apple Beetroot Carrot Drink, how to prepare it, its nutritional value, fiber considerations, natural sugars, and important precautions."
+            content="Explore Apple Beetroot Carrot Drink, its key nutrients, and how this wholesome blend may support energy, digestion, immunity, and overall health and wellness."
           />
 
           <meta
@@ -506,19 +506,19 @@ export default function ArticleDetailPage() {
           <meta
             id="twitterTitle"
             name="twitter:title"
-            content="Apple Beetroot Carrot Drink: Benefits, Recipe &amp; Nutrition"
+            content="Apple Beetroot Carrot Drink | Nutrition, Health Benefits &amp; Wellness"
           />
 
           <meta
             id="twitterDescription"
             name="twitter:description"
-            content="Discover the benefits of Apple Beetroot Carrot Drink, how to prepare it, its nutritional value, fiber considerations, natural sugars, and important precautions."
+            content="Looking to learn about Apple Beetroot Carrot Drink? Discover its nutritional value and how this refreshing blend may support energy, digestion, immunity, and overall wellness."
           />
 
           <meta
             id="author"
             name="author"
-            content="Poornima"
+            content="Akshay"
           />
 
           <link
@@ -546,24 +546,24 @@ export default function ArticleDetailPage() {
         </Helmet>
       ) : (article.id === 'homemade-abc-malt' || article.slug === 'homemade-abc-malt') ? (
         <Helmet>
-          <title id="metaTitle">Homemade ABC Malt: Apple, Beetroot &amp; Carrot Recipe</title>
+          <title id="metaTitle">Homemade ABC Malt: Nutrition &amp; Health Benefits | AllFresh Naturals</title>
 
           <meta
             name="description"
             id="metaDescription"
-            content="Learn how to make homemade ABC Malt with apple, beetroot, and carrot. Discover its ingredients, preparation, nutritional benefits, serving ideas, and precautions."
+            content="Discover the benefits of homemade ABC malt, including its nutritional value and potential benefits for digestion, energy, immunity, and overall wellness."
           />
 
           <meta
             name="keywords"
             id="metaKeywords"
-            content="Homemade ABC Malt, ABC Malt Home Made, Homemade ABC Malt Powder, ABC malt recipe, how to make abc malt at home"
+            content="homemade abc malt, home made abc malt, homemade abc malt powder, abc malt home made"
           />
 
           <meta
             id="ogTitle"
             property="og:title"
-            content="Homemade ABC Malt: Apple, Beetroot &amp; Carrot Recipe"
+            content="Homemade ABC Malt | Nutrition, Health Benefits &amp; Wellness Guide"
           />
 
           <meta
@@ -605,19 +605,19 @@ export default function ArticleDetailPage() {
           <meta
             id="twitterTitle"
             name="twitter:title"
-            content="Homemade ABC Malt: Apple, Beetroot &amp; Carrot Recipe"
+            content="Homemade ABC Malt | Nutrition, Health Benefits &amp; Wellness"
           />
 
           <meta
             id="twitterDescription"
             name="twitter:description"
-            content="Learn how to make homemade ABC Malt with apple, beetroot, and carrot. Discover its ingredients, preparation, nutritional benefits, serving ideas, and precautions."
+            content="Looking to learn about homemade ABC malt? Discover its nutritional value and how this wholesome drink may support digestion, energy, immunity, and overall wellness."
           />
 
           <meta
             id="author"
             name="author"
-            content="Poornima"
+            content="Akshay"
           />
 
           <link
@@ -645,24 +645,24 @@ export default function ArticleDetailPage() {
         </Helmet>
       ) : (article.id === 'best-ragi-malt-powder' || article.slug === 'best-ragi-malt-powder') ? (
         <Helmet>
-          <title id="metaTitle">Best Ragi Malt Powder: Benefits, Nutrition &amp; How to Choose</title>
+          <title id="metaTitle">Best Ragi Malt Powder: Nutrition &amp; Health Benefits | AllFresh Naturals</title>
 
           <meta
             name="description"
             id="metaDescription"
-            content="Looking for the best ragi malt powder? Learn about ragi malt benefits, nutrition, how to choose a quality powder, preparation methods, and why ragi malt can be part of a balanced diet"
+            content="Looking for the best ragi malt powder? Discover its nutritional value and how this wholesome drink mix may support digestion, energy, bone health, and overall wellness."
           />
 
           <meta
             name="keywords"
             id="metaKeywords"
-            content="Best ragi malt powder, ragi malt powder, ragi malt powder online, best ragi malt, ragi malt powder benefits, buy ragi malt powder"
+            content="best ragi malt powder, ragi malt powder online, buy sprouted ragi malt, instant ragi malt health drink"
           />
 
           <meta
             id="ogTitle"
             property="og:title"
-            content="Best Ragi Malt Powder: Benefits, Nutrition &amp; How to Choose"
+            content="Best Ragi Malt Powder | Nutrition, Health Benefits &amp; Buying Guide"
           />
 
           <meta
@@ -674,7 +674,7 @@ export default function ArticleDetailPage() {
           <meta
             id="ogDescription"
             property="og:description"
-            content="Looking for the best ragi malt powder? Learn about ragi malt benefits, nutrition, how to choose a quality powder, preparation methods, and why ragi malt can be part of a balanced diet"
+            content="Explore the best ragi malt powder, its key nutrients, and how this wholesome drink mix may support digestion, energy, bone health, and overall health and wellness."
           />
 
           <meta
@@ -704,7 +704,7 @@ export default function ArticleDetailPage() {
           <meta
             id="twitterTitle"
             name="twitter:title"
-            content="Best Ragi Malt Powder: Benefits, Nutrition &amp; How to Choose"
+            content="Best Ragi Malt Powder | Nutrition, Health Benefits &amp; Wellness"
           />
 
           <meta
@@ -716,7 +716,7 @@ export default function ArticleDetailPage() {
           <meta
             id="author"
             name="author"
-            content="Poornima"
+            content="Akshay"
           />
 
           <link

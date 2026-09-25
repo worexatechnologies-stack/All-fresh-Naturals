@@ -2917,6 +2917,11 @@ h1, h2, h3, h4, h5, h6 {
   text-align: justify;
   text-justify: inter-word;
   word-break: break-word;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+.reader-paragraph:last-child {
+  margin-bottom: 0;
 }
 .reader-quote {
   padding: 18px 24px;
@@ -4131,6 +4136,11 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.68;
     text-align: justify;
     text-justify: inter-word;
+    margin-top: 0;
+    margin-bottom: 1.15rem;
+  }
+  .reader-paragraph:last-child {
+    margin-bottom: 0;
   }
   .reader-section-h2 {
     font-size: 1.22rem;

@@ -93,7 +93,7 @@ export const ARTICLES_DATA: Article[] = [
         id: 'introduction',
         heading: 'Introduction',
         content: [
-          'Ragi malt is a nutritious drink prepared from ragi, also known as finger millet, and is traditionally consumed as part of a balanced diet. Ragi contains dietary fibre, calcium, minerals, protein, and other bioactive compounds. Its nutritional profile makes ragi malt a convenient way to include finger millet in everyday meals. However, the overall nutritional value of ragi malt depends on how it is prepared and what ingredients are added.',
+          'Ragi malt is a nutritious drink prepared from ragi, also known as finger millet, and is traditionally consumed as part of a balanced diet. Ragi contains dietary fibre, calcium, minerals, protein, and other bioactive compounds. Its nutritional profile makes ragi malt a convenient way to include finger millet in everyday meals. However, the overall nutritional value of ragi malt depends on how it is prepared and what ingredients are added.', 
           'From supporting a fibre-rich diet to providing calcium and other nutrients, there are several potential benefits of ragi malt. It can be prepared with water or milk and adjusted with ingredients such as buttermilk, spices, or a small amount of natural sweetener according to personal preference.'
         ]
       },

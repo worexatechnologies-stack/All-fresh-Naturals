@@ -41,12 +41,13 @@ import AdminLoginPage from './AdminLoginPage';
 export default function AdminDashboardPage() {
   const { isAdminLoggedIn, logoutAdmin } = useAuth();
   const { products, addProduct, updateProduct, deleteProduct, resetProductsToDefault } = useProducts();
-  const { orders, updateOrderStatus, clearAllOrders } = useOrder();
+  const { orders, updateOrderStatus, deleteOrder, clearAllOrders } = useOrder();
 
   const [activeTab, setActiveTab] = useState<'products' | 'orders' | 'overview' | 'customers' | 'batches' | 'security'>('overview');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('All');
   const [selectedOrder, setSelectedOrder] = useState<AdminOrder | null>(null);
+  const [deletingOrder, setDeletingOrder] = useState<AdminOrder | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const workspaceRef = useRef<HTMLElement | null>(null);
 
@@ -60,7 +61,7 @@ export default function AdminDashboardPage() {
 
   // Dynamic real metrics from customer purchases
   const totalSales = orders.reduce((sum, o) => sum + (o.total || 0), 0);
-  const pendingOrdersCount = orders.filter((o) => o.status === 'Processing' || o.status === 'Batch Preparing').length;
+  const pendingOrdersCount = orders.filter((o) => o.status === 'Processing' || o.status === 'Batch Preparing' || o.status === 'Pending WhatsApp').length;
 
   // Dynamic patrons list from real orders
   const realCustomersMap = new Map<string, { id: string; name: string; email: string; phone: string; city: string; totalOrders: number; totalSpent: number }>();
@@ -91,7 +92,7 @@ export default function AdminDashboardPage() {
 
   // Lock background body scroll whenever any modal is active
   useEffect(() => {
-    const isAnyModalOpen = showAddModal || editingProduct !== null || deletingProduct !== null || selectedOrder !== null;
+    const isAnyModalOpen = showAddModal || editingProduct !== null || deletingProduct !== null || deletingOrder !== null || selectedOrder !== null;
     if (isAnyModalOpen) {
       document.body.style.overflow = 'hidden';
       document.body.style.touchAction = 'none';
@@ -103,7 +104,7 @@ export default function AdminDashboardPage() {
       document.body.style.overflow = '';
       document.body.style.touchAction = '';
     };
-  }, [showAddModal, editingProduct, deletingProduct, selectedOrder]);
+  }, [showAddModal, editingProduct, deletingProduct, deletingOrder, selectedOrder]);
 
   // Form State for Add / Edit Product
   const [prodName, setProdName] = useState('');
@@ -262,6 +263,18 @@ export default function AdminDashboardPage() {
     await deleteProduct(deletingProduct.id);
     showToast(`Removed "${name}" from database catalog.`);
     setDeletingProduct(null);
+  };
+
+  // Confirm delete order
+  const handleConfirmDeleteOrder = () => {
+    if (!deletingOrder) return;
+    const orderId = deletingOrder.id;
+    deleteOrder(orderId);
+    showToast(`Order #${orderId} deleted permanently.`);
+    setDeletingOrder(null);
+    if (selectedOrder?.id === orderId) {
+      setSelectedOrder(null);
+    }
   };
 
   const handleUpdateOrderStatus = (orderId: string, newStatus: AdminOrder['status']) => {
@@ -826,24 +839,44 @@ export default function AdminDashboardPage() {
                             </select>
                           </td>
                           <td data-label="Actions">
-                            <button
-                              type="button"
-                              className="admin-icon-btn admin-btn-view"
-                              data-lenis-prevent="true"
-                              title="View Order Details"
-                              aria-label="View Order Details"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                setSelectedOrder(ord);
-                              }}
-                              onPointerDown={(e) => {
-                                e.stopPropagation();
-                                setSelectedOrder(ord);
-                              }}
-                            >
-                              <Eye size={18} strokeWidth={2} />
-                            </button>
+                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                              <button
+                                type="button"
+                                className="admin-icon-btn admin-btn-view"
+                                data-lenis-prevent="true"
+                                title="View Order Details"
+                                aria-label="View Order Details"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setSelectedOrder(ord);
+                                }}
+                                onPointerDown={(e) => {
+                                  e.stopPropagation();
+                                  setSelectedOrder(ord);
+                                }}
+                              >
+                                <Eye size={18} strokeWidth={2} />
+                              </button>
+                              <button
+                                type="button"
+                                className="admin-icon-btn admin-btn-delete"
+                                data-lenis-prevent="true"
+                                title="Delete Order"
+                                aria-label="Delete Order"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setDeletingOrder(ord);
+                                }}
+                                onPointerDown={(e) => {
+                                  e.stopPropagation();
+                                  setDeletingOrder(ord);
+                                }}
+                              >
+                                <Trash2 size={18} strokeWidth={2} />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}
@@ -1758,7 +1791,24 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
-              <div className="admin-modal-footer-modern" style={{ justifyContent: 'flex-end' }}>
+              <div className="admin-modal-footer-modern" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <button
+                  type="button"
+                  className="admin-btn-cancel"
+                  style={{
+                    background: '#fee2e2',
+                    color: '#dc2626',
+                    borderColor: '#fca5a5',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                  onClick={() => {
+                    setDeletingOrder(selectedOrder);
+                  }}
+                >
+                  <Trash2 size={14} /> Delete Order
+                </button>
                 <button
                   type="button"
                   className="admin-btn-cancel"
@@ -1766,6 +1816,49 @@ export default function AdminDashboardPage() {
                   style={{ minWidth: '100px' }}
                 >
                   Close
+                </button>
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
+
+        {/* MODAL 5: DELETE ORDER CONFIRMATION */}
+        {deletingOrder && createPortal(
+          <div className="admin-modern-modal-overlay admin-delete-modal-overlay" data-lenis-prevent="true" onClick={() => setDeletingOrder(null)}>
+            <div className="admin-modern-modal-card admin-delete-modal-card" data-lenis-prevent="true" onClick={(e) => e.stopPropagation()}>
+              <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: '#fee2e2', color: '#dc2626', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', border: '1px solid #fecaca' }}>
+                <AlertCircle size={28} />
+              </div>
+              <h3 style={{ color: '#991b1b', fontSize: '1.25rem', fontFamily: 'var(--font-serif)', margin: '0 0 8px', fontWeight: 700, textAlign: 'center' }}>
+                Delete Order #{deletingOrder.id}?
+              </h3>
+              <p style={{ fontSize: '0.88rem', color: '#475569', margin: '0 0 20px', lineHeight: 1.5, textAlign: 'center' }}>
+                Are you sure you want to permanently remove this order for <strong style={{ color: '#0f172a' }}>"{deletingOrder.customerName}"</strong> (₹{deletingOrder.total})?
+              </p>
+
+              <div style={{ display: 'flex', gap: '10px', width: '100%', justifyContent: 'center' }}>
+                <button
+                  type="button"
+                  className="admin-btn-cancel"
+                  style={{ flex: 1, textAlign: 'center' }}
+                  onClick={() => setDeletingOrder(null)}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="admin-btn-save"
+                  style={{
+                    flex: 1,
+                    background: '#dc2626',
+                    borderColor: '#dc2626',
+                    justifyContent: 'center',
+                    boxShadow: '0 4px 12px rgba(220, 38, 38, 0.28)'
+                  }}
+                  onClick={handleConfirmDeleteOrder}
+                >
+                  <Trash2 size={15} /> Yes, Delete
                 </button>
               </div>
             </div>
