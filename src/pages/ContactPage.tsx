@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { 
-  MapPin, 
-  Phone, 
-  Mail, 
-  MessageSquare, 
-  Clock, 
-  Send, 
-  CheckCircle2, 
-  Leaf, 
+import {
+  MapPin,
+  Phone,
+  Mail,
+  MessageSquare,
+  Clock,
+  Send,
+  CheckCircle2,
+  Leaf,
   ExternalLink,
   User,
   Tag,
@@ -95,7 +95,7 @@ export default function ContactPage() {
         <meta
           id="ogImage"
           property="og:image"
-          content="https://allfreshnaturals.com/assets/logo-CNxtV1g6.jpg"
+          content="https://allfreshnaturals.com/assets/logo.jpg"
         />
 
         <meta

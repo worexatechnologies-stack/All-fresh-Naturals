@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 import { CartProvider } from './context/CartContext';
@@ -14,19 +14,22 @@ import AdminAuthModal from './components/AdminAuthModal';
 import ProtectedRoute from './components/ProtectedRoute';
 import SmoothScroll from './components/SmoothScroll';
 
+// Eager load HomePage for immediate first paint
 import HomePage from './pages/HomePage';
-import ProductsPage from './pages/ProductsPage';
-import AboutPage from './pages/AboutPage';
-import CheckoutPage from './pages/CheckoutPage';
-import OrderConfirmationPage from './pages/OrderConfirmationPage';
-import ContactPage from './pages/ContactPage';
-import TermsPage from './pages/TermsPage';
-import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
-import AdminDashboardPage from './pages/AdminDashboardPage';
-import MyOrdersPage from './pages/MyOrdersPage';
-import ArticlesPage from './pages/ArticlesPage';
-import ArticleDetailPage from './pages/ArticleDetailPage';
-import ProductDetailPage from './pages/ProductDetailPage';
+
+// Lazy load secondary routes for fast initial bundle size & smooth rendering
+const ProductsPage = lazy(() => import('./pages/ProductsPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
+const OrderConfirmationPage = lazy(() => import('./pages/OrderConfirmationPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const TermsPage = lazy(() => import('./pages/TermsPage'));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
+const AdminDashboardPage = lazy(() => import('./pages/AdminDashboardPage'));
+const MyOrdersPage = lazy(() => import('./pages/MyOrdersPage'));
+const ArticlesPage = lazy(() => import('./pages/ArticlesPage'));
+const ArticleDetailPage = lazy(() => import('./pages/ArticleDetailPage'));
+const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -34,6 +37,14 @@ function ScrollToTop() {
     window.scrollTo(0, 0);
   }, [pathname]);
   return null;
+}
+
+function PageLoader() {
+  return (
+    <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="afn-spinner" style={{ width: 36, height: 36, border: '3px solid #e2e8f0', borderTopColor: 'var(--primary)', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+    </div>
+  );
 }
 
 function AppContent() {
@@ -47,50 +58,52 @@ function AppContent() {
       {!isAdminPage && <Header />}
 
       <main key={location.pathname} className={isAdminPage ? '' : 'page-transition'}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route path="/products/ragi_malt" element={<Navigate to="/products/ragi-malt" replace />} />
-          <Route path="/products/abc_malt" element={<Navigate to="/products/abc-malt" replace />} />
-          <Route path="/products/:id" element={<ProductDetailPage />} />
-          <Route path="/product/:id" element={<ProductDetailPage />} />
-          <Route path="/benefits" element={<Navigate to="/#why-choose-us" replace />} />
-          <Route path="/articles" element={<ArticlesPage />} />
-          <Route path="/articles/:slug" element={<ArticleDetailPage />} />
-          <Route path="/article/:slug" element={<ArticleDetailPage />} />
-          <Route path="/blog/:slug" element={<ArticleDetailPage />} />
-          <Route path="/blogs/:slug" element={<ArticleDetailPage />} />
-          <Route path="/blogs" element={<Navigate to="/articles" replace />} />
-          <Route path="/blog" element={<Navigate to="/articles" replace />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/terms-and-conditions" element={<TermsPage />} />
-          <Route path="/terms" element={<Navigate to="/terms-and-conditions" replace />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-          <Route path="/privacy" element={<Navigate to="/privacy-policy" replace />} />
-          <Route path="/privacy-and-sourcing" element={<Navigate to="/privacy-policy" replace />} />
-          <Route path="/sourcing" element={<Navigate to="/privacy-policy" replace />} />
-          <Route path="/refund-policy" element={<Navigate to="/terms-and-conditions" replace />} />
-          <Route path="/refunds" element={<Navigate to="/terms-and-conditions" replace />} />
-          <Route path="/my-orders" element={<MyOrdersPage />} />
-          <Route
-            path="/checkout"
-            element={
-              <ProtectedRoute fallbackTitle="Checkout Requires User Login" fallbackMessage="Please sign in or create an account to proceed with your order purchase.">
-                <CheckoutPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/order-confirmation"
-            element={
-              <ProtectedRoute fallbackTitle="Order Details Protected" fallbackMessage="Please sign in to view your order confirmation and details.">
-                <OrderConfirmationPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/admin" element={<AdminDashboardPage />} />
-        </Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/products/ragi_malt" element={<Navigate to="/products/ragi-malt" replace />} />
+            <Route path="/products/abc_malt" element={<Navigate to="/products/abc-malt" replace />} />
+            <Route path="/products/:id" element={<ProductDetailPage />} />
+            <Route path="/product/:id" element={<ProductDetailPage />} />
+            <Route path="/benefits" element={<Navigate to="/#why-choose-us" replace />} />
+            <Route path="/articles" element={<ArticlesPage />} />
+            <Route path="/articles/:slug" element={<ArticleDetailPage />} />
+            <Route path="/article/:slug" element={<ArticleDetailPage />} />
+            <Route path="/blog/:slug" element={<ArticleDetailPage />} />
+            <Route path="/blogs/:slug" element={<ArticleDetailPage />} />
+            <Route path="/blogs" element={<Navigate to="/articles" replace />} />
+            <Route path="/blog" element={<Navigate to="/articles" replace />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/terms-and-conditions" element={<TermsPage />} />
+            <Route path="/terms" element={<Navigate to="/terms-and-conditions" replace />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/privacy" element={<Navigate to="/privacy-policy" replace />} />
+            <Route path="/privacy-and-sourcing" element={<Navigate to="/privacy-policy" replace />} />
+            <Route path="/sourcing" element={<Navigate to="/privacy-policy" replace />} />
+            <Route path="/refund-policy" element={<Navigate to="/terms-and-conditions" replace />} />
+            <Route path="/refunds" element={<Navigate to="/terms-and-conditions" replace />} />
+            <Route path="/my-orders" element={<MyOrdersPage />} />
+            <Route
+              path="/checkout"
+              element={
+                <ProtectedRoute fallbackTitle="Checkout Requires User Login" fallbackMessage="Please sign in or create an account to proceed with your order purchase.">
+                  <CheckoutPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/order-confirmation"
+              element={
+                <ProtectedRoute fallbackTitle="Order Details Protected" fallbackMessage="Please sign in to view your order confirmation and details.">
+                  <OrderConfirmationPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/admin" element={<AdminDashboardPage />} />
+          </Routes>
+        </Suspense>
       </main>
 
       {!isAdminPage && <Footer />}

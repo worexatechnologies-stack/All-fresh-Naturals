@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSearchParams, Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import {
   Clock,
   Calendar,
@@ -38,6 +39,105 @@ export default function ArticlesPage() {
 
   return (
     <>
+      <Helmet>
+        <title id="metaTitle">Natural Wellness Blog: Health, Nutrition &amp; Healthy Living</title>
+
+        <meta
+          name="description"
+          id="metaDescription"
+          content="Explore our natural wellness blog for healthy living tips, nutrition advice, wholesome recipes, natural ingredients, and practical wellness insights."
+        />
+
+        <meta
+          name="keywords"
+          id="metaKeywords"
+          content="natural wellness blog, natural health and wellness tips, natural ingredients and their benefits, healthy recipes using natural ingredients, benefits of natural foods and ingredients, nutrition tips for healthy living"
+        />
+
+        <meta
+          id="ogTitle"
+          property="og:title"
+          content="Natural Wellness Blog: Health, Nutrition, Recipes &amp; Healthy Living"
+        />
+
+        <meta
+          id="ogType"
+          property="og:type"
+          content="article"
+        />
+
+        <meta
+          id="ogDescription"
+          property="og:description"
+          content="Explore our natural wellness blog for nutrition tips, healthy recipes, natural ingredients, healthy living advice, and practical insights for everyday wellness."
+        />
+
+        <meta
+          id="ogUrl"
+          property="og:url"
+          content="https://allfreshnaturals.com/articles"
+        />
+
+        <meta
+          id="ogSiteName"
+          property="og:site_name"
+          content="All Fresh Naturals"
+        />
+
+        <meta
+          id="ogImage"
+          property="og:image"
+          content="https://allfreshnaturals.com/assets/logo.jpg"
+        />
+
+        <meta
+          id="twitterSite"
+          name="twitter:site"
+          content="https://twitter.com/"
+        />
+
+        <meta
+          id="twitterTitle"
+          name="twitter:title"
+          content="Natural Wellness Blog: Health, Nutrition &amp; Healthy Living"
+        />
+
+        <meta
+          id="twitterDescription"
+          name="twitter:description"
+          content="Discover healthy living tips, nutrition, natural wellness blog advice, wholesome recipes, natural ingredients, and practical wellness insights to support a healthier everyday lifestyle."
+        />
+
+        <meta
+          id="author"
+          name="author"
+          content="Akshay"
+        />
+
+        <link
+          id="canonical"
+          rel="canonical"
+          href="https://allfreshnaturals.com/articles"
+        />
+
+        <meta
+          id="indexingStatus"
+          name="robots"
+          content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
+
+        <meta
+          id="Publisher"
+          property="publisher"
+          content="All Fresh Naturals"
+        />
+
+        <meta
+          property="og:locale"
+          content="en_US"
+        />
+      </Helmet>
+
       {/* 1. AESTHETIC EDITORIAL HERO HEADER */}
       <section className="articles-aesthetic-hero">
         <div className="container">

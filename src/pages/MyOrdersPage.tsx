@@ -170,7 +170,7 @@ export default function MyOrdersPage() {
           <meta
             id="ogImage"
             property="og:image"
-            content="https://allfreshnaturals.com/assets/logo-CNxtV1g6.jpg"
+            content="https://allfreshnaturals.com/assets/logo.jpg"
           />
 
           <meta

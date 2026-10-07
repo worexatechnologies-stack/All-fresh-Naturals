@@ -742,6 +742,303 @@ export default function ArticleDetailPage() {
             content="en_US"
           />
         </Helmet>
+      ) : (article.id === 'apple-beetroot-carrot-malt' || article.slug === 'apple-beetroot-carrot-malt') ? (
+        <Helmet>
+          <title id="metaTitle">Apple Beetroot Carrot Malt: Benefits &amp; Nutrition Guide</title>
+
+          <meta
+            name="description"
+            id="metaDescription"
+            content="Discover apple beetroot carrot malt, its nutritional value, ingredients, preparation, and potential health benefits as part of a balanced and healthy diet."
+          />
+
+          <meta
+            name="keywords"
+            id="metaKeywords"
+            content="apple beetroot carrot malt, apple beetroot carrot malt powder, abc malt powder, apple beetroot carrot health drink, apple beetroot carrot juice for diabetes, apple beetroot carrot juice for diabetics"
+          />
+
+          <meta
+            id="ogTitle"
+            property="og:title"
+            content="Apple Beetroot Carrot Malt: Nutrition, Benefits &amp; Preparation Guide"
+          />
+
+          <meta
+            id="ogType"
+            property="og:type"
+            content="article"
+          />
+
+          <meta
+            id="ogDescription"
+            property="og:description"
+            content="Explore apple beetroot carrot malt, including its key ingredients, nutritional value, preparation method, potential health benefits, and why it can complement a balanced diet."
+          />
+
+          <meta
+            id="ogUrl"
+            property="og:url"
+            content="https://allfreshnaturals.com/articles/apple-beetroot-carrot-malt"
+          />
+
+          <meta
+            id="ogSiteName"
+            property="og:site_name"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            id="ogImage"
+            property="og:image"
+            content="https://allfreshnaturals.com/assets/apple-beetroot-carrot-malt.jpg"
+          />
+
+          <meta
+            id="twitterSite"
+            name="twitter:site"
+            content="https://twitter.com/"
+          />
+
+          <meta
+            id="twitterTitle"
+            name="twitter:title"
+            content="Apple Beetroot Carrot Malt: Benefits, Nutrition &amp; Recipe"
+          />
+
+          <meta
+            id="twitterDescription"
+            name="twitter:description"
+            content="Learn about apple beetroot carrot malt, its ingredients, nutrition, preparation method, and potential benefits, plus how this wholesome drink can fit into a balanced diet."
+          />
+
+          <meta
+            id="author"
+            name="author"
+            content="Akshay"
+          />
+
+          <link
+            id="canonical"
+            rel="canonical"
+            href="https://allfreshnaturals.com/articles/apple-beetroot-carrot-malt"
+          />
+
+          <meta
+            id="indexingStatus"
+            name="robots"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+          />
+
+          <meta
+            id="Publisher"
+            property="publisher"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            property="og:locale"
+            content="en_US"
+          />
+        </Helmet>
+      ) : (article.id === 'how-to-prepare-abc-malt' || article.slug === 'how-to-prepare-abc-malt') ? (
+        <Helmet>
+          <title id="metaTitle">How to Prepare ABC Malt | Easy Recipe, Ingredients &amp; Benefits</title>
+
+          <meta
+            name="description"
+            id="metaDescription"
+            content="Learn how to prepare ABC malt at home with an easy recipe. Discover the ingredients, preparation method, nutrition, and benefits of this wholesome homemade drink."
+          />
+
+          <meta
+            name="keywords"
+            id="metaKeywords"
+            content="how to prepare abc malt, how to make abc malt, how to prepare ABC malt at home, abc malt preparation, how to make abc malt drink, easy abc malt recipe"
+          />
+
+          <meta
+            id="ogTitle"
+            property="og:title"
+            content="How to Prepare ABC Malt: Easy Recipe &amp; Health Benefits | AllFresh Naturals"
+          />
+
+          <meta
+            id="ogType"
+            property="og:type"
+            content="article"
+          />
+
+          <meta
+            id="ogDescription"
+            property="og:description"
+            content="Learn how to prepare ABC malt with a simple homemade recipe, the ingredients you need, preparation steps, nutritional value, and potential health benefits."
+          />
+
+          <meta
+            id="ogUrl"
+            property="og:url"
+            content="https://allfreshnaturals.com/articles/how-to-prepare-abc-malt"
+          />
+
+          <meta
+            id="ogSiteName"
+            property="og:site_name"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            id="ogImage"
+            property="og:image"
+            content="https://allfreshnaturals.com/assets/how-to-prepare-abc-malt.jpg"
+          />
+
+          <meta
+            id="twitterSite"
+            name="twitter:site"
+            content="https://twitter.com/"
+          />
+
+          <meta
+            id="twitterTitle"
+            name="twitter:title"
+            content="How to Prepare ABC Malt | Easy Recipe &amp; Nutrition Guide"
+          />
+
+          <meta
+            id="twitterDescription"
+            name="twitter:description"
+            content="Learn how to prepare ABC malt at home with simple ingredients and easy steps. Explore its nutrition, preparation method, and potential benefits as part of a balanced diet."
+          />
+
+          <meta
+            id="author"
+            name="author"
+            content="Akshay"
+          />
+
+          <link
+            id="canonical"
+            rel="canonical"
+            href="https://allfreshnaturals.com/articles/how-to-prepare-abc-malt"
+          />
+
+          <meta
+            id="indexingStatus"
+            name="robots"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+          />
+
+          <meta
+            id="Publisher"
+            property="publisher"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            property="og:locale"
+            content="en_US"
+          />
+        </Helmet>
+      ) : (article.id === 'ragi-malt-vs-abc-malt' || article.slug === 'ragi-malt-vs-abc-malt') ? (
+        <Helmet>
+          <title id="metaTitle">Ragi Malt vs ABC Malt: Benefits, Nutrition &amp; Differences</title>
+
+          <meta
+            name="description"
+            id="metaDescription"
+            content="Ragi malt vs ABC malt: compare their nutrition, benefits, ingredients, and preparation to understand which wholesome drink may better suit your daily diet."
+          />
+
+          <meta
+            name="keywords"
+            id="metaKeywords"
+            content="ragi malt vs abc malt, difference between ragi malt and abc malt, which is better ragi malt or abc malt, ragi malt vs abc malt which is healthier, ragi malt vs ABC malt benefits and differences"
+          />
+
+          <meta
+            id="ogTitle"
+            property="og:title"
+            content="Ragi Malt vs ABC Malt: Nutrition, Benefits &amp; Key Differences"
+          />
+
+          <meta
+            id="ogType"
+            property="og:type"
+            content="article"
+          />
+
+          <meta
+            id="ogDescription"
+            property="og:description"
+            content="Compare ragi malt vs ABC malt to understand their ingredients, nutritional value, potential health benefits, preparation methods, and how they differ."
+          />
+
+          <meta
+            id="ogUrl"
+            property="og:url"
+            content="https://allfreshnaturals.com/articles/ragi-malt-vs-abc-malt"
+          />
+
+          <meta
+            id="ogSiteName"
+            property="og:site_name"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            id="ogImage"
+            property="og:image"
+            content="https://allfreshnaturals.com/assets/ragi-malt-vs-abc-malt.jpg"
+          />
+
+          <meta
+            id="twitterSite"
+            name="twitter:site"
+            content="https://twitter.com/"
+          />
+
+          <meta
+            id="twitterTitle"
+            name="twitter:title"
+            content="Ragi Malt vs ABC Malt: Nutrition, Benefits &amp; Key Differences"
+          />
+
+          <meta
+            id="twitterDescription"
+            name="twitter:description"
+            content="Ragi malt vs ABC malt: discover their nutritional value, ingredients, benefits, preparation methods, and key differences to help choose the right drink for your diet."
+          />
+
+          <meta
+            id="author"
+            name="author"
+            content="Akshay"
+          />
+
+          <link
+            id="canonical"
+            rel="canonical"
+            href="https://allfreshnaturals.com/articles/ragi-malt-vs-abc-malt"
+          />
+
+          <meta
+            id="indexingStatus"
+            name="robots"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+          />
+
+          <meta
+            id="Publisher"
+            property="publisher"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            property="og:locale"
+            content="en_US"
+          />
+        </Helmet>
       ) : (
         <Helmet>
           <title>{`${article.title} | All Fresh Naturals`}</title>

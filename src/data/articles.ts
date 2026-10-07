@@ -1,10 +1,3 @@
-import ragiDualMockup from '../assets/benefits-of-ragi-malt.jpg';
-import abcDualMockup from '../assets/benefits-of-abc-malt.jpg';
-import homemadeRagiMaltCover from '../assets/homemade-ragi-malt.jpg';
-import bestRagiMaltPowderCover from '../assets/best-ragi-malt-powder.jpg';
-import homemadeAbcMaltCover from '../assets/homemade-abc-malt.jpg';
-import abcDrinkCover from '../assets/apple-beetroot-carrot-drink.jpg';
-
 export interface ArticleSection {
   id?: string;
   heading?: string;
@@ -73,7 +66,7 @@ export const ARTICLES_DATA: Article[] = [
       avatarInitials: 'P'
     },
     summary: 'Ragi malt is a nutritious traditional drink prepared from finger millet containing dietary fibre, calcium, minerals, and protein. Discover its complete health benefits, nutritional profile, simple home recipe, and expert consumption guidance.',
-    coverImage: ragiDualMockup,
+    coverImage: '/assets/benefits-of-ragi-malt.jpg',
     featured: true,
     keyTakeaways: [],
     tableOfContents: [
@@ -295,7 +288,7 @@ export const ARTICLES_DATA: Article[] = [
       avatarInitials: 'P'
     },
     summary: 'The benefits of ABC Malt come from its combination of three familiar ingredients: Apple, Beetroot, and Carrot. Discover its complete health benefits, nutritional profile, weight management role, and daily routine usage.',
-    coverImage: abcDualMockup,
+    coverImage: '/assets/benefits-of-abc-malt.jpg',
     featured: false,
     keyTakeaways: [],
     tableOfContents: [
@@ -565,7 +558,7 @@ export const ARTICLES_DATA: Article[] = [
       avatarInitials: 'P'
     },
     summary: 'Homemade ragi malt is a simple, nutritious drink prepared using ragi, also known as finger millet, along with water or milk and optional ingredients such as jaggery, cardamom, or nuts. Research has also examined its protein, fibre, mineral, and polyphenol content.',
-    coverImage: homemadeRagiMaltCover,
+    coverImage: '/assets/homemade-ragi-malt.jpg',
     featured: false,
     keyTakeaways: [],
     tableOfContents: [
@@ -887,7 +880,7 @@ export const ARTICLES_DATA: Article[] = [
       avatarInitials: 'P'
     },
     summary: 'Discover the benefits of Apple Beetroot Carrot Drink, how to prepare it, its nutritional value, fiber considerations, natural sugars, and important precautions.',
-    coverImage: abcDrinkCover,
+    coverImage: '/assets/apple-beetroot-carrot-drink.jpg',
     featured: false,
     keyTakeaways: [],
     tableOfContents: [
@@ -1221,7 +1214,7 @@ export const ARTICLES_DATA: Article[] = [
       avatarInitials: 'P'
     },
     summary: 'Learn how to make homemade ABC Malt with apple, beetroot, and carrot. Discover its ingredients, preparation, nutritional benefits, serving ideas, and precautions.',
-    coverImage: homemadeAbcMaltCover,
+    coverImage: '/assets/homemade-abc-malt.jpg',
     featured: false,
     keyTakeaways: [],
     tableOfContents: [
@@ -1581,7 +1574,7 @@ export const ARTICLES_DATA: Article[] = [
       avatarInitials: 'P'
     },
     summary: 'Looking for the best ragi malt powder? Learn about ragi malt benefits, nutrition, how to choose a quality powder, preparation methods, and why ragi malt can be part of a balanced diet',
-    coverImage: bestRagiMaltPowderCover,
+    coverImage: '/assets/best-ragi-malt-powder.jpg',
     featured: false,
     keyTakeaways: [],
     tableOfContents: [
@@ -1886,8 +1879,1263 @@ export const ARTICLES_DATA: Article[] = [
       }
     ],
     relatedProductId: 'ragi-malt'
+  },
+  {
+    id: 'how-to-prepare-abc-malt',
+    slug: 'how-to-prepare-abc-malt',
+    aliases: ['how-to-prepare-abc-malt-powder', 'prepare-abc-malt', 'abc-malt-preparation', 'how-to-make-abc-malt'],
+    title: 'How to Prepare ABC Malt: Apple, Beetroot, and Carrot Malt Recipe',
+    category: 'Recipes & Tips',
+    readTime: '6 min read',
+    publishedDate: '28 September 2026',
+    author: {
+      name: 'Poornima',
+      role: 'Founder & Artisan Maker',
+      avatarInitials: 'P'
+    },
+    summary: 'Learn how to prepare ABC Malt using apple, beetroot, and carrot. Discover the ingredients, drying process, preparation method, serving ideas, and storage tips.',
+    coverImage: '/assets/how-to-prepare-abc-malt.jpg',
+    featured: false,
+    keyTakeaways: [],
+    tableOfContents: [
+      { id: 'introduction', label: 'Introduction' },
+      { id: 'what-is-abc-malt', label: 'What Is ABC Malt?' },
+      { id: 'what-ingredients-needed', label: 'What Ingredients Are Needed to Prepare ABC Malt?' },
+      { id: 'abc-malt-powder-preparation', label: 'ABC Malt Powder Preparation at Home' },
+      { id: 'how-to-prepare-drink', label: 'How to Prepare ABC Malt Drink' },
+      { id: 'can-be-prepared-with-milk', label: 'Can ABC Malt Be Prepared With Milk?' },
+      { id: 'abc-malt-vs-abc-juice', label: "ABC Malt vs ABC Juice: What's the Difference?" },
+      { id: 'benefits-of-abc-malt', label: 'What Are the Benefits of ABC Malt?' },
+      { id: 'is-good-for-breakfast', label: 'Is ABC Malt Good for Breakfast?' },
+      { id: 'how-often-can-you-drink', label: 'How Often Can You Drink ABC Malt?' },
+      { id: 'important-tips', label: 'Important Tips for Homemade ABC Malt' },
+      { id: 'why-choose-allfresh-naturals', label: 'How AllFresh Naturals Makes ABC Malt Convenient' },
+      { id: 'conclusion', label: 'Conclusion' },
+      { id: 'faqs', label: 'Frequently Asked Questions' }
+    ],
+    sections: [
+      {
+        id: 'introduction',
+        heading: 'Introduction',
+        content: [
+          'ABC Malt is a convenient, fruit-and-vegetable-based drink mix made primarily from apple, beetroot, and carrot. If you want to learn how to prepare ABC malt at home, the process is straightforward: the raw ingredients are thoroughly cleaned, thinly sliced, completely dried, finely powdered, and combined into a smooth, dry mix that can easily be blended with warm milk or water to create a simple beverage. The acronym "ABC" stands for Apple, Beetroot, and Carrot, three powerhouse ingredients that give this homemade health drink its characteristic vibrant colour, distinct flavour, and rich nutritional profile.',
+          'Depending on the specific ABC malt recipe you follow, you can enhance the mixture by adding ingredients like almonds, cashews, cardamom, dates, or jaggery for added taste. For families looking for a convenient, nutrient-dense way to include familiar fruits and vegetables in their daily food routine, mastering how to make ABC malt serves as a highly practical and wholesome option.'
+        ]
+      },
+      {
+        id: 'what-is-abc-malt',
+        heading: 'What Is ABC Malt?',
+        content: [
+          'ABC Malt is a powdered drink mix prepared using dried apple, beetroot, and carrot. Unlike fresh ABC juice, the ingredients are processed into a dry powder. This makes the mixture convenient to store and use whenever you want to prepare a drink.',
+          'A homemade ABC Malt recipe may contain:'
+        ],
+        bulletList: [
+          'Apple',
+          'Beetroot',
+          'Carrot',
+          'Almonds',
+          'Cashews',
+          'Cardamom',
+          'Jaggery or another sweetener, if desired'
+        ],
+        footerContent: [
+          'The exact recipe can be changed according to taste and dietary preferences.',
+          'Commercial ABC malt products also use different formulations. Some include nuts, sweeteners, and spices, while others focus primarily on apple, beetroot, and carrot.'
+        ]
+      },
+      {
+        id: 'what-ingredients-needed',
+        heading: 'What Ingredients Are Needed to Prepare ABC Malt?',
+        content: [
+          'For a simple homemade ABC Malt powder, you can start with:'
+        ],
+        subsections: [
+          {
+            title: 'Main Ingredients',
+            content: [],
+            bulletList: [
+              '200 g apple',
+              '200 g beetroot',
+              '200 g carrot'
+            ]
+          },
+          {
+            title: 'Optional Ingredients',
+            content: [],
+            bulletList: [
+              '10 almonds',
+              '10 cashews',
+              '3-4 cardamom pods',
+              'Jaggery according to taste'
+            ]
+          }
+        ],
+        footerContent: [
+          'The proportions can be adjusted depending on the quantity you want to prepare. [ABC Malt Preparation](https://allfreshnaturals.com/products/abc-malt)',
+          'One traditional preparation method uses equal quantities of apple, beetroot, and carrot, along with nuts and cardamom. If you are preparing ABC Malt for longer storage, avoid adding ingredients that contain moisture to the dry powder.'
+        ]
+      },
+      {
+        id: 'abc-malt-powder-preparation',
+        heading: 'ABC Malt Powder Preparation at Home',
+        content: [
+          'The most crucial step in the preparation of ABC Malt at home is dehydration.'
+        ],
+        subsections: [
+          {
+            title: 'Step 1: Washing of the Ingredients',
+            content: [
+              'Wash the apple, beetroot, and carrot in fresh running water.',
+              'Trim away any unwanted parts.',
+              'Peel the beetroot and core the apple if needed.',
+              'The ingredients must be cleaned before dehydration.'
+            ]
+          },
+          {
+            title: 'Step 2: Slicing of the Ingredients',
+            content: [
+              'Slice the apple, beetroot, and carrot into thin pieces.',
+              'This will facilitate even drying of the ingredients.',
+              'Ensure that the slices have almost the same thickness.'
+            ]
+          },
+          {
+            title: 'Step 3: Dehydration of Apple, Beetroot and Carrot',
+            content: [
+              'Place the sliced ingredients in a clean and dry area.',
+              'You may use: Food dehydrator, Oven dehydration, or Another appropriate food dehydration process.',
+              'The purpose of dehydration is to minimize the amount of moisture as much as possible. Proper dehydration is absolutely essential since the leftover moisture might affect the quality of the resulting powder. An authentic recipe resource also advises dehydration and suggests that increased dehydration is beneficial for preservation.'
+            ]
+          },
+          {
+            title: 'Step 4: Ensure That the Ingredients Are Completely Dry',
+            content: [
+              'Before grinding, make sure that the apple, beetroot, and carrot pieces are thoroughly dry.',
+              'They should be dry, not wet or soft.',
+              'In case of significant moisture left, ensure that the ingredients dry further before proceeding to the next step. This is the most crucial step in making ABC Malt at home.'
+            ]
+          },
+          {
+            title: 'Step 5: Prepare the Nuts',
+            content: [
+              'If almonds and cashews are included in your recipe, you may opt to toast them.',
+              'Let them cool off first before grinding. This is an optional step, as per the preference of your recipe.'
+            ]
+          },
+          {
+            title: 'Step 6: Grinding the Dry Ingredients',
+            content: [
+              'The dry apple, beetroot, and carrot can be ground either separately or all together depending on the grinder you use.',
+              'Grinding will ensure they turn into a fine powder.',
+              'If the ingredients are not thoroughly dry, you end up with a sticky substance rather than a powder.'
+            ]
+          },
+          {
+            title: 'Step 7: Grinding the Nuts and Cardamom',
+            content: [
+              'The almonds, cashew nuts, and cardamom should be ground separately to a fine powder.',
+              'Ensure that the nuts are cool before grinding.'
+            ]
+          },
+          {
+            title: 'Step 8: Mixing the Powders',
+            content: [
+              'Mix together the powders from the apple, beetroot, and carrots with the nuts and cardamom powders.',
+              'The mixing should be done until all the ingredients are mixed well.',
+              'Sieving of the mixture may be done if a smooth texture is desired.'
+            ]
+          },
+          {
+            title: 'Step 9: Storing the ABC Malt Powder',
+            content: [
+              'The mixture should be stored in a clean, dry, and airtight container.',
+              'Ensure that the container is kept away from moisture, sunlight, heat, and wet spoons. Ensure that only dry and clean spoons are used for removing the powder from the container.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'how-to-prepare-drink',
+        heading: 'How to Prepare ABC Malt Drink',
+        content: [
+          'Once the powder is ready, preparing the drink is simple.'
+        ],
+        recipe: {
+          ingredients: [
+            '2 teaspoons ABC Malt powder',
+            '120–150 ml warm milk or water',
+            'Jaggery or another sweetener, optional'
+          ],
+          method: [
+            'Step 1: Add approximately 2 teaspoons of ABC Malt powder to a cup.',
+            'Step 2: Add a small amount of warm milk or water.',
+            'Step 3: Mix into a smooth paste to reduce lumps.',
+            'Step 4: Add the remaining warm milk or water.',
+            'Step 5: Stir thoroughly.',
+            'Step 6: Add sweetener only if required.',
+            'Step 7: Serve warm.'
+          ],
+          note: "The exact serving quantity can vary between products, so if you are using a packaged ABC Malt powder, follow the manufacturer's instructions. Several commercially available ABC Malt products recommend mixing approximately 1–2 tablespoons or 2–3 teaspoons with warm milk or water, depending on the formulation."
+        }
+      },
+      {
+        id: 'can-be-prepared-with-milk',
+        heading: 'Can ABC Malt Be Prepared With Milk?',
+        content: [
+          'Yes. ABC Malt can commonly be prepared with warm milk. Milk gives the drink a creamy texture and can make it more filling.',
+          'However, the choice between milk and water depends on personal preference and dietary requirements.'
+        ],
+        subsections: [
+          {
+            title: 'With Milk',
+            content: [
+              'Best if you prefer:'
+            ],
+            bulletList: [
+              'Creamier texture',
+              'Richer taste',
+              'A more filling drink'
+            ]
+          },
+          {
+            title: 'With Water',
+            content: [
+              'Useful if you prefer:'
+            ],
+            bulletList: [
+              'A lighter drink',
+              'A dairy-free preparation',
+              'A simpler preparation'
+            ]
+          }
+        ],
+        footerContent: [
+          'Some commercially available [ABC Malt products specifically provide](https://allfreshnaturals.com/products/abc-malt) directions for preparation with either warm milk or water.'
+        ]
+      },
+      {
+        id: 'abc-malt-vs-abc-juice',
+        heading: "ABC Malt vs ABC Juice: What's the Difference?",
+        content: [
+          'ABC Malt and ABC Juice use similar core ingredients, but the preparation method is different.'
+        ],
+        table: {
+          headers: ['Feature / Aspect', 'ABC Malt', 'ABC Juice'],
+          rows: [
+            ['Form', 'Prepared as a dry powder', 'Prepared as a fresh liquid'],
+            ['Processing', 'Ingredients are dried and powdered', 'Ingredients are blended or juiced'],
+            ['Storage & Shelf Life', 'Can be stored as a dry mix', 'Usually consumed fresh'],
+            ['Preparation Medium', 'Can be prepared with milk or water', 'Usually prepared with water'],
+            ['Ingredients', 'May include nuts and spices', 'Usually focuses on apple, beetroot, and carrot']
+          ]
+        },
+        footerContent: [
+          'Another important difference is fibre. If fruits and vegetables are heavily strained during juice preparation, some dietary fibre is removed. ABC Malt formulations vary depending on how the ingredients are processed.'
+        ]
+      },
+      {
+        id: 'benefits-of-abc-malt',
+        heading: 'What Are the Benefits of ABC Malt?',
+        content: [
+          'ABC Malt can be a convenient way to include apple, beetroot and carrot in your diet.'
+        ],
+        subsections: [
+          {
+            title: 'Apple',
+            content: [
+              'Apple contributes natural carbohydrates and dietary fibre, depending on how it is processed.'
+            ]
+          },
+          {
+            title: 'Beetroot',
+            content: [
+              'Beetroot provides naturally occurring compounds and nutrients, including folate and potassium.'
+            ]
+          },
+          {
+            title: 'Carrot',
+            content: [
+              'Carrots are well known for their beta-carotene content, which the body can convert to vitamin A.'
+            ]
+          },
+          {
+            title: 'Nuts',
+            content: [
+              'If almonds and cashews are included, they contribute fats, protein, and minerals.'
+            ]
+          }
+        ],
+        footerContent: [
+          'However, the nutritional value of the final [ABC Malt depends on the exact ingredients](https://allfreshnaturals.com/products/abc-malt), quantities, and processing method. ABC Malt should therefore be considered a food or drink mix rather than a treatment for a medical condition.'
+        ]
+      },
+      {
+        id: 'is-good-for-breakfast',
+        heading: 'Is ABC Malt Good for Breakfast?',
+        content: [
+          'ABC Malt can be used as part of breakfast or as a convenient beverage during the day.',
+          'For a more balanced meal, pair it with other foods. For example:'
+        ],
+        bulletList: [
+          'ABC Malt + fruit + nuts',
+          'ABC Malt + a protein-rich breakfast'
+        ],
+        footerContent: [
+          'A varied diet is generally more important than relying on one drink or ingredient for nutrition.'
+        ]
+      },
+      {
+        id: 'how-often-can-you-drink',
+        heading: 'How Often Can You Drink ABC Malt?',
+        content: [
+          'There is no single serving frequency that is appropriate for everyone. You can include ABC Malt according to your dietary preferences, portion requirements, and the ingredients in the product. If the powder contains added jaggery, sugar, or other sweeteners, remember that these contribute to the overall sugar and calorie content. People with specific dietary or medical requirements should check the ingredient and nutrition information and seek professional dietary advice where appropriate.'
+        ]
+      },
+      {
+        id: 'important-tips',
+        heading: 'Important Tips for Homemade ABC Malt',
+        content: [
+          'Follow these simple tips for better preparation:'
+        ],
+        subsections: [
+          {
+            title: 'Use Fresh Ingredients',
+            content: [
+              'Start with good-quality apples, beetroot, and carrots.'
+            ]
+          },
+          {
+            title: 'Dry Thoroughly',
+            content: [
+              'Incomplete drying can introduce moisture into the powder and reduce its storage quality.'
+            ]
+          },
+          {
+            title: 'Don\'t Grind Warm Ingredients',
+            content: [
+              'Allow roasted ingredients to cool before grinding.'
+            ]
+          },
+          {
+            title: 'Use a Dry Grinder',
+            content: [
+              'Any moisture in the grinder can affect the powder.'
+            ]
+          },
+          {
+            title: 'Store Airtight',
+            content: [
+              'Use a clean airtight container.'
+            ]
+          },
+          {
+            title: 'Use a Dry Spoon',
+            content: [
+              'Never introduce water or a wet spoon into the container.'
+            ]
+          },
+          {
+            title: 'Prepare Small Batches',
+            content: [
+              'If making [ABC Malt at home, preparing smaller quantities](https://allfreshnaturals.com/products/abc-malt) can make it easier to maintain freshness and quality.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'why-choose-allfresh-naturals',
+        heading: 'How AllFresh Naturals Makes ABC Malt Convenient',
+        content: [
+          'For modern households, preparing fruits and vegetables from scratch every time can take considerable effort. AllFresh Naturals focuses on bringing familiar ingredients into convenient food formats. ABC Malt can be positioned as an easy-to-prepare blend based on the familiar combination of apple, beetroot, and carrot.',
+          'Instead of washing, slicing, drying, and grinding ingredients every time you want a drink, a ready-to-use malt powder can simplify the preparation process. For the exact AllFresh Naturals ABC Malt formulation, consumers should refer to the product label for the current ingredient list, serving size, and storage instructions.'
+        ]
+      },
+      {
+        id: 'conclusion',
+        heading: 'Conclusion',
+        content: [
+          'Learning how to prepare ABC Malt at home is relatively simple, but the drying process is the most important part. Apple, beetroot, and carrot should be cleaned, sliced, and dried thoroughly before being ground into a fine powder. Optional ingredients such as almonds, cashews, and cardamom can then be added according to taste. For preparing the drink, simply mix the recommended amount of ABC Malt powder with warm milk or water and stir well.',
+          'For people who want the convenience of a ready-to-use mix, AllFresh Naturals ABC Malt can provide an easier way to incorporate the familiar apple, beetroot, and carrot combination into a daily food routine. Always check the product label for the exact ingredients, serving size, preparation method, and storage instructions.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What does ABC stand for in ABC Malt?',
+        answer: 'ABC stands for Apple, Beetroot, and Carrot.'
+      },
+      {
+        question: 'Can ABC Malt be made at home?',
+        answer: 'Yes. Apple, beetroot, and carrot can be cleaned, sliced, thoroughly dried, powdered, and combined with optional ingredients such as nuts and cardamom.'
+      },
+      {
+        question: 'Can I prepare ABC Malt with water?',
+        answer: 'Yes. ABC Malt can generally be prepared with warm water. Check the product\'s preparation instructions for the recommended quantity.'
+      },
+      {
+        question: 'Can I prepare ABC Malt with milk?',
+        answer: 'Yes. Warm milk is commonly used to prepare ABC Malt and gives it a creamy texture.'
+      },
+      {
+        question: 'Does ABC Malt contain sugar?',
+        answer: 'It depends on the recipe or product. Some ABC Malt products contain jaggery, brown sugar or other sweeteners, while others may not. Always check the ingredient list.'
+      },
+      {
+        question: 'How should homemade ABC Malt powder be stored?',
+        answer: 'Store it in a clean, completely dry, airtight container in a cool, dry place away from moisture and direct sunlight.'
+      },
+      {
+        question: 'Can children drink ABC Malt?',
+        answer: 'ABC Malt can be included in an age-appropriate diet, but parents should check the ingredients and serving recommendations. For infants or children with specific dietary needs, consult a qualified healthcare professional.'
+      }
+    ],
+    relatedProductId: 'abc-malt'
+  },
+  {
+    id: 'ragi-malt-vs-abc-malt',
+    slug: 'ragi-malt-vs-abc-malt',
+    aliases: ['ragi-malt-vs-abc-malt-benefits', 'difference-between-ragi-malt-and-abc-malt', 'ragi-vs-abc-malt'],
+    title: 'Ragi Malt vs ABC Malt: Which Is Better for Your Daily Diet?',
+    category: 'Natural Wellness',
+    readTime: '6 min read',
+    publishedDate: '1 October 2026',
+    author: {
+      name: 'Poornima',
+      role: 'Founder & Artisan Maker',
+      avatarInitials: 'P'
+    },
+    summary: 'Ragi Malt vs ABC Malt: Compare their ingredients, nutrition, benefits, preparation, and uses to understand which malt may suit your daily diet and lifestyle.',
+    coverImage: '/assets/ragi-malt-vs-abc-malt.jpg',
+    featured: false,
+    keyTakeaways: [],
+    tableOfContents: [
+      { id: 'introduction', label: 'Introduction' },
+      { id: 'what-is-ragi-malt', label: 'What Is Ragi Malt?' },
+      { id: 'what-is-abc-malt', label: 'What Is ABC Malt?' },
+      { id: 'main-differences', label: 'Ragi Malt vs ABC Malt: Main Difference' },
+      { id: 'nutritional-value-comparison', label: 'Which Has More Nutritional Value: Ragi Malt or ABC Malt?' },
+      { id: 'for-breakfast', label: 'Ragi Malt vs ABC Malt for Breakfast' },
+      { id: 'which-is-better-for-fibre', label: 'Which Is Better for Fibre?' },
+      { id: 'which-has-more-calcium', label: 'Which One Has More Calcium?' },
+      { id: 'daily-use-comparison', label: 'Comparing Ragi Malt and ABC Malt for Daily Use' },
+      { id: 'different-days-routine', label: 'Can I Have Ragi Malt and ABC Malt on Different Days?' },
+      { id: 'for-children', label: 'Ragi Malt vs ABC Malt: Which Is Better for Children?' },
+      { id: 'for-adults', label: 'Ragi Malt vs ABC Malt: Which Is Better for Adults?' },
+      { id: 'how-to-prepare-ragi-malt', label: 'How to Prepare Ragi Malt' },
+      { id: 'how-to-prepare-abc-malt', label: 'How to Prepare ABC Malt' },
+      { id: 'why-choose-allfresh-naturals', label: 'Why Choose AllFresh Naturals?' },
+      { id: 'which-should-you-choose', label: 'Ragi Malt vs ABC Malt: Which One Should You Choose?' },
+      { id: 'conclusion', label: 'Conclusion' },
+      { id: 'faqs', label: 'Frequently Asked Questions' }
+    ],
+    sections: [
+      {
+        id: 'introduction',
+        heading: 'Introduction',
+        content: [
+          'Ragi Malt and ABC Malt are two popular homemade-style health drinks, but they are made from different ingredients and offer different nutritional profiles. Ragi Malt is made from finger millet, while ABC Malt is generally made from apple, beetroot, and carrot. The better choice depends on your dietary needs, taste preferences, and how you want to include the drink in your daily routine. Ragi Malt has been a traditional part of Indian diets for generations, particularly because finger millet is a nutrient-rich grain.',
+          'ABC Malt, on the other hand, combines fruit and vegetables in a convenient powdered drink. With products such as AllFresh Naturals Ragi Malt and ABC Malt, consumers can choose between two different types of malt-based beverages depending on their preferences. So, Ragi Malt vs ABC Malt—which one should you choose? Let\'s compare them.'
+        ]
+      },
+      {
+        id: 'what-is-ragi-malt',
+        heading: 'What Is Ragi Malt?',
+        content: [
+          'Ragi Malt is a drink prepared using ragi, also known as finger millet (Eleusine coracana). Ragi is a traditional millet widely cultivated and consumed in India. It contains carbohydrates, protein, dietary fibre, and several minerals. FAO data lists finger millet as a source of iron and notes its content of thiamin, copper, magnesium, phosphorus, and selenium. Ragi can be processed into flour or malt powder and then prepared as a drink with water or milk.',
+          'Common Ragi Malt Ingredients:'
+        ],
+        bulletList: [
+          'Ragi or finger millet',
+          'Milk or water',
+          'Cardamom',
+          'Jaggery or another sweetener',
+          'Nuts, depending on the recipe'
+        ],
+        footerContent: [
+          'For more information about our product, visit [Ragi Malt vs ABC Malt: Which is Healthier](https://allfreshnaturals.com/products/abc-malt)'
+        ]
+      },
+      {
+        id: 'what-is-abc-malt',
+        heading: 'What Is ABC Malt?',
+        content: [
+          'ABC Malt generally refers to a malt made from Apple, beetroot, and Carrot. The three ingredients give the powder its distinctive colour and flavour. Depending on the recipe, ABC Malt may also contain ingredients such as almonds, cashews, cardamom, or a natural sweetener. ABC Malt is different from fresh ABC juice because the ingredients are processed into a dry powder that can be stored and prepared when needed.',
+          'Common ABC Malt Ingredients:'
+        ],
+        bulletList: [
+          'Apple',
+          'Beetroot',
+          'Carrot',
+          'Almonds',
+          'Cashews',
+          'Cardamom',
+          'Jaggery or another sweetener, depending on the formulation'
+        ],
+        footerContent: [
+          'Always check the product label because ingredients can differ between brands.'
+        ]
+      },
+      {
+        id: 'main-differences',
+        heading: 'Ragi Malt vs ABC Malt: Main Difference',
+        content: [
+          'Comparing the core features of Ragi Malt and ABC Malt side by side:'
+        ],
+        table: {
+          headers: ['Feature', 'Ragi Malt', 'ABC Malt'],
+          rows: [
+            ['Main ingredient', 'Ragi/finger millet', 'Apple, beetroot & carrot'],
+            ['Food category', 'Millet-based', 'Fruit & vegetable-based'],
+            ['Main use', 'Breakfast or filling drink', 'Convenient fruit & vegetable drink'],
+            ['Taste', 'Mild, earthy, and creamy', 'Naturally fruity and earthy'],
+            ['Preparation', 'Milk or water', 'Milk or water, depending on formulation'],
+            ['Fibre', 'Naturally present in ragi', 'Depends on processing'],
+            ['Mineral profile', 'Notable calcium and other minerals', 'Depends on ingredients and formulation'],
+            ['Optional ingredients', 'Jaggery, cardamom, nuts', 'Nuts, cardamom, jaggery'],
+            ['Best suited for', 'People looking for a millet-based drink', 'People looking for an apple-beetroot-carrot combination']
+          ]
+        }
+      },
+      {
+        id: 'nutritional-value-comparison',
+        heading: 'Which Has More Nutritional Value: Ragi Malt or ABC Malt?',
+        content: [
+          'There is no simple answer because the nutritional value depends on the exact formulation and serving size. However, the ingredients are nutritionally different.'
+        ],
+        subsections: [
+          {
+            title: 'Ragi',
+            content: [
+              'Finger millet is particularly notable for its calcium and dietary fibre content. FAO sources report approximately 344 - 364 mg calcium per 100 g in finger millet datasets, along with around 11.2 g dietary fibre per 100 g. It also provides carbohydrates, protein, and several micronutrients.'
+            ]
+          },
+          {
+            title: 'ABC Ingredients',
+            content: [
+              'Apple, beetroot, and carrot contribute different nutrients and naturally occurring plant compounds. Beetroot is also a dietary source of nitrate, which has been studied for potential effects on vascular function and blood pressure, although this should not be interpreted as a treatment claim.'
+            ]
+          }
+        ],
+        footerContent: [
+          'Therefore, Ragi Malt and ABC Malt should not be viewed as competitors with one universal winner. They provide different types of nutritional value.'
+        ]
+      },
+      {
+        id: 'for-breakfast',
+        heading: 'Ragi Malt vs ABC Malt for Breakfast',
+        content: [
+          'Both can be included in breakfast, but they work differently.'
+        ],
+        subsections: [
+          {
+            title: 'Ragi Malt for Breakfast',
+            content: [
+              'Ragi Malt can be a convenient choice when you want a grain-based drink. It can be prepared with warm milk or water and paired with other foods such as:'
+            ],
+            bulletList: [
+              'Fruit',
+              'Nuts',
+              'Eggs',
+              'Idli',
+              'Dosa',
+              'Other protein-rich foods'
+            ],
+            footerContent: [
+              'Because ragi contains carbohydrates and fibre, it can be part of a more filling breakfast.'
+            ]
+          },
+          {
+            title: 'ABC Malt for Breakfast',
+            content: [
+              'ABC Malt can be useful when you prefer a fruit-and-vegetable-based drink. It can be prepared with:'
+            ],
+            bulletList: [
+              'Warm milk',
+              'Warm water',
+              'Smoothies, depending on the product formulation'
+            ],
+            footerContent: [
+              'For a balanced breakfast, it can be combined with a protein source and other whole foods.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'which-is-better-for-fibre',
+        heading: 'Which Is Better for Fibre?',
+        content: [
+          'Ragi generally provides a more predictable source of dietary fibre because it is a whole grain. FAO data reports approximately 11.2 g of dietary fibre per 100 g of finger millet. For ABC Malt, fibre content depends heavily on how apple, beetroot and carrot are processed. If ingredients are dried and powdered without extensive removal of the edible portions, more of the original material may remain. However, the final fibre content should be determined from the product\'s nutrition label rather than assumed.'
+        ]
+      },
+      {
+        id: 'which-has-more-calcium',
+        heading: 'Which One Has More Calcium?',
+        content: [
+          'Clearly, Ragi Malt is better for this nutrient. Finger millet is especially known for its high amount of calcium. According to the information given by FAO, finger millet is considered one of the most calcium-rich kinds of millet. ABC Malt can also be used as a healthy product, but it can be rich in calcium only if it contains nuts or milk. In other cases, the content of this element is dependent on the ingredients of the drink.'
+        ]
+      },
+      {
+        id: 'daily-use-comparison',
+        heading: 'Comparing Ragi Malt and ABC Malt for Daily Use',
+        content: [
+          'Both drinks can be useful in creating a healthy diet, but you should keep in mind their portions and ingredients. If the malt is enriched with any elements like sugar or jaggery, its nutritional value changes.',
+          'In case you choose a packaged drink, pay attention to:'
+        ],
+        bulletList: [
+          'Ingredients',
+          'Serving size',
+          'Additional sugar or jaggery',
+          'Nutrition facts',
+          'Instructions on storage',
+          'Preparation instructions'
+        ],
+        footerContent: [
+          'A healthy malt doesn\'t mean the one that has a large number of ingredients. If your dietary needs are covered by a few ingredients of malt, then you don\'t have to use a drink with a complex composition.'
+        ]
+      },
+      {
+        id: 'different-days-routine',
+        heading: 'Can I Have Ragi Malt and ABC Malt on Different Days?',
+        content: [
+          'Yes, you do not have to consume one type of malt alone.',
+          'For instance:'
+        ],
+        bulletList: [
+          'Monday – Ragi Malt',
+          'Tuesday – ABC Malt',
+          'Wednesday – Ragi Malt',
+          'Thursday – ABC Malt'
+        ],
+        footerContent: [
+          'It is important to try different types of food in order to increase diversity in your diet.'
+        ]
+      },
+      {
+        id: 'for-children',
+        heading: 'Ragi Malt vs ABC Malt: Which Is Better for Children?',
+        content: [
+          'Both can be used in age-appropriate diets, but the suitability depends on the child\'s age, dietary needs, and the product\'s ingredients.',
+          'Parents should pay attention to:'
+        ],
+        bulletList: [
+          'Added sugar',
+          'Allergens such as nuts or milk',
+          'Serving size',
+          'Ingredient quality',
+          'The child\'s overall diet'
+        ],
+        footerContent: [
+          'For infants or children with specific nutritional or medical requirements, it is better to follow advice from a qualified healthcare professional. [Difference Between Ragi Malt and ABC Malt](https://allfreshnaturals.com/products/ragi-malt)'
+        ]
+      },
+      {
+        id: 'for-adults',
+        heading: 'Ragi Malt vs ABC Malt: Which Is Better for Adults?',
+        content: [
+          'There is no universal winner.'
+        ],
+        subsections: [
+          {
+            title: 'Choose Ragi Malt if you prefer:',
+            content: [],
+            bulletList: [
+              'A millet-based drink',
+              'A source of dietary fibre',
+              'A food naturally rich in calcium',
+              'An earthy, traditional flavour',
+              'A breakfast-friendly drink'
+            ]
+          },
+          {
+            title: 'Choose ABC Malt if you prefer:',
+            content: [],
+            bulletList: [
+              'Apple, beetroot and carrot',
+              'A fruit-and-vegetable-based drink',
+              'A naturally colourful drink',
+              'A different flavour from traditional millet drinks',
+              'Variety in your daily food routine'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'how-to-prepare-ragi-malt',
+        heading: 'How to Prepare Ragi Malt',
+        content: [
+          'Preparation of Ragi Malt is quite easy.'
+        ],
+        recipe: {
+          ingredients: [
+            'Ragi Malt powder',
+            'Warm milk/warm water',
+            'Jaggery, if required'
+          ],
+          method: [
+            '1. Take the required quantity of Ragi Malt powder in a glass.',
+            '2. Add some warm water/milk to the Ragi Malt powder.',
+            '3. Make a paste of the powder.',
+            '4. Add the rest of the liquid.',
+            '5. Stir properly.',
+            '6. Sweeten, if required.',
+            '7. Serve it warm.'
+          ],
+          note: 'If you are preparing packed Ragi Malt, then follow the label instructions provided on it.'
+        }
+      },
+      {
+        id: 'how-to-prepare-abc-malt',
+        heading: 'How to Prepare ABC Malt',
+        content: [
+          'ABC Malt is another fast-prepared malt drink.'
+        ],
+        recipe: {
+          ingredients: [
+            'ABC Malt powder',
+            'Warm milk/warm water',
+            'Sweetener, if required'
+          ],
+          method: [
+            '1. Take the required quantity of ABC Malt powder.',
+            '2. Add some warm liquid to it.',
+            '3. Make a paste.',
+            '4. Add the rest of the warm milk/water to it.',
+            '5. Stir properly.',
+            '6. Serve it warm.'
+          ],
+          note: 'Remember that some varieties of ABC Malt might require other steps for preparation.'
+        }
+      },
+      {
+        id: 'why-choose-allfresh-naturals',
+        heading: 'Why Choose AllFresh Naturals?',
+        content: [
+          'For consumers looking for convenient traditional-style food products, AllFresh Naturals can position Ragi Malt and ABC Malt as two different choices for everyday nutrition. Rather than presenting one product as universally better, the focus can be on choice and variety.'
+        ],
+        subsections: [
+          {
+            title: 'AllFresh Naturals Ragi Malt',
+            content: [
+              'A convenient option for people who enjoy the traditional nutritional profile of finger millet and want an easy way to prepare a ragi-based drink.'
+            ]
+          },
+          {
+            title: 'AllFresh Naturals ABC Malt',
+            content: [
+              'A convenient option for people who enjoy the combination of apple, beetroot, and carrot in a ready-to-prepare malt format.'
+            ]
+          }
+        ],
+        footerContent: [
+          'The right choice ultimately depends on personal taste, dietary preferences, and the nutritional information of the specific product.'
+        ]
+      },
+      {
+        id: 'which-should-you-choose',
+        heading: 'Ragi Malt vs ABC Malt: Which One Should You Choose?',
+        content: [
+          'The answer depends on what you are looking for.',
+          'Choose Ragi Malt when your priority is a millet-based drink with naturally high calcium and dietary fibre.',
+          'Choose ABC Malt when you prefer a fruit-and-vegetable combination featuring apple, beetroot and carrot.',
+          'And if you enjoy both, there is no need to choose only one. Including different [foods and beverages as part of a varied diet](https://allfreshnaturals.com/products/ragi-malt) can provide more variety in your routine.'
+        ]
+      },
+      {
+        id: 'conclusion',
+        heading: 'Conclusion',
+        content: [
+          'Ragi Malt vs ABC Malt is not really about finding one universal winner. It is about choosing the drink that best matches your dietary preferences and lifestyle. Ragi Malt is made from finger millet and stands out for its dietary fibre and naturally high calcium content. ABC Malt combines apple, beetroot, and carrot and offers a different fruit-and-vegetable-based option.',
+          'Both can be convenient additions to a varied diet when prepared with appropriate portions and ingredients. With AllFresh Naturals, consumers can explore both options and choose according to their taste, routine, and nutritional preferences. Ragi Malt for traditional millet nutrition. ABC Malt for apple, beetroot, and carrot variety. Choose what fits your everyday routine.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'Is Ragi Malt healthier than ABC Malt?',
+        answer: 'Neither is automatically healthier. Ragi Malt and ABC Malt contain different ingredients and offer different nutritional profiles.'
+      },
+      {
+        question: 'Which has more calcium, Ragi Malt or ABC Malt?',
+        answer: 'Ragi is naturally rich in calcium, making Ragi Malt the more obvious choice when calcium from the main ingredient is a priority.'
+      },
+      {
+        question: 'Which has more fibre?',
+        answer: 'Ragi naturally contains substantial dietary fibre. ABC Malt\'s fibre content depends on its formulation and processing.'
+      },
+      {
+        question: 'Can I drink Ragi Malt every day?',
+        answer: 'Ragi Malt can be included regularly as part of a varied and balanced diet, depending on the ingredients and serving size.'
+      },
+      {
+        question: 'Can I drink ABC Malt every day?',
+        answer: 'It may be included as part of a varied diet. Check the product\'s serving size and added-sugar content.'
+      },
+      {
+        question: 'Which is better for breakfast?',
+        answer: 'Both can work as part of breakfast. Ragi Malt is a millet-based option, while ABC Malt provides an apple, beetroot, and carrot combination.'
+      },
+      {
+        question: 'Which AllFresh Naturals malt should I choose?',
+        answer: 'Choose Ragi Malt if you prefer a traditional millet-based drink. Choose ABC Malt if you prefer an apple, beetroot, and carrot-based drink. You can also include both for variety.'
+      }
+    ],
+    relatedProductId: 'abc-malt'
+  },
+  {
+    id: 'apple-beetroot-carrot-malt',
+    slug: 'apple-beetroot-carrot-malt',
+    aliases: ['apple-beetroot-carrot-malt-benefits', 'abc-malt-nutrition-guide', 'apple-beetroot-carrot-malt-recipe'],
+    title: 'Apple Beetroot Carrot Malt: Benefits, Nutrition, Recipe, and How to Prepare',
+    category: 'Natural Wellness',
+    readTime: '7 min read',
+    publishedDate: '7 October 2026',
+    author: {
+      name: 'Poornima',
+      role: 'Founder & Artisan Maker',
+      avatarInitials: 'P'
+    },
+    summary: 'Discover apple beetroot carrot malt, its nutritional value, ingredients, preparation, and potential health benefits as part of a balanced and healthy diet.',
+    coverImage: '/assets/apple-beetroot-carrot-malt.jpg',
+    featured: false,
+    keyTakeaways: [],
+    tableOfContents: [
+      { id: 'introduction', label: 'Introduction' },
+      { id: 'what-is-apple-beetroot-carrot-malt', label: 'What Is Apple Beetroot Carrot Malt?' },
+      { id: 'why-is-it-called-abc-malt', label: 'Why Is It Called ABC Malt?' },
+      { id: 'what-are-the-ingredients', label: 'What Are the Ingredients?' },
+      { id: 'nutritional-benefits', label: 'What Are the Nutritional Benefits of Apple Beetroot Carrot Malt?' },
+      { id: 'how-to-make-abc-malt', label: 'How to Make ABC Malt' },
+      { id: 'how-to-prepare-abc-malt-drink', label: 'How to Prepare ABC Malt Drink' },
+      { id: 'abc-malt-vs-abc-juice', label: 'Apple Beetroot Carrot Malt vs ABC Juice' },
+      { id: 'is-good-for-breakfast', label: 'Is Apple Beetroot Carrot Malt Good for Breakfast?' },
+      { id: 'can-you-drink-every-day', label: 'Can You Drink ABC Malt Every Day?' },
+      { id: 'important-tips', label: 'Important Tips When Preparing ABC Malt' },
+      { id: 'why-choose-allfresh', label: 'Why Choose AllFresh Naturals Apple Beetroot Carrot Malt?' },
+      { id: 'who-can-include', label: 'Who Can Include ABC Malt in Their Diet?' },
+      { id: 'conclusion', label: 'Conclusion' },
+      { id: 'faqs', label: 'Frequently Asked Questions' }
+    ],
+    sections: [
+      {
+        id: 'introduction',
+        heading: 'Introduction',
+        content: [
+          'Apple Beetroot Carrot Malt, commonly called ABC Malt, is a convenient powdered drink made primarily from apple, beetroot, and carrot. These ingredients can be dried and powdered, then combined with optional ingredients such as almonds, cashews, and cardamom. The powder can be mixed with warm milk or water to create a simple everyday drink. Apple, beetroot, and carrot each bring a different flavour, colour, and nutritional profile to the blend.',
+          'Together, they create a naturally colourful and versatile malt that can be enjoyed as part of breakfast or a snack. For people who want convenient ways to include familiar plant-based ingredients in their daily routine, AllFresh Naturals Apple Beetroot Carrot Malt can be an appealing option.'
+        ]
+      },
+      {
+        id: 'what-is-apple-beetroot-carrot-malt',
+        heading: 'What Is Apple Beetroot Carrot Malt?',
+        content: [
+          'Apple Beetroot Carrot Malt is a dry powdered preparation made using three main ingredients:'
+        ],
+        bulletList: [
+          'A – Apple',
+          'B – Beetroot',
+          'C – Carrot'
+        ],
+        footerContent: [
+          'The ingredients can be dried and powdered before being combined. Depending on the recipe, nuts, cardamom, and natural sweeteners such as dates or jaggery may also be included. Unlike fresh ABC juice, ABC Malt is prepared as a dry mix. This makes it convenient to store and prepare whenever required. The exact ingredients and nutritional values can vary depending on the recipe and formulation.'
+        ]
+      },
+      {
+        id: 'why-is-it-called-abc-malt',
+        heading: 'Why Is It Called ABC Malt?',
+        content: [
+          'The name ABC Malt comes from the first letters of its three primary ingredients:'
+        ],
+        bulletList: [
+          'A = Apple',
+          'B = Beetroot',
+          'C = Carrot'
+        ],
+        footerContent: [
+          'This simple combination has become popular in homemade drink recipes because the ingredients provide different tastes and naturally occurring nutrients.',
+          'ABC Malt can also be customized by adding ingredients such as:'
+        ],
+        subsections: [
+          {
+            title: 'Optional Add-Ins',
+            content: [],
+            bulletList: [
+              'Almonds',
+              'Cashews',
+              'Cardamom',
+              'Dates',
+              'Jaggery',
+              'Other nuts or seeds'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'what-are-the-ingredients',
+        heading: 'What Are the Ingredients?',
+        content: [],
+        subsections: [
+          {
+            title: 'Apple',
+            content: [
+              'Apples bring natural sweetness and add dietary fiber and plant compounds. Once the apple is dried and powdered, its final nutritional value is determined by the process used.',
+              'Also, apples help create an appetizing fruity taste of the ABC Malt.'
+            ]
+          },
+          {
+            title: 'Beetroot',
+            content: [
+              'Beetroots make the malt look colored and give it an earthy taste.',
+              'They contain naturally occurring compounds, among which are dietary nitrates. The studies conducted to evaluate the effect of beetroot or beetroot juice on vascular functions cannot be applied automatically to all ABC Malt products.'
+            ]
+          },
+          {
+            title: 'Carrot',
+            content: [
+              'Carrots are especially valued because of their high beta-carotene content.',
+              'Beta-carotene is a provitamin A carotenoid that can be turned into vitamin A. Vitamin A takes part in maintaining normal vision and normal immune function.'
+            ]
+          },
+          {
+            title: 'Almonds and Cashews',
+            content: [
+              'The recipes of some ABC Malt varieties include almonds and cashews.',
+              'Nuts can provide additional protein, fat, and minerals as well as help to increase satiety of the drink.'
+            ]
+          },
+          {
+            title: 'Cardamom',
+            content: [
+              'Cardamom brings pleasant flavor and aroma to the malt.'
+            ]
+          },
+          {
+            title: 'Natural Sweeteners',
+            content: [
+              'Depending on the recipe, dates, jaggery, or country sugar may be used.',
+              'However, natural sweeteners still contribute sugars, so they should be used in appropriate quantities.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'nutritional-benefits',
+        heading: 'What Are the Nutritional Benefits of Apple Beetroot Carrot Malt?',
+        content: [
+          'The nutritional benefits of ABC Malt depend on the ingredients used, their quantities, and processing methods. But the combination can be advantageous nutritionally in several ways.'
+        ],
+        subsections: [
+          {
+            title: 'Combination of Three Vegetables',
+            content: [
+              'Apple, beetroot, and carrot each have various nutritional elements and natural vegetable components.',
+              'By combining them, you end up with a wide variety of ingredients in one product.'
+            ]
+          },
+          {
+            title: 'Source of Beta-Carotene',
+            content: [
+              'Carrots are known to have beta-carotene.',
+              'Beta-carotene is a compound that is converted by the body into vitamin A, which is essential for good vision and the immune system.'
+            ]
+          },
+          {
+            title: 'Source of Dietary Fiber',
+            content: [
+              'If the beverage contains the edible parts of the fruit and vegetable ingredients, then the final powder will be rich in dietary fiber.',
+              'But the amount of the fiber present will be dependent on the process used.'
+            ]
+          },
+          {
+            title: 'Source of Natural Carbohydrate',
+            content: [
+              'Apple and carrot are sources of natural carbohydrate.',
+              'By adding nuts, you get a wider variety of nutrients in your beverages.'
+            ]
+          },
+          {
+            title: 'It Can Serve as a Quick Breakfast Drink',
+            content: [
+              'ABC Malt can be easily made with the help of warm milk or water.',
+              'It is convenient to use it in the mornings when people do not have much time.'
+            ]
+          },
+          {
+            title: 'It Can Contain Some Nuts',
+            content: [
+              'If there are almonds and cashews among the ingredients of ABC Malt, there will be additional nutrients, and the drink will taste better.'
+            ]
+          },
+          {
+            title: 'It Is Naturally Coloured',
+            content: [
+              'Beetroot gives the drink its natural colour without the need for artificial dyes in the recipe, which uses the entire ingredient.'
+            ]
+          },
+          {
+            title: 'It Is Flexible to Use',
+            content: [
+              'One of the advantages of making ABC Malt at home is that it is flexible.',
+              'It is possible to make it:'
+            ],
+            bulletList: [
+              'Sweeter',
+              'Contain more or less nuts',
+              'With cardamom',
+              'Contain more or less milk or water'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'how-to-make-abc-malt',
+        heading: 'How to Make ABC Malt',
+        content: [
+          'The production of ABC Malt consists of two steps: making the dry powder and preparation of the drink.'
+        ],
+        subsections: [
+          {
+            title: 'Step 1: Wash the Ingredients',
+            content: [
+              'Wash fresh apples, beetroot, and carrots.',
+              'Cut out the parts that are not needed and cut them into small pieces.'
+            ]
+          },
+          {
+            title: 'Step 2: Dry the Ingredients',
+            content: [
+              'Drying the apple, beetroot, and carrot pieces has to be done using a proper drying technique.',
+              'It is especially necessary when preparing the powder at home because moisture can spoil storage.'
+            ]
+          },
+          {
+            title: 'Step 3: Preparation of Nuts',
+            content: [
+              'If almonds and cashews are included, they have to be roasted if you like their roasted taste.',
+              'They have to cool down completely.'
+            ]
+          },
+          {
+            title: 'Step 4: Make the Powder of the Ingredients',
+            content: [
+              'Grind the fully dried apple, beetroot, and carrot separately into powder.',
+              'Separately grind the cooled nuts.'
+            ]
+          },
+          {
+            title: 'Step 5: Adding Cardamom',
+            content: [
+              'Add cardamom powder in small amounts to taste.'
+            ]
+          },
+          {
+            title: 'Step 6: Mixing All Ingredients',
+            content: [
+              'Mix together the powders of the apple, beetroot and carrot and nut and cardamom powders.'
+            ]
+          },
+          {
+            title: 'Step 7: Storing Properly',
+            content: [
+              'Transfer the ready powder into a clean, dry, airtight container.',
+              'Keep it in a cool, dry location, away from moisture.'
+            ]
+          }
+        ],
+        footerContent: [
+          'AllFresh Naturals\' published [homemade ABC Malt](https://allfreshnaturals.com/products/abc-malt) recipe follows this general approach of drying the ingredients, powdering them, and combining optional nuts and cardamom.'
+        ]
+      },
+      {
+        id: 'how-to-prepare-abc-malt-drink',
+        heading: 'How to Prepare ABC Malt Drink',
+        content: [
+          'Once the powder is ready, preparing the drink is simple.'
+        ],
+        recipe: {
+          ingredients: [
+            '1–2 teaspoons ABC Malt',
+            '1 glass of warm milk or water'
+          ],
+          method: [
+            'Heat the milk or water.',
+            'Allow it to warm up instead of letting it boil.',
+            'Add the ABC Malt powder.',
+            'Stir thoroughly to remove lumps.',
+            'Adjust the quantity according to your preferred consistency.',
+            'Serve warm.'
+          ],
+          note: 'If your ABC Malt already contains dates, jaggery, or another sweetener, additional sugar may not be necessary. For packaged products, always follow the serving instructions provided on the product label.'
+        }
+      },
+      {
+        id: 'abc-malt-vs-abc-juice',
+        heading: 'Apple Beetroot Carrot Malt vs ABC Juice',
+        content: [
+          'Although both use similar ingredients, ABC Malt and ABC Juice are not the same.'
+        ],
+        table: {
+          headers: ['Feature', 'ABC Malt', 'ABC Juice'],
+          rows: [
+            ['Form', 'Powdered mix', 'Fresh liquid'],
+            ['Preparation', 'Dried ingredients are powdered', 'Fresh ingredients are blended or juiced'],
+            ['Storage', 'Dry mix can be stored appropriately', 'Usually prepared fresh'],
+            ['Serving', 'Often mixed with milk or water', 'Usually consumed as a liquid'],
+            ['Optional ingredients', 'Nuts, cardamom, dates, etc', 'Usually apple, beetroot and carrot'],
+            ['Fibre', 'Depends on processing', 'Can decrease significantly if strained']
+          ],
+          caption: 'The main advantage of malt is convenience. You can prepare a drink whenever required without having to process fresh ingredients every time.'
+        }
+      },
+      {
+        id: 'is-good-for-breakfast',
+        heading: 'Is Apple Beetroot Carrot Malt Good for Breakfast?',
+        content: [
+          'Yes, ABC Malt can be included as part of breakfast.',
+          'However, a balanced breakfast should ideally include a variety of food groups rather than relying entirely on one drink.',
+          'You could pair ABC Malt with:'
+        ],
+        bulletList: [
+          'Fresh fruit',
+          'Nuts',
+          'Eggs',
+          'Idli or dosa',
+          'Other protein-rich foods',
+          'A balanced homemade breakfast'
+        ],
+        footerContent: [
+          'The ideal combination depends on your dietary preferences and nutritional requirements. [ABC Malt Powder](https://allfreshnaturals.com/products/abc-malt)'
+        ]
+      },
+      {
+        id: 'can-you-drink-every-day',
+        heading: 'Can You Drink ABC Malt Every Day?',
+        content: [
+          'ABC Malt can be included regularly as part of a varied diet, but portion size matters.',
+          'If the recipe contains dates, jaggery, country sugar, or another sweetener, these ingredients contribute to total sugar intake.',
+          'It is also important to maintain variety in your overall diet instead of relying on one drink as the primary source of nutrition.'
+        ]
+      },
+      {
+        id: 'important-tips',
+        heading: 'Important Tips When Preparing ABC Malt',
+        content: [],
+        subsections: [
+          {
+            title: 'Keep the Ingredients Completely Dry',
+            content: [
+              'Moisture is one of the biggest concerns when making homemade powdered foods.',
+              'Make sure the ingredients are thoroughly dried before grinding.'
+            ]
+          },
+          {
+            title: 'Store in an Airtight Container',
+            content: [
+              'Use a clean, dry, airtight container and keep it away from moisture.'
+            ]
+          },
+          {
+            title: 'Use a Dry Spoon',
+            content: [
+              'Always use a clean, dry spoon when taking powder from the container.'
+            ]
+          },
+          {
+            title: 'Don\'t Overdo Sweeteners',
+            content: [
+              'Apple and carrot already provide natural sweetness. If using dates or jaggery, use an appropriate amount.'
+            ]
+          },
+          {
+            title: 'Check for Nut Allergies',
+            content: [
+              'If your formulation contains almonds or cashews, people with nut allergies should avoid those ingredients or choose a suitable alternative.'
+            ]
+          }
+        ]
+      },
+      {
+        id: 'why-choose-allfresh',
+        heading: 'Why Choose AllFresh Naturals Apple Beetroot Carrot Malt?',
+        content: [
+          'For today\'s busy lifestyle, preparing fresh ingredients every morning can take time.',
+          'AllFresh Naturals focuses on convenient, homemade-style food products using familiar ingredients.',
+          'Apple Beetroot Carrot Malt brings together the familiar combination of apple, beetroot, and carrot in a convenient malt format.',
+          'It can be positioned as an easy-to-prepare option for:'
+        ],
+        bulletList: [
+          'Breakfast',
+          'Evening snacks',
+          'Family routines',
+          'Quick warm drinks',
+          'People looking for variety in their daily diet'
+        ],
+        footerContent: [
+          'The focus is on convenience, familiar ingredients, and everyday use, rather than making exaggerated health claims.',
+          'For the most accurate information about the current AllFresh Naturals product, consumers should check the product label for ingredients, serving size, nutrition information, and storage instructions.'
+        ]
+      },
+      {
+        id: 'who-can-include',
+        heading: 'Who Can Include ABC Malt in Their Diet?',
+        content: [
+          'ABC Malt can be considered by people who enjoy fruit-and-vegetable-based drinks and want a convenient preparation.',
+          'It may be suitable for:'
+        ],
+        bulletList: [
+          'Adults',
+          'Families',
+          'Busy professionals',
+          'People looking for breakfast drink options',
+          'People who enjoy apple, beetroot, and carrot',
+          'Those looking for alternatives to fresh juice'
+        ],
+        footerContent: [
+          'However, individual dietary requirements differ. Anyone with food allergies, specific medical conditions, or dietary restrictions should check the [ingredients and seek professional advice](https://allfreshnaturals.com/products/abc-malt) where necessary.'
+        ]
+      },
+      {
+        id: 'conclusion',
+        heading: 'Conclusion',
+        content: [
+          'Apple Beetroot Carrot Malt is a convenient way to combine three familiar ingredients—apple, beetroot and carrot—into an easy-to-prepare drink. The combination provides different flavours, colours and nutritional components, while optional ingredients such as almonds, cashews and cardamom can add variety to the recipe. The key to making homemade ABC Malt successfully is proper drying, careful preparation and correct storage.',
+          'Once the powder is ready, it can be mixed with warm milk or water to create a simple drink for breakfast or a snack. For consumers looking for convenience without moving away from familiar ingredients, AllFresh Naturals Apple Beetroot Carrot Malt can be a practical addition to an everyday food routine. Rather than treating ABC Malt as a miracle drink, it is best enjoyed as one part of a varied and balanced diet.'
+        ]
+      }
+    ],
+    faqs: [
+      {
+        question: 'What is Apple Beetroot Carrot Malt?',
+        answer: 'Apple Beetroot Carrot Malt, commonly called ABC Malt, is a powdered drink preparation which is mainly made up of apple, beetroot and carrot.'
+      },
+      {
+        question: 'What does ABC Malt mean?',
+        answer: 'ABC in malt means Apple, Beetroot and Carrot.'
+      },
+      {
+        question: 'How do you prepare Apple Beetroot Carrot Malt?',
+        answer: 'You will have to mix the recommended amount of apple beetroot carrot malt powder with warm milk or warm water and stir until well blended.'
+      },
+      {
+        question: 'Can Apple Beetroot Carrot Malt be made at home?',
+        answer: 'Yes. Apple, beetroot, and carrot can be cleaned, cut into slices, dried properly, powdered, and even mixed with additional ingredients such as almonds, cashews, and cardamom.'
+      },
+      {
+        question: 'Can Apple Beetroot Carrot Malt be made using milk?',
+        answer: 'Yes. Most preparations of apple beetroot carrot malt can be prepared using warm milk. Just follow the directions given for each specific preparation.'
+      },
+      {
+        question: 'Can Apple Beetroot Carrot Malt be made using water?',
+        answer: 'Yes. Warm water can be used instead if one wants to.'
+      },
+      {
+        question: 'Does Apple Beetroot Carrot Malt have sugar in it?',
+        answer: 'This will depend on the recipe that one uses. While some will have dates, jaggery, and other forms of sugar in them, others may not.'
+      }
+    ],
+    relatedProductId: 'abc-malt'
   }
 ];
+
 
 
 

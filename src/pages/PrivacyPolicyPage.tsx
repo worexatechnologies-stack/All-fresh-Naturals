@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
         <meta
           id="ogImage"
           property="og:image"
-          content="https://allfreshnaturals.com/assets/logo-CNxtV1g6.jpg"
+          content="https://allfreshnaturals.com/assets/logo.jpg"
         />
 
         <meta
@@ -368,12 +368,12 @@ export default function PrivacyPolicyPage() {
               <p style={{ color: 'var(--text-dark)', fontSize: '0.94rem', marginBottom: '16px', lineHeight: '1.6' }}>
                 In case you have any queries or concerns related to this Privacy Policy and our processing of personal information, please contact us at:
               </p>
-              
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '0.94rem', color: 'var(--text-dark)' }}>
                 <div style={{ fontWeight: 800, fontSize: '1.1rem', color: 'var(--primary-color)', letterSpacing: '0.3px' }}>
                   All Fresh Naturals
                 </div>
-                
+
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <Globe size={18} style={{ color: 'var(--gold-accent)', flexShrink: 0 }} />
                   <span>Website: <a href="https://www.allfreshnaturals.com" target="_blank" rel="noreferrer" style={{ color: 'var(--primary-color)', fontWeight: 600 }}>www.allfreshnaturals.com</a></span>

@@ -93,7 +93,7 @@ export default function AboutPage() {
         <meta
           id="ogImage"
           property="og:image"
-          content="https://allfreshnaturals.com/assets/logo-CNxtV1g6.jpg"
+          content="https://allfreshnaturals.com/assets/logo.jpg"
         />
 
         <meta
@@ -436,9 +436,9 @@ export default function AboutPage() {
                     <span className="afn-rating-status-text">
                       {
                         (hoverRating !== null ? hoverRating : Number(formData.rating || 5)) === 5 ? '5 - Excellent' :
-                        (hoverRating !== null ? hoverRating : Number(formData.rating || 5)) === 4 ? '4 - Good' :
-                        (hoverRating !== null ? hoverRating : Number(formData.rating || 5)) === 3 ? '3 - Average' :
-                        (hoverRating !== null ? hoverRating : Number(formData.rating || 5)) === 2 ? '2 - Fair' : '1 - Poor'
+                          (hoverRating !== null ? hoverRating : Number(formData.rating || 5)) === 4 ? '4 - Good' :
+                            (hoverRating !== null ? hoverRating : Number(formData.rating || 5)) === 3 ? '3 - Average' :
+                              (hoverRating !== null ? hoverRating : Number(formData.rating || 5)) === 2 ? '2 - Fair' : '1 - Poor'
                       }
                     </span>
                   </div>

@@ -65,10 +65,12 @@ export default function SmoothScroll() {
         targetScale = 1.0 + progress * 0.09;
       }
 
-      // Set CSS custom properties on root
-      document.documentElement.style.setProperty('--scroll-progress', progress.toFixed(4));
-      document.documentElement.style.setProperty('--scroll-velocity', velocity.toFixed(2));
-      document.documentElement.style.setProperty('--scroll-dir', direction.toString());
+      // Set CSS custom properties on root (throttled to avoid layout thrashing)
+      const formattedProgress = progress.toFixed(3);
+      if (document.documentElement.dataset.scrollProgress !== formattedProgress) {
+        document.documentElement.dataset.scrollProgress = formattedProgress;
+        document.documentElement.style.setProperty('--scroll-progress', formattedProgress);
+      }
     };
 
     lenis.on('scroll', handleScroll);

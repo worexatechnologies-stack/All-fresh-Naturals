@@ -1,38 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
+        <loc>https://allfreshnaturals.com/articles</loc>
+        <lastmod>2026-10-07</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
         <loc>https://allfreshnaturals.com/articles/benefits-of-ragi-malt</loc>
-        <lastmod>2026-09-25</lastmod>
+        <lastmod>2026-10-07</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://allfreshnaturals.com/articles/benefits-of-abc-malt</loc>
-        <lastmod>2026-09-25</lastmod>
+        <lastmod>2026-10-07</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://allfreshnaturals.com/articles/homemade-ragi-malt</loc>
-        <lastmod>2026-09-25</lastmod>
+        <lastmod>2026-10-07</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://allfreshnaturals.com/articles/apple-beetroot-carrot-drink</loc>
-        <lastmod>2026-09-25</lastmod>
+        <lastmod>2026-10-07</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://allfreshnaturals.com/articles/homemade-abc-malt</loc>
-        <lastmod>2026-09-25</lastmod>
+        <lastmod>2026-10-07</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://allfreshnaturals.com/articles/best-ragi-malt-powder</loc>
-        <lastmod>2026-09-25</lastmod>
+        <lastmod>2026-10-07</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://allfreshnaturals.com/articles/how-to-prepare-abc-malt</loc>
+        <lastmod>2026-10-07</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://allfreshnaturals.com/articles/ragi-malt-vs-abc-malt</loc>
+        <lastmod>2026-10-07</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://allfreshnaturals.com/articles/apple-beetroot-carrot-malt</loc>
+        <lastmod>2026-10-07</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
