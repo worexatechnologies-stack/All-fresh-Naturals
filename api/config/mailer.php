@@ -30,8 +30,8 @@ class Mailer {
         $smtpHost = getenv('SMTP_HOST') ?: 'smtp.gmail.com';
         $smtpPort = (int)(getenv('SMTP_PORT') ?: 587);
         $smtpUser = getenv('SMTP_USER') ?: 'poori.monika@gmail.com';
-        $smtpPass = getenv('SMTP_PASS') ?: 'ltrx rmlc miek jrxm';
-        $smtpPass = str_replace(' ', '', $smtpPass); // remove any spaces in app password
+        $smtpPass = getenv('SMTP_PASS') ?: '';
+        $smtpPass = str_replace([' ', '"', "'"], '', $smtpPass); // remove any spaces or quotes in app password
 
         $fromEmail = $smtpUser;
         $fromName = 'All Fresh Naturals';

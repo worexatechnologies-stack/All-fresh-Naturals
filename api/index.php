@@ -15,8 +15,16 @@ header("X-Frame-Options: SAMEORIGIN");
 header("X-XSS-Protection: 1; mode=block");
 header("Referrer-Policy: strict-origin-when-cross-origin");
 
-// 1. CORS Headers
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
+// 1. Request Size Limiting (Prevents Memory Exhaustion DoS)
+$contentLength = (int)($_SERVER['CONTENT_LENGTH'] ?? 0);
+if ($contentLength > 5 * 1024 * 1024) {
+    http_response_code(413);
+    echo json_encode(['success' => false, 'message' => 'Payload Too Large (Maximum 5MB)']);
+    exit;
+}
+
+// 2. Strict CORS & Cross-Origin Request Validation
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 $allowedOrigins = [
     'https://allfreshnaturals.com',
     'https://www.allfreshnaturals.com',
@@ -26,10 +34,32 @@ $allowedOrigins = [
     'http://localhost:3000'
 ];
 
-if (in_array($origin, $allowedOrigins) || strpos($origin, 'localhost') !== false || strpos($origin, '127.0.0.1') !== false) {
-    header("Access-Control-Allow-Origin: $origin");
+$isAllowed = false;
+if (empty($origin)) {
+    $isAllowed = true;
 } else {
+    foreach ($allowedOrigins as $ao) {
+        if ($origin === $ao) {
+            $isAllowed = true;
+            break;
+        }
+    }
+    if (!$isAllowed && (strpos($origin, 'localhost') !== false || strpos($origin, '127.0.0.1') !== false)) {
+        $isAllowed = true;
+    }
+}
+
+if ($isAllowed && !empty($origin)) {
+    header("Access-Control-Allow-Origin: $origin");
+} elseif (empty($origin)) {
     header("Access-Control-Allow-Origin: https://allfreshnaturals.com");
+} else {
+    // Block Cross-Site Request Forgery (CSRF) from unauthorized external websites
+    if (in_array($_SERVER['REQUEST_METHOD'], ['POST', 'PUT', 'DELETE'])) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'message' => 'Forbidden: Cross-Origin Request Blocked']);
+        exit;
+    }
 }
 
 header("Access-Control-Allow-Credentials: true");

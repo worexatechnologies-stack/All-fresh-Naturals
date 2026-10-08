@@ -4,10 +4,31 @@
  */
 
 class JWT {
-    private static string $defaultSecret = 'afn_super_secret_jwt_key_2026_fresh_naturals_prod';
-
     private static function getSecret(): string {
-        return getenv('JWT_SECRET') ?: self::$defaultSecret;
+        $envSecret = getenv('JWT_SECRET');
+        if (!empty($envSecret) && strlen($envSecret) >= 32 && $envSecret !== 'afn_super_secret_jwt_key_2026_fresh_naturals_prod') {
+            return $envSecret;
+        }
+
+        // Dynamically persist a cryptographically secure random secret if none is configured
+        $secretFile = __DIR__ . '/../data/.jwt_secret';
+        if (file_exists($secretFile)) {
+            $secret = trim((string)file_get_contents($secretFile));
+            if (strlen($secret) >= 32) return $secret;
+        }
+
+        try {
+            $randomKey = bin2hex(random_bytes(32));
+            @file_put_contents($secretFile, $randomKey);
+            return $randomKey;
+        } catch (Exception $e) {
+            return hash('sha256', __DIR__ . 'fresh_naturals_unique_prod_salt_2026');
+        }
+    }
+
+    private static function getClientFingerprint(): string {
+        $ua = $_SERVER['HTTP_USER_AGENT'] ?? 'default_ua';
+        return substr(hash('sha256', $ua), 0, 16);
     }
 
     public static function generateToken(string $id, string $identifier, string $role = 'customer', int $expiryMinutes = 60): string {
@@ -16,6 +37,7 @@ class JWT {
             'id' => $id,
             'email' => $identifier,
             'role' => $role,
+            'fp' => self::getClientFingerprint(),
             'iat' => time(),
             'exp' => time() + ($expiryMinutes * 60)
         ]);
@@ -47,6 +69,13 @@ class JWT {
         $payload = json_decode(self::base64UrlDecode($base64UrlPayload), true);
         if (!$payload || !isset($payload['exp']) || $payload['exp'] < time()) {
             return null;
+        }
+
+        // Verify device/browser fingerprint if present
+        if (isset($payload['fp']) && !empty($_SERVER['HTTP_USER_AGENT'])) {
+            if (!hash_equals((string)$payload['fp'], self::getClientFingerprint())) {
+                return null;
+            }
         }
 
         return $payload;

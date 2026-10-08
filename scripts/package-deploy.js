@@ -18,6 +18,7 @@ const criticalFiles = [
   '.htaccess',
   'api/index.php',
   'api/config/db.php',
+  'api/config/rate_limiter.php',
   'assets'
 ];
 
@@ -28,7 +29,7 @@ for (const file of criticalFiles) {
     process.exit(1);
   }
 }
-console.log('✅ All critical files present (.htaccess, index.html, api/index.php)');
+console.log('✅ All critical files present (.htaccess, index.html, api/index.php, rate_limiter.php)');
 
 console.log('\n🤐 3. Creating Hostinger 1-click deployment ZIP: hostinger_deploy.zip...');
 if (fs.existsSync(zipPath)) {
@@ -37,11 +38,14 @@ if (fs.existsSync(zipPath)) {
   } catch {}
 }
 
-// Brief pause to allow Windows file locks / antivirus scanning to release
-execSync('powershell -NoProfile -Command "Start-Sleep -Milliseconds 800"');
-
-const psScript = `Get-ChildItem -Path '${distPath}' -Force | Compress-Archive -DestinationPath '${zipPath}' -Force`;
-execSync(`powershell -NoProfile -Command "${psScript}"`, { cwd: rootDir, stdio: 'inherit' });
+// Use built-in Windows tar (non-blocking, fast, handles shared read locks cleanly)
+try {
+  execSync(`tar -a -c -f "${zipPath}" -C "${distPath}" .`, { cwd: rootDir, stdio: 'inherit' });
+} catch {
+  // Fallback to PowerShell if tar is unavailable
+  const psScript = `Get-ChildItem -Path '${distPath}' -Force | Compress-Archive -DestinationPath '${zipPath}' -Force`;
+  execSync(`powershell -NoProfile -Command "${psScript}"`, { cwd: rootDir, stdio: 'inherit' });
+}
 
 if (!fs.existsSync(zipPath)) {
   console.error('❌ Failed to create zip archive.');

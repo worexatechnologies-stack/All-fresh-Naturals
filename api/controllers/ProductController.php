@@ -61,7 +61,13 @@ class ProductController {
                 return;
             }
 
-            header("Location: " . $img);
+            // Open Redirect Protection: Only allow same-origin relative paths or HTTPS domain
+            if (strpos($img, '/') === 0 || strpos($img, 'https://allfreshnaturals.com') === 0) {
+                header("Location: " . $img);
+            } else {
+                if (!headers_sent()) http_response_code(400);
+                echo 'Invalid image location.';
+            }
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
             echo 'Error fetching image.';
