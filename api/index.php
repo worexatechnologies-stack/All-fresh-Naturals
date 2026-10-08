@@ -4,10 +4,16 @@
  * Handles CORS, JSON Body Parsing, and Route Dispatching
  */
 
-// Enable Error Logging
+// Disable Public Error Display (Prevent server architecture leaks)
 error_reporting(E_ALL);
-ini_set('display_errors', '1');
+ini_set('display_errors', '0');
 ini_set('log_errors', '1');
+
+// Security & Browser Hardening Headers
+header("X-Content-Type-Options: nosniff");
+header("X-Frame-Options: SAMEORIGIN");
+header("X-XSS-Protection: 1; mode=block");
+header("Referrer-Policy: strict-origin-when-cross-origin");
 
 // 1. CORS Headers
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '*';

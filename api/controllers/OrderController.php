@@ -5,14 +5,29 @@ require_once __DIR__ . '/../config/jwt.php';
 class OrderController {
     public static function create(array $data): void {
         try {
-            $customerName = trim($data['customerName'] ?? ($data['name'] ?? ''));
-            $customerPhone = trim($data['customerPhone'] ?? ($data['phone'] ?? ''));
+            // XSS Protection & Input Sanitization
+            $rawName = trim($data['customerName'] ?? ($data['name'] ?? ''));
+            $rawPhone = trim($data['customerPhone'] ?? ($data['phone'] ?? ''));
+            $rawEmail = trim($data['customerEmail'] ?? ($data['email'] ?? ''));
+            $rawNotes = trim($data['notes'] ?? '');
+
+            $customerName = htmlspecialchars(strip_tags($rawName), ENT_QUOTES, 'UTF-8');
+            $customerPhone = preg_replace('/[^0-9+\-\s]/', '', $rawPhone);
+            $customerEmail = filter_var($rawEmail, FILTER_SANITIZE_EMAIL);
+            $notes = htmlspecialchars(strip_tags($rawNotes), ENT_QUOTES, 'UTF-8');
+
             $items = $data['items'] ?? [];
             $totalAmount = floatval($data['totalAmount'] ?? ($data['total'] ?? 0));
 
             if (empty($customerName) || empty($customerPhone)) {
                 if (!headers_sent()) http_response_code(400);
-                echo json_encode(['success' => false, 'message' => 'Please provide customer name and phone number.']);
+                echo json_encode(['success' => false, 'message' => 'Please provide customer name and a valid phone number.']);
+                return;
+            }
+
+            if ($totalAmount < 0) {
+                if (!headers_sent()) http_response_code(400);
+                echo json_encode(['success' => false, 'message' => 'Invalid order amount.']);
                 return;
             }
 
@@ -22,20 +37,27 @@ class OrderController {
                 return;
             }
 
-            $orderId = !empty($data['orderId']) ? $data['orderId'] : ('AFN-' . strtoupper(substr(uniqid(), -6)));
+            $orderId = !empty($data['orderId']) ? preg_replace('/[^a-zA-Z0-9_\-]/', '', $data['orderId']) : ('AFN-' . strtoupper(substr(uniqid(), -6)));
             $id = $data['id'] ?? ('order_' . time() . '_' . rand(100, 999));
-            $userId = $data['userId'] ?? ($data['user_id'] ?? '');
-            $customerEmail = $data['customerEmail'] ?? ($data['email'] ?? '');
-            
-            $shippingAddress = $data['shippingAddress'] ?? ($data['address'] ?? '');
-            if (is_array($shippingAddress)) {
-                $shippingAddress = json_encode($shippingAddress);
+            $userId = trim($data['userId'] ?? ($data['user_id'] ?? ''));
+
+            // Sanitize Shipping Address (prevent stored XSS)
+            $rawShipping = $data['shippingAddress'] ?? ($data['address'] ?? '');
+            if (is_array($rawShipping)) {
+                $cleanShipping = [];
+                foreach ($rawShipping as $k => $v) {
+                    $cleanKey = htmlspecialchars(strip_tags((string)$k), ENT_QUOTES, 'UTF-8');
+                    $cleanVal = is_string($v) ? htmlspecialchars(strip_tags($v), ENT_QUOTES, 'UTF-8') : $v;
+                    $cleanShipping[$cleanKey] = $cleanVal;
+                }
+                $shippingAddress = json_encode($cleanShipping);
+            } else {
+                $shippingAddress = htmlspecialchars(strip_tags((string)$rawShipping), ENT_QUOTES, 'UTF-8');
             }
 
-            $paymentMethod = $data['paymentMethod'] ?? 'COD';
-            $paymentStatus = $data['paymentStatus'] ?? 'Pending';
-            $status = $data['status'] ?? 'Confirmed';
-            $notes = $data['notes'] ?? '';
+            $paymentMethod = preg_replace('/[^a-zA-Z0-9_\-]/', '', $data['paymentMethod'] ?? 'COD');
+            $paymentStatus = preg_replace('/[^a-zA-Z0-9_\-]/', '', $data['paymentStatus'] ?? 'Pending');
+            $status = preg_replace('/[^a-zA-Z0-9_\-]/', '', $data['status'] ?? 'Confirmed');
             $itemsJson = json_encode($items);
             $now = date('Y-m-d H:i:s');
 
@@ -66,18 +88,18 @@ class OrderController {
             echo json_encode([
                 'success' => true,
                 'order' => $order,
-                'message' => 'Order saved directly into MongoDB successfully!'
+                'message' => 'Order created successfully!'
             ]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(400);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not process order.']);
         }
     }
 
     public static function getUserOrders(array $query): void {
         try {
-            $email = trim($query['email'] ?? '');
-            $phone = trim($query['phone'] ?? '');
+            $email = filter_var(trim($query['email'] ?? ''), FILTER_SANITIZE_EMAIL);
+            $phone = preg_replace('/[^0-9+\-\s]/', '', trim($query['phone'] ?? ''));
             $userId = trim($query['userId'] ?? ($query['user_id'] ?? ''));
 
             if (empty($email) && empty($phone) && empty($userId)) {
@@ -105,12 +127,15 @@ class OrderController {
             echo json_encode(['success' => true, 'orders' => $orders]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not retrieve user orders.']);
         }
     }
 
     public static function getAll(): void {
         try {
+            // Strict Administrator Authentication Guard: prevents public customer data leak
+            JWT::requireAdmin();
+
             $ordersCol = MongoDBClient::getCollection('orders');
             $rows = $ordersCol->find();
 
@@ -121,13 +146,16 @@ class OrderController {
             echo json_encode(['success' => true, 'orders' => $orders]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not retrieve orders.']);
         }
     }
 
     public static function updateStatus(string $id, array $data): void {
         try {
-            $status = trim($data['status'] ?? '');
+            // Strict Administrator Authentication Guard
+            JWT::requireAdmin();
+
+            $status = preg_replace('/[^a-zA-Z0-9_\-\s]/', '', trim($data['status'] ?? ''));
             if (empty($status)) {
                 if (!headers_sent()) http_response_code(400);
                 echo json_encode(['success' => false, 'message' => 'Please provide a valid order status.']);
@@ -149,24 +177,27 @@ class OrderController {
             echo json_encode([
                 'success' => true,
                 'order' => self::formatOrder($updated),
-                'message' => 'Order status updated in MongoDB successfully!'
+                'message' => 'Order status updated successfully!'
             ]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(400);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not update order status.']);
         }
     }
 
     public static function delete(string $id): void {
         try {
+            // Strict Administrator Authentication Guard: unauthorized order deletion is blocked
+            JWT::requireAdmin();
+
             $ordersCol = MongoDBClient::getCollection('orders');
             $ordersCol->deleteOne(['orderId' => $id]);
             $ordersCol->deleteOne(['id' => $id]);
 
-            echo json_encode(['success' => true, 'message' => 'Order deleted from MongoDB successfully!']);
+            echo json_encode(['success' => true, 'message' => 'Order deleted successfully!']);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(400);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not delete order.']);
         }
     }
 

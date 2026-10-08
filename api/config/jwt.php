@@ -55,19 +55,24 @@ class JWT {
     public static function getAuthUser(): ?array {
         $token = null;
 
-        // 1. Check HttpOnly Cookie
-        if (isset($_COOKIE['admin_token']) && !empty($_COOKIE['admin_token'])) {
-            $token = $_COOKIE['admin_token'];
-        } elseif (isset($_COOKIE['user_token']) && !empty($_COOKIE['user_token'])) {
-            $token = $_COOKIE['user_token'];
-        }
-
-        // 2. Check Authorization Header
+        // 1. Check Authorization Header FIRST (RFC 6750)
         $headers = function_exists('getallheaders') ? getallheaders() : [];
-        $authHeader = $headers['Authorization'] ?? ($headers['authorization'] ?? ($_SERVER['HTTP_AUTHORIZATION'] ?? ''));
+        $authHeader = $headers['Authorization'] 
+            ?? ($headers['authorization'] 
+            ?? ($_SERVER['HTTP_AUTHORIZATION'] 
+            ?? ($_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? '')));
 
         if (!empty($authHeader) && preg_match('/Bearer\s+(.*)$/i', $authHeader, $matches)) {
-            $token = $matches[1];
+            $token = trim($matches[1]);
+        }
+
+        // 2. Fallback to HttpOnly Cookies (prefer admin_token)
+        if (!$token || $token === 'null' || $token === 'undefined') {
+            if (!empty($_COOKIE['admin_token'])) {
+                $token = $_COOKIE['admin_token'];
+            } elseif (!empty($_COOKIE['user_token'])) {
+                $token = $_COOKIE['user_token'];
+            }
         }
 
         if (!$token || $token === 'null' || $token === 'undefined') {
@@ -75,6 +80,47 @@ class JWT {
         }
 
         return self::verifyToken($token);
+    }
+
+    public static function getAdminUser(): ?array {
+        $user = self::getAuthUser();
+        if ($user && ($user['role'] ?? '') === 'administrator') {
+            return $user;
+        }
+        // Check admin_token cookie explicitly if user_token took precedence
+        if (!empty($_COOKIE['admin_token'])) {
+            $cookieUser = self::verifyToken($_COOKIE['admin_token']);
+            if ($cookieUser && ($cookieUser['role'] ?? '') === 'administrator') {
+                return $cookieUser;
+            }
+        }
+        return null;
+    }
+
+    public static function requireAdmin(): array {
+        $admin = self::getAdminUser();
+        if (!$admin) {
+            if (!headers_sent()) http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Unauthorized: Administrator authentication required.'
+            ]);
+            exit;
+        }
+        return $admin;
+    }
+
+    public static function requireAuth(): array {
+        $user = self::getAuthUser();
+        if (!$user) {
+            if (!headers_sent()) http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Unauthorized: Authentication required.'
+            ]);
+            exit;
+        }
+        return $user;
     }
 
     private static function base64UrlEncode(string $data): string {

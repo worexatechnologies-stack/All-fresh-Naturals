@@ -2,14 +2,31 @@
 require_once __DIR__ . '/../config/mongodb.php';
 require_once __DIR__ . '/../config/jwt.php';
 require_once __DIR__ . '/../config/mailer.php';
+require_once __DIR__ . '/../config/rate_limiter.php';
 
 class UserController {
     public static function register(array $data): void {
         try {
-            $name = trim($data['name'] ?? '');
-            $email = trim($data['email'] ?? '');
-            $phone = trim($data['phone'] ?? '');
+            $ip = RateLimiter::getClientIp();
+
+            // Rate limit: Max 5 registrations per 15 minutes per IP to prevent bot spam
+            if (!RateLimiter::check('user_register', $ip, 5, 900)) {
+                if (!headers_sent()) http_response_code(429);
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Too many accounts created from this network. Please wait a few minutes.'
+                ]);
+                return;
+            }
+
+            $rawName = trim($data['name'] ?? '');
+            $rawEmail = trim($data['email'] ?? '');
+            $rawPhone = trim($data['phone'] ?? '');
             $password = $data['password'] ?? '';
+
+            $name = htmlspecialchars(strip_tags($rawName), ENT_QUOTES, 'UTF-8');
+            $email = filter_var($rawEmail, FILTER_SANITIZE_EMAIL);
+            $phone = preg_replace('/[^0-9+\-\s]/', '', $rawPhone);
 
             if (empty($name) || (empty($email) && empty($phone)) || empty($password)) {
                 if (!headers_sent()) http_response_code(400);
@@ -20,9 +37,26 @@ class UserController {
                 return;
             }
 
+            if (strlen($password) < 6) {
+                if (!headers_sent()) http_response_code(400);
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Password must be at least 6 characters long.'
+                ]);
+                return;
+            }
+
+            if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                if (!headers_sent()) http_response_code(400);
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Please provide a valid email address.'
+                ]);
+                return;
+            }
+
             $usersCol = MongoDBClient::getCollection('users');
 
-            // Single query check if email or phone exists
             $orConds = [];
             if (!empty($email)) $orConds[] = ['email' => $email];
             if (!empty($phone)) $orConds[] = ['phone' => $phone];
@@ -57,6 +91,8 @@ class UserController {
                 throw new RuntimeException('Could not save the account to the database.');
             }
 
+            RateLimiter::hit('user_register', $ip, 900);
+
             $token = JWT::generateToken($id, $email ?: $phone, 'customer', 60 * 24 * 7); // 7 days
 
             if (!headers_sent()) {
@@ -64,6 +100,7 @@ class UserController {
                     'expires' => time() + (7 * 24 * 60 * 60),
                     'path' => '/',
                     'httponly' => true,
+                    'secure' => true,
                     'samesite' => 'Lax'
                 ]);
                 http_response_code(201);
@@ -71,7 +108,7 @@ class UserController {
 
             echo json_encode([
                 'success' => true,
-                'message' => 'Account created and saved to MongoDB successfully!',
+                'message' => 'Account created successfully!',
                 'user' => [
                     'id' => $id,
                     'name' => $name,
@@ -86,12 +123,24 @@ class UserController {
             ]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Registration could not be completed.']);
         }
     }
 
     public static function login(array $data): void {
         try {
+            $ip = RateLimiter::getClientIp();
+
+            // Rate Limit: Max 6 failed login attempts per 15 minutes per IP
+            if (!RateLimiter::check('user_login', $ip, 6, 900)) {
+                if (!headers_sent()) http_response_code(429);
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Too many failed login attempts. Please wait 15 minutes before trying again.'
+                ]);
+                return;
+            }
+
             $emailOrPhone = trim($data['emailOrPhone'] ?? ($data['email'] ?? ($data['phone'] ?? '')));
             $password = $data['password'] ?? '';
 
@@ -106,7 +155,6 @@ class UserController {
 
             $usersCol = MongoDBClient::getCollection('users');
 
-            // Single fast $or query matching email or phone
             $user = $usersCol->findOne([
                 '$or' => [
                     ['email' => $emailOrPhone],
@@ -115,6 +163,7 @@ class UserController {
             ]);
 
             if (!$user) {
+                RateLimiter::hit('user_login', $ip, 900);
                 if (!headers_sent()) http_response_code(404);
                 echo json_encode([
                     'success' => false,
@@ -123,7 +172,9 @@ class UserController {
                 return;
             }
 
-            if (!password_verify($password, $user['password']) && $password !== $user['password']) {
+            // Secure password verification (strict bcrypt check, no plaintext comparison)
+            if (!password_verify($password, $user['password'])) {
+                RateLimiter::hit('user_login', $ip, 900);
                 if (!headers_sent()) http_response_code(401);
                 echo json_encode([
                     'success' => false,
@@ -132,6 +183,9 @@ class UserController {
                 return;
             }
 
+            // Login successful: reset rate limiter
+            RateLimiter::clear('user_login', $ip);
+
             $token = JWT::generateToken($user['id'], $user['email'] ?: $user['phone'], 'customer', 60 * 24 * 7);
 
             if (!headers_sent()) {
@@ -139,6 +193,7 @@ class UserController {
                     'expires' => time() + (7 * 24 * 60 * 60),
                     'path' => '/',
                     'httponly' => true,
+                    'secure' => true,
                     'samesite' => 'Lax'
                 ]);
             }
@@ -160,16 +215,28 @@ class UserController {
             ]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not complete login.']);
         }
     }
 
     public static function sendResetOtp(array $data): void {
         try {
-            $email = trim($data['email'] ?? '');
+            $ip = RateLimiter::getClientIp();
+            $email = filter_var(trim($data['email'] ?? ''), FILTER_SANITIZE_EMAIL);
+
             if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 if (!headers_sent()) http_response_code(400);
                 echo json_encode(['success' => false, 'message' => 'Please provide a valid email address.']);
+                return;
+            }
+
+            // Rate Limit: Max 3 OTP requests per 10 minutes per IP/email
+            if (!RateLimiter::check('otp_send', $ip . '_' . $email, 3, 600)) {
+                if (!headers_sent()) http_response_code(429);
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Please wait a few minutes before requesting another OTP code.'
+                ]);
                 return;
             }
 
@@ -177,17 +244,21 @@ class UserController {
             $user = $usersCol->findOne(['email' => $email]);
 
             if (!$user) {
+                // Rate limit even non-existent emails to prevent email enumeration
+                RateLimiter::hit('otp_send', $ip . '_' . $email, 600);
                 if (!headers_sent()) http_response_code(404);
                 echo json_encode(['success' => false, 'message' => 'No registered account found with this email.']);
                 return;
             }
+
+            RateLimiter::hit('otp_send', $ip . '_' . $email, 600);
 
             $otp = strval(rand(100000, 999999));
             $expiresAt = date('Y-m-d H:i:s', time() + (10 * 60)); // 10 mins
             $now = date('Y-m-d H:i:s');
 
             $resetsCol = MongoDBClient::getCollection('password_resets');
-            $resetsCol->deleteOne(['email' => $email]);
+            $resetsCol->deleteMany(['email' => $email]);
             $resetsCol->insertOne([
                 'email' => $email,
                 'otp' => $otp,
@@ -198,7 +269,7 @@ class UserController {
             ]);
 
             // Dispatch real email via SMTP
-            $mailRes = Mailer::sendOtpEmail($email, $user['name'] ?? 'Valued Customer', $otp);
+            Mailer::sendOtpEmail($email, $user['name'] ?? 'Valued Customer', $otp);
 
             echo json_encode([
                 'success' => true,
@@ -206,24 +277,37 @@ class UserController {
             ]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not send verification OTP.']);
         }
     }
 
     public static function verifyResetOtp(array $data): void {
         try {
-            $email = trim($data['email'] ?? '');
+            $ip = RateLimiter::getClientIp();
+            $email = filter_var(trim($data['email'] ?? ''), FILTER_SANITIZE_EMAIL);
             $otp = trim($data['otp'] ?? '');
+
+            // Rate Limit: Max 5 guess attempts per 10 minutes to prevent brute-forcing OTP
+            if (!RateLimiter::check('otp_verify', $ip . '_' . $email, 5, 600)) {
+                if (!headers_sent()) http_response_code(429);
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Too many incorrect attempts. Please request a new OTP code.'
+                ]);
+                return;
+            }
 
             $resetsCol = MongoDBClient::getCollection('password_resets');
             $record = $resetsCol->findOne(['email' => $email]);
 
             if (!$record || (isset($record['otp']) && $record['otp'] !== $otp) || (isset($record['expires_at']) && $record['expires_at'] < date('Y-m-d H:i:s'))) {
+                RateLimiter::hit('otp_verify', $ip . '_' . $email, 600);
                 if (!headers_sent()) http_response_code(400);
                 echo json_encode(['success' => false, 'message' => 'Invalid or expired OTP. Please try again!']);
                 return;
             }
 
+            RateLimiter::clear('otp_verify', $ip . '_' . $email);
             $resetsCol->updateOne(['email' => $email], ['verified' => 1]);
 
             echo json_encode([
@@ -232,13 +316,13 @@ class UserController {
             ]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not verify OTP.']);
         }
     }
 
     public static function resetPasswordWithOtp(array $data): void {
         try {
-            $email = trim($data['email'] ?? '');
+            $email = filter_var(trim($data['email'] ?? ''), FILTER_SANITIZE_EMAIL);
             $otp = trim($data['otp'] ?? '');
             $newPassword = $data['newPassword'] ?? ($data['password'] ?? '');
 
@@ -251,7 +335,7 @@ class UserController {
             $resetsCol = MongoDBClient::getCollection('password_resets');
             $record = $resetsCol->findOne(['email' => $email]);
 
-            if (!$record || (isset($record['expires_at']) && $record['expires_at'] < date('Y-m-d H:i:s'))) {
+            if (!$record || (isset($record['expires_at']) && $record['expires_at'] < date('Y-m-d H:i:s')) || empty($record['verified'])) {
                 if (!headers_sent()) http_response_code(400);
                 echo json_encode(['success' => false, 'message' => 'Invalid or expired OTP authorization. Please request a new OTP.']);
                 return;
@@ -268,12 +352,15 @@ class UserController {
             ]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not reset password.']);
         }
     }
 
     public static function getAll(): void {
         try {
+            // Strict Administrator Authentication Guard: prevents unauthorized customer directory harvesting
+            JWT::requireAdmin();
+
             $usersCol = MongoDBClient::getCollection('users');
             $rows = $usersCol->find();
 
@@ -291,7 +378,7 @@ class UserController {
             echo json_encode(['success' => true, 'users' => $users]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not retrieve users.']);
         }
     }
 }

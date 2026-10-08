@@ -1,10 +1,23 @@
 <?php
 require_once __DIR__ . '/../config/mongodb.php';
 require_once __DIR__ . '/../config/jwt.php';
+require_once __DIR__ . '/../config/rate_limiter.php';
 
 class AdminController {
     public static function signin(array $data): void {
         try {
+            $ip = RateLimiter::getClientIp();
+
+            // 1. Rate Limiting: Max 5 failed attempts per 15 minutes per IP
+            if (!RateLimiter::check('admin_signin', $ip, 5, 900)) {
+                if (!headers_sent()) http_response_code(429);
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Too many login attempts. For security reasons, please try again in 15 minutes.'
+                ]);
+                return;
+            }
+
             $email = trim($data['email'] ?? '');
             $password = $data['password'] ?? '';
             $pin = trim($data['pin'] ?? '');
@@ -19,23 +32,30 @@ class AdminController {
             $admin = $adminCol->findOne(['email' => $email]);
 
             if (!$admin) {
+                RateLimiter::hit('admin_signin', $ip, 900);
                 if (!headers_sent()) http_response_code(401);
                 echo json_encode(['success' => false, 'message' => 'Invalid administrator credentials.']);
                 return;
             }
 
-            $isPasswordValid = password_verify($password, $admin['password']) || ($password === $admin['password']);
+            // Secure password verification (strict bcrypt hash check)
+            $isPasswordValid = password_verify($password, $admin['password']);
             if (!$isPasswordValid) {
+                RateLimiter::hit('admin_signin', $ip, 900);
                 if (!headers_sent()) http_response_code(401);
                 echo json_encode(['success' => false, 'message' => 'Invalid administrator password.']);
                 return;
             }
 
             if (!empty($pin) && !empty($admin['pin']) && $pin !== $admin['pin']) {
+                RateLimiter::hit('admin_signin', $ip, 900);
                 if (!headers_sent()) http_response_code(401);
                 echo json_encode(['success' => false, 'message' => 'Invalid security PIN.']);
                 return;
             }
+
+            // Authentication succeeded: clear rate limits
+            RateLimiter::clear('admin_signin', $ip);
 
             $token = JWT::generateToken($admin['id'], $admin['email'], 'administrator', 60 * 24); // 24 hours
 
@@ -44,6 +64,7 @@ class AdminController {
                     'expires' => time() + (24 * 60 * 60),
                     'path' => '/',
                     'httponly' => true,
+                    'secure' => true,
                     'samesite' => 'Lax'
                 ]);
                 header("Authorization: Bearer {$token}");
@@ -56,17 +77,25 @@ class AdminController {
                 'admin' => [
                     'id' => $admin['id'],
                     'email' => $admin['email'],
-                    'pin' => $admin['pin']
+                    'pin' => $admin['pin'] ?? '2026'
                 ]
             ]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'An authentication error occurred.']);
         }
     }
 
     public static function signup(array $data): void {
         try {
+            $adminCol = MongoDBClient::getCollection('admin_credentials');
+            $existingAdminCount = $adminCol->count();
+
+            // If an administrator already exists, only an authenticated admin can create another
+            if ($existingAdminCount > 0) {
+                JWT::requireAdmin();
+            }
+
             $email = trim($data['email'] ?? '');
             $password = $data['password'] ?? '';
             $pin = trim($data['pin'] ?? '2026');
@@ -83,7 +112,6 @@ class AdminController {
                 return;
             }
 
-            $adminCol = MongoDBClient::getCollection('admin_credentials');
             $existing = $adminCol->findOne(['email' => $email]);
             if ($existing) {
                 if (!headers_sent()) http_response_code(400);
@@ -114,6 +142,7 @@ class AdminController {
                     'expires' => time() + (24 * 60 * 60),
                     'path' => '/',
                     'httponly' => true,
+                    'secure' => true,
                     'samesite' => 'Lax'
                 ]);
                 http_response_code(201);
@@ -131,37 +160,51 @@ class AdminController {
             ]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(400);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not register administrator.']);
         }
     }
 
     public static function me(): void {
         try {
-            $user = JWT::getAuthUser();
-            $adminCol = MongoDBClient::getCollection('admin_credentials');
+            // Strict authentication: unauthenticated callers are rejected immediately
+            $user = JWT::requireAdmin();
 
-            if (!$user) {
+            $adminCol = MongoDBClient::getCollection('admin_credentials');
+            $admin = $adminCol->findOne(['id' => $user['id']]) ?: $adminCol->findOne(['email' => $user['email'] ?? '']);
+
+            if (!$admin) {
                 $admin = $adminCol->findOne();
-                if ($admin) {
-                    echo json_encode(['success' => true, 'admin' => $admin]);
-                    return;
-                }
-                if (!headers_sent()) http_response_code(401);
-                echo json_encode(['success' => false, 'message' => 'Not authenticated.']);
+            }
+
+            if (!$admin) {
+                if (!headers_sent()) http_response_code(404);
+                echo json_encode(['success' => false, 'message' => 'Admin profile not found.']);
                 return;
             }
 
-            $admin = $adminCol->findOne(['id' => $user['id']]) ?: $adminCol->findOne(['email' => $user['email'] ?? '']);
+            // Never leak password hashes or sensitive internal database IDs
+            unset($admin['password'], $admin['_id']);
 
-            echo json_encode(['success' => true, 'admin' => $admin ?: $user]);
+            echo json_encode([
+                'success' => true,
+                'admin' => [
+                    'id' => $admin['id'] ?? 'admin_1',
+                    'email' => $admin['email'] ?? $user['email'],
+                    'pin' => $admin['pin'] ?? '2026',
+                    'role' => 'administrator'
+                ]
+            ]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Error retrieving profile.']);
         }
     }
 
     public static function updateCredentials(array $data): void {
         try {
+            // Strict authorization check
+            $currentAdmin = JWT::requireAdmin();
+
             $password = $data['password'] ?? '';
             $pin = trim($data['pin'] ?? '');
 
@@ -181,19 +224,21 @@ class AdminController {
             }
 
             if (!empty($updateData)) {
-                $adminCol->updateOne([], $updateData);
+                $filter = ['email' => $currentAdmin['email'] ?? 'poori.monika@gmail.com'];
+                $adminCol->updateOne($filter, $updateData);
             }
 
-            $fetch = $adminCol->findOne();
+            $fetch = $adminCol->findOne(['email' => $currentAdmin['email'] ?? 'poori.monika@gmail.com']) ?: $adminCol->findOne();
+            unset($fetch['password'], $fetch['_id']);
 
             echo json_encode([
                 'success' => true,
-                'message' => 'Admin security credentials updated in MongoDB successfully!',
+                'message' => 'Admin security credentials updated successfully!',
                 'admin' => $fetch
             ]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Error updating credentials.']);
         }
     }
 
@@ -203,6 +248,7 @@ class AdminController {
                 'expires' => time() - 3600,
                 'path' => '/',
                 'httponly' => true,
+                'secure' => true,
                 'samesite' => 'Lax'
             ]);
         }
@@ -215,6 +261,9 @@ class AdminController {
 
     public static function cleanDatabase(): void {
         try {
+            // Strict admin check: unauthorized database wipe is strictly forbidden
+            JWT::requireAdmin();
+
             // 1. Wipe all test orders
             $ordersCol = MongoDBClient::getCollection('orders');
             $ordersCol->deleteMany([]);
@@ -227,7 +276,13 @@ class AdminController {
             $pwdCol = MongoDBClient::getCollection('password_resets');
             $pwdCol->deleteMany([]);
 
-            // 4. Ensure 2 official products exist
+            // 4. Reset rate limits
+            try {
+                $pdo = Database::getConnection();
+                $pdo->exec("DELETE FROM rate_limits");
+            } catch (Exception $e) {}
+
+            // 5. Ensure 2 official products exist
             $productsCol = MongoDBClient::getCollection('products');
             $productsCol->deleteMany([]);
 
@@ -297,7 +352,7 @@ class AdminController {
             ]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Database clean operation failed.']);
         }
     }
 }

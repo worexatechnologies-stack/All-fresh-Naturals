@@ -15,14 +15,15 @@ class ProductController {
             echo json_encode(['success' => true, 'products' => $products]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not retrieve products.']);
         }
     }
 
     public static function getById(string $id): void {
         try {
+            $cleanId = preg_replace('/[^a-zA-Z0-9_\-]/', '', $id);
             $productsCol = MongoDBClient::getCollection('products');
-            $row = $productsCol->findOne(['id' => $id]);
+            $row = $productsCol->findOne(['id' => $cleanId]);
 
             if (!$row) {
                 if (!headers_sent()) http_response_code(404);
@@ -33,14 +34,15 @@ class ProductController {
             echo json_encode(['success' => true, 'product' => self::formatProduct($row)]);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not retrieve product.']);
         }
     }
 
     public static function getImage(string $id): void {
         try {
+            $cleanId = preg_replace('/[^a-zA-Z0-9_\-]/', '', $id);
             $productsCol = MongoDBClient::getCollection('products');
-            $row = $productsCol->findOne(['id' => $id]);
+            $row = $productsCol->findOne(['id' => $cleanId]);
 
             if (!$row || empty($row['image'])) {
                 if (!headers_sent()) http_response_code(404);
@@ -62,13 +64,17 @@ class ProductController {
             header("Location: " . $img);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(500);
-            echo $e->getMessage();
+            echo 'Error fetching image.';
         }
     }
 
     public static function create(array $data): void {
         try {
-            $name = trim($data['name'] ?? '');
+            // Strict Administrator Authentication Guard: prevents unauthorized product creation
+            JWT::requireAdmin();
+
+            $rawName = trim($data['name'] ?? '');
+            $name = htmlspecialchars(strip_tags($rawName), ENT_QUOTES, 'UTF-8');
             $price = floatval($data['price'] ?? 0);
 
             if (empty($name) || $price <= 0) {
@@ -77,17 +83,17 @@ class ProductController {
                 return;
             }
 
-            $id = !empty($data['id']) ? $data['id'] : ('prod_' . time() . '_' . rand(100, 999));
-            $badge = $data['badge'] ?? 'Natural Choice';
-            $tagline = $data['tagline'] ?? '';
-            $description = $data['description'] ?? '';
+            $id = !empty($data['id']) ? preg_replace('/[^a-zA-Z0-9_\-]/', '', $data['id']) : ('prod_' . time() . '_' . rand(100, 999));
+            $badge = htmlspecialchars(strip_tags($data['badge'] ?? 'Natural Choice'), ENT_QUOTES, 'UTF-8');
+            $tagline = htmlspecialchars(strip_tags($data['tagline'] ?? ''), ENT_QUOTES, 'UTF-8');
+            $description = htmlspecialchars(strip_tags($data['description'] ?? ''), ENT_QUOTES, 'UTF-8');
             $originalPrice = isset($data['original_price']) ? floatval($data['original_price']) : (isset($data['originalPrice']) ? floatval($data['originalPrice']) : null);
-            $size = $data['size'] ?? '250gm';
-            $image = $data['image'] ?? '';
-            $altImage = $data['altImage'] ?? '';
+            $size = htmlspecialchars(strip_tags($data['size'] ?? '250gm'), ENT_QUOTES, 'UTF-8');
+            $image = filter_var($data['image'] ?? '', FILTER_SANITIZE_URL);
+            $altImage = filter_var($data['altImage'] ?? '', FILTER_SANITIZE_URL);
             $ingredients = is_array($data['ingredients'] ?? null) ? json_encode($data['ingredients']) : json_encode([]);
             $benefits = is_array($data['benefits'] ?? null) ? json_encode($data['benefits']) : json_encode([]);
-            $usage = $data['usage'] ?? ($data['usage_instructions'] ?? '');
+            $usage = htmlspecialchars(strip_tags($data['usage'] ?? ($data['usage_instructions'] ?? '')), ENT_QUOTES, 'UTF-8');
             $now = date('Y-m-d H:i:s');
 
             $doc = [
@@ -101,17 +107,21 @@ class ProductController {
             $productsCol->insertOne($doc);
 
             if (!headers_sent()) http_response_code(201);
-            echo json_encode(['success' => true, 'product' => self::formatProduct($doc), 'message' => 'Product saved to MongoDB successfully!']);
+            echo json_encode(['success' => true, 'product' => self::formatProduct($doc), 'message' => 'Product saved successfully!']);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(400);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not create product.']);
         }
     }
 
     public static function update(string $id, array $data): void {
         try {
+            // Strict Administrator Authentication Guard: prevents unauthorized pricing or product modification
+            JWT::requireAdmin();
+
+            $cleanId = preg_replace('/[^a-zA-Z0-9_\-]/', '', $id);
             $productsCol = MongoDBClient::getCollection('products');
-            $current = $productsCol->findOne(['id' => $id]);
+            $current = $productsCol->findOne(['id' => $cleanId]);
 
             if (!$current) {
                 if (!headers_sent()) http_response_code(404);
@@ -120,39 +130,45 @@ class ProductController {
             }
 
             $updateData = [];
-            if (isset($data['name'])) $updateData['name'] = $data['name'];
-            if (isset($data['badge'])) $updateData['badge'] = $data['badge'];
-            if (isset($data['tagline'])) $updateData['tagline'] = $data['tagline'];
-            if (isset($data['description'])) $updateData['description'] = $data['description'];
+            if (isset($data['name'])) $updateData['name'] = htmlspecialchars(strip_tags(trim($data['name'])), ENT_QUOTES, 'UTF-8');
+            if (isset($data['badge'])) $updateData['badge'] = htmlspecialchars(strip_tags(trim($data['badge'])), ENT_QUOTES, 'UTF-8');
+            if (isset($data['tagline'])) $updateData['tagline'] = htmlspecialchars(strip_tags(trim($data['tagline'])), ENT_QUOTES, 'UTF-8');
+            if (isset($data['description'])) $updateData['description'] = htmlspecialchars(strip_tags(trim($data['description'])), ENT_QUOTES, 'UTF-8');
             if (isset($data['price'])) $updateData['price'] = floatval($data['price']);
             if (isset($data['original_price'])) $updateData['original_price'] = floatval($data['original_price']);
             if (isset($data['originalPrice'])) $updateData['original_price'] = floatval($data['originalPrice']);
-            if (isset($data['size'])) $updateData['size'] = $data['size'];
-            if (isset($data['image'])) $updateData['image'] = $data['image'];
-            if (isset($data['altImage'])) $updateData['altImage'] = $data['altImage'];
+            if (isset($data['size'])) $updateData['size'] = htmlspecialchars(strip_tags(trim($data['size'])), ENT_QUOTES, 'UTF-8');
+            if (isset($data['image'])) $updateData['image'] = filter_var($data['image'], FILTER_SANITIZE_URL);
+            if (isset($data['altImage'])) $updateData['altImage'] = filter_var($data['altImage'], FILTER_SANITIZE_URL);
             if (isset($data['ingredients'])) $updateData['ingredients'] = is_array($data['ingredients']) ? json_encode($data['ingredients']) : $data['ingredients'];
             if (isset($data['benefits'])) $updateData['benefits'] = is_array($data['benefits']) ? json_encode($data['benefits']) : $data['benefits'];
-            if (isset($data['usage']) || isset($data['usage_instructions'])) $updateData['usage_instructions'] = $data['usage'] ?? $data['usage_instructions'];
+            if (isset($data['usage']) || isset($data['usage_instructions'])) {
+                $updateData['usage_instructions'] = htmlspecialchars(strip_tags($data['usage'] ?? $data['usage_instructions']), ENT_QUOTES, 'UTF-8');
+            }
 
-            $productsCol->updateOne(['id' => $id], $updateData);
-            $updated = $productsCol->findOne(['id' => $id]);
+            $productsCol->updateOne(['id' => $cleanId], $updateData);
+            $updated = $productsCol->findOne(['id' => $cleanId]);
 
-            echo json_encode(['success' => true, 'product' => self::formatProduct($updated), 'message' => 'Product updated in MongoDB successfully!']);
+            echo json_encode(['success' => true, 'product' => self::formatProduct($updated), 'message' => 'Product updated successfully!']);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(400);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not update product.']);
         }
     }
 
     public static function delete(string $id): void {
         try {
-            $productsCol = MongoDBClient::getCollection('products');
-            $productsCol->deleteOne(['id' => $id]);
+            // Strict Administrator Authentication Guard: prevents unauthorized product deletion
+            JWT::requireAdmin();
 
-            echo json_encode(['success' => true, 'message' => 'Product deleted from MongoDB successfully!']);
+            $cleanId = preg_replace('/[^a-zA-Z0-9_\-]/', '', $id);
+            $productsCol = MongoDBClient::getCollection('products');
+            $productsCol->deleteOne(['id' => $cleanId]);
+
+            echo json_encode(['success' => true, 'message' => 'Product deleted successfully!']);
         } catch (Exception $e) {
             if (!headers_sent()) http_response_code(400);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => 'Could not delete product.']);
         }
     }
 
