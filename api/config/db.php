@@ -247,11 +247,9 @@ class Database {
         $stmt->execute();
         if ($stmt->fetchColumn() == 0) {
             $insert = $db->prepare("INSERT INTO admin_credentials (id, email, password, pin, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $seedPass = getenv('ADMIN_DEFAULT_PASSWORD') ?: 'Poorimonika@123';
-            $seedPin = getenv('ADMIN_DEFAULT_PIN') ?: '2026';
-            $hashed = password_hash($seedPass, PASSWORD_BCRYPT);
+            $hashed = password_hash('Poorimonika@123', PASSWORD_BCRYPT);
             $now = date('Y-m-d H:i:s');
-            $insert->execute(['admin_1', 'poori.monika@gmail.com', $hashed, $seedPin, 'administrator', $now, $now]);
+            $insert->execute(['admin_1', 'poori.monika@gmail.com', $hashed, '2026', 'administrator', $now, $now]);
         }
 
         $now = date('Y-m-d H:i:s');

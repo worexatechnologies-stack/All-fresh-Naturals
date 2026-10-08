@@ -33,9 +33,6 @@ class RateLimiter {
                 first_attempt INTEGER,
                 last_attempt INTEGER
             )");
-            // Automatically purge stale rate limit records older than 24 hours
-            $oneDayAgo = time() - 86400;
-            $pdo->exec("DELETE FROM rate_limits WHERE last_attempt < $oneDayAgo");
             $initialized = true;
         } catch (Exception $e) {}
     }

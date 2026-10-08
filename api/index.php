@@ -15,16 +15,8 @@ header("X-Frame-Options: SAMEORIGIN");
 header("X-XSS-Protection: 1; mode=block");
 header("Referrer-Policy: strict-origin-when-cross-origin");
 
-// 1. Request Size Limiting (Prevents Memory Exhaustion DoS)
-$contentLength = (int)($_SERVER['CONTENT_LENGTH'] ?? 0);
-if ($contentLength > 5 * 1024 * 1024) {
-    http_response_code(413);
-    echo json_encode(['success' => false, 'message' => 'Payload Too Large (Maximum 5MB)']);
-    exit;
-}
-
-// 2. Strict CORS & Cross-Origin Request Validation
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+// 1. CORS Headers
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
 $allowedOrigins = [
     'https://allfreshnaturals.com',
     'https://www.allfreshnaturals.com',
@@ -34,32 +26,12 @@ $allowedOrigins = [
     'http://localhost:3000'
 ];
 
-$isAllowed = false;
-if (empty($origin)) {
-    $isAllowed = true;
-} else {
-    foreach ($allowedOrigins as $ao) {
-        if ($origin === $ao) {
-            $isAllowed = true;
-            break;
-        }
-    }
-    if (!$isAllowed && (strpos($origin, 'localhost') !== false || strpos($origin, '127.0.0.1') !== false)) {
-        $isAllowed = true;
-    }
-}
+$isAllowedOrigin = in_array($origin, $allowedOrigins) || strpos($origin, 'localhost') !== false || strpos($origin, '127.0.0.1') !== false;
 
-if ($isAllowed && !empty($origin)) {
+if ($isAllowedOrigin) {
     header("Access-Control-Allow-Origin: $origin");
-} elseif (empty($origin)) {
-    header("Access-Control-Allow-Origin: https://allfreshnaturals.com");
 } else {
-    // Block Cross-Site Request Forgery (CSRF) from unauthorized external websites
-    if (in_array($_SERVER['REQUEST_METHOD'], ['POST', 'PUT', 'DELETE'])) {
-        http_response_code(403);
-        echo json_encode(['success' => false, 'message' => 'Forbidden: Cross-Origin Request Blocked']);
-        exit;
-    }
+    header("Access-Control-Allow-Origin: https://allfreshnaturals.com");
 }
 
 header("Access-Control-Allow-Credentials: true");
@@ -76,28 +48,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // 2. Set Default Response Header to JSON
 header("Content-Type: application/json; charset=UTF-8");
 
-// 3. Load Controllers
+// 3. Load Controllers & Security Modules
 require_once __DIR__ . '/config/db.php';
 require_once __DIR__ . '/config/jwt.php';
+require_once __DIR__ . '/config/rate_limiter.php';
 require_once __DIR__ . '/controllers/ProductController.php';
 require_once __DIR__ . '/controllers/OrderController.php';
 require_once __DIR__ . '/controllers/UserController.php';
 require_once __DIR__ . '/controllers/AdminController.php';
 
-// 4. Parse Request Path & Method
-$method = $_SERVER['REQUEST_METHOD'];
-$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+// 4. API Request Validation & Security Guards
+$method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+$allowedMethods = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'];
 
-// Remove /api prefix and script folder names if present
-$path = preg_replace('#^.*?/api/#i', '', $requestUri);
-$path = trim($path, '/');
+if (!in_array($method, $allowedMethods)) {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'HTTP Method Not Allowed']);
+    exit;
+}
 
-// Parse JSON Body for POST/PUT requests
+// 4.1 Anti-DDoS / API Flood Burst Limiter (Max 120 requests/min per IP)
+$clientIp = RateLimiter::getClientIp();
+if (!RateLimiter::check('api_burst', $clientIp, 120, 60)) {
+    http_response_code(429);
+    echo json_encode(['success' => false, 'message' => 'Too many API requests. Please slow down.']);
+    exit;
+}
+RateLimiter::hit('api_burst', $clientIp, 60);
+
+// 4.2 Cross-Origin Request Forgery (CSRF) Guard on state-changing requests
+if (in_array($method, ['POST', 'PUT', 'DELETE']) && !empty($origin) && !$isAllowedOrigin) {
+    http_response_code(403);
+    echo json_encode(['success' => false, 'message' => 'Cross-Origin Request Blocked by Security Policy']);
+    exit;
+}
+
+// 4.3 Payload Size Guard (Max 5MB to prevent memory exhaustion)
+$contentLength = (int)($_SERVER['CONTENT_LENGTH'] ?? 0);
+if ($contentLength > (5 * 1024 * 1024)) {
+    http_response_code(413);
+    echo json_encode(['success' => false, 'message' => 'Payload Too Large (Maximum 5MB allowed)']);
+    exit;
+}
+
+// 4.4 Parse & Validate JSON Body
 $rawBody = file_get_contents('php://input');
 $body = [];
 if (!empty($rawBody)) {
-    $body = json_decode($rawBody, true) ?: [];
+    $body = json_decode($rawBody, true, 32);
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Invalid JSON payload format.']);
+        exit;
+    }
 }
+
+// 5. Parse Request Path & Route Dispatching
+$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$path = preg_replace('#^.*?/api/#i', '', $requestUri);
+$path = trim($path, '/');
 
 // 5. Route Handling
 

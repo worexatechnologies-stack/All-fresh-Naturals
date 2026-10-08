@@ -243,6 +243,11 @@ class AdminController {
     }
 
     public static function logout(): void {
+        $token = JWT::getAuthToken();
+        if ($token) {
+            JWT::revokeToken($token);
+        }
+
         if (!headers_sent()) {
             setcookie('admin_token', '', [
                 'expires' => time() - 3600,
