@@ -32,11 +32,21 @@ console.log('✅ All critical files present (.htaccess, index.html, api/index.ph
 
 console.log('\n🤐 3. Creating Hostinger 1-click deployment ZIP: hostinger_deploy.zip...');
 if (fs.existsSync(zipPath)) {
-  fs.unlinkSync(zipPath);
+  try {
+    fs.unlinkSync(zipPath);
+  } catch {}
 }
+
+// Brief pause to allow Windows file locks / antivirus scanning to release
+execSync('powershell -NoProfile -Command "Start-Sleep -Milliseconds 800"');
 
 const psScript = `Get-ChildItem -Path '${distPath}' -Force | Compress-Archive -DestinationPath '${zipPath}' -Force`;
 execSync(`powershell -NoProfile -Command "${psScript}"`, { cwd: rootDir, stdio: 'inherit' });
+
+if (!fs.existsSync(zipPath)) {
+  console.error('❌ Failed to create zip archive.');
+  process.exit(1);
+}
 
 const stats = fs.statSync(zipPath);
 const sizeMb = (stats.size / (1024 * 1024)).toFixed(2);
