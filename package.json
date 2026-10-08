@@ -10,6 +10,7 @@
     "php": "php -d extension=pdo_sqlite -S 127.0.0.1:8000 api/index.php",
     "build": "node node_modules/vite/bin/vite.js build",
     "build:typecheck": "tsc -b && vite build",
+    "package:deploy": "node scripts/package-deploy.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },

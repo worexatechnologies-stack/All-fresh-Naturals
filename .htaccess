@@ -9,29 +9,32 @@
   RewriteEngine On
   RewriteBase /
 
-  # 1. Force HTTPS
+  # 1. Forward HTTP Authorization header to PHP (Crucial for Hostinger LiteSpeed/Apache)
+  SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+  RewriteCond %{HTTP:Authorization} .
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+  # 2. Force HTTPS
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # 2. Route all API requests to the PHP REST API Router
+  # 3. Route all API requests to the PHP REST API Router
   RewriteCond %{REQUEST_URI} ^/api(/.*)?$ [NC]
   RewriteRule ^api(/.*)?$ api/index.php [QSA,L]
 
-  # 3. Serve physical files directly (CSS, JS, JPG, PNG, SVG, WebP, etc.)
+  # 4. Serve physical files directly (CSS, JS, JPG, PNG, SVG, WebP, etc.)
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # 4. React Single Page Application Client Routing (send non-file routes to index.html)
+  # 5. React Single Page Application Client Routing (send non-file routes to index.html)
   RewriteRule ^ index.html [L]
 </IfModule>
 
-# Security & CORS Headers
+# Security Headers (PHP handles API CORS dynamically)
 <IfModule mod_headers.c>
-  Header set Access-Control-Allow-Origin "https://allfreshnaturals.com"
-  Header set Access-Control-Allow-Credentials "true"
-  Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization, Cookie"
-  Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
