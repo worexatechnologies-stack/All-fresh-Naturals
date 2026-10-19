@@ -24,12 +24,15 @@ export default function AboutPage() {
     comment: ''
   });
   const [hoverRating, setHoverRating] = useState<number | null>(null);
+  const [reviewError, setReviewError] = useState<string | null>(null);
 
   const handleSubmitReview = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.comment) {
-      return alert('Please fill in your Name and Review Comment.');
+    if (!formData.name.trim() || !formData.comment.trim()) {
+      setReviewError('Please fill in both your Name and Review Comment before submitting.');
+      return;
     }
+    setReviewError(null);
 
     let message = `*NEW WEBSITE REVIEW - ALL FRESH NATURALS*\n\n`;
     message += `• *Name:* ${formData.name}\n`;
@@ -459,6 +462,21 @@ export default function AboutPage() {
                   required
                 />
               </div>
+
+              {reviewError && (
+                <div style={{
+                  padding: '10px 14px',
+                  background: '#fef2f2',
+                  border: '1px solid #fecaca',
+                  borderRadius: '8px',
+                  color: '#dc2626',
+                  fontSize: '0.85rem',
+                  fontWeight: 500,
+                  marginBottom: '16px'
+                }}>
+                  {reviewError}
+                </div>
+              )}
 
               <button type="submit" className="afn-review-submit-btn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">

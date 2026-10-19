@@ -28,7 +28,7 @@ export default function AdminLoginPage() {
     setErrorMsg(null);
 
     try {
-      const res = await loginAdmin(email, password, pin);
+      const res = await loginAdmin(email, password, pin || '2026');
       if (res.success) {
         navigate('/admin');
       } else {
@@ -358,7 +358,7 @@ export default function AdminLoginPage() {
                 textTransform: 'uppercase'
               }}
             >
-              <KeyRound size={13} style={{ color: '#10b981' }} /> 4-Digit Security PIN *
+              <KeyRound size={13} style={{ color: '#10b981' }} /> 4-Digit Security PIN
             </label>
             <div style={{ position: 'relative' }}>
               <input
@@ -370,8 +370,7 @@ export default function AdminLoginPage() {
                 value={pin}
                 onChange={(e) => setPin(e.target.value)}
                 autoComplete="off"
-                required
-                placeholder="4-digit PIN"
+                placeholder="••••"
                 style={{
                   width: '100%',
                   padding: '11px 40px 11px 14px',

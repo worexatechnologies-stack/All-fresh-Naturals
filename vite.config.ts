@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import fs from 'fs';
 import http from 'http';
-import { spawn, type ChildProcess } from 'child_process';
+import { spawn, execSync, type ChildProcess } from 'child_process';
 
 function phpBackendPlugin(): Plugin {
   let phpProcess: ChildProcess | null = null;
@@ -18,7 +18,29 @@ function phpBackendPlugin(): Plugin {
 
       req.on('error', () => {
         console.log('\n[vite] 🚀 Auto-starting PHP REST API backend on http://127.0.0.1:8000...');
-        phpProcess = spawn('php', ['-d', 'extension=pdo_sqlite', '-S', '127.0.0.1:8000', 'api/index.php'], {
+        
+        const defaultArgs = ['-S', '127.0.0.1:8000', 'api/index.php'];
+        let phpArgs = ['-d', 'extension=pdo_sqlite', ...defaultArgs];
+        try {
+          const stdout = execSync('where.exe php 2>nul || which php 2>/dev/null', { encoding: 'utf-8' }).trim();
+          const firstPhp = stdout.split(/\r?\n/)[0]?.trim();
+          if (firstPhp) {
+            const phpDir = path.dirname(firstPhp);
+            const extDir = path.join(phpDir, 'ext');
+            if (fs.existsSync(extDir)) {
+              phpArgs = [
+                '-d', `extension_dir=${extDir}`,
+                '-d', 'extension=pdo_sqlite',
+                '-d', 'extension=pdo_mysql',
+                '-d', 'extension=openssl',
+                '-d', 'extension=curl',
+                ...defaultArgs
+              ];
+            }
+          }
+        } catch {}
+
+        phpProcess = spawn('php', phpArgs, {
           cwd: process.cwd(),
           stdio: 'inherit',
           shell: true

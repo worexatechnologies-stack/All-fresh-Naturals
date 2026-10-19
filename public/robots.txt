@@ -1,7 +1,9 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-
-
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Disallow: /checkout
+Disallow: /profile
 
 Sitemap: https://allfreshnaturals.com/sitemap.xml
 Sitemap: https://allfreshnaturals.com/blogs.xml

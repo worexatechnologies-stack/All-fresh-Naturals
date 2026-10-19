@@ -55,17 +55,6 @@ export default function AdminAuthModal() {
     }
   };
 
-  const handleQuickDemoLogin = async () => {
-    setEmail('poori.monika@gmail.com');
-    setPassword('Poorimonika@123');
-    setPin('2026');
-    const res = await loginAdmin('poori.monika@gmail.com', 'Poorimonika@123', '2026');
-    if (res.success) {
-      closeAdminAuthModal();
-      navigate('/admin');
-      window.scrollTo(0, 0);
-    }
-  };
 
   return (
     <div
@@ -240,24 +229,13 @@ export default function AdminAuthModal() {
             marginTop: '22px',
             paddingTop: '16px',
             borderTop: '1px dashed #e5e7eb',
-            textAlign: 'center'
+            textAlign: 'center',
+            fontSize: '0.78rem',
+            color: '#9ca3af'
           }}
         >
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={handleQuickDemoLogin}
-            style={{
-              width: '100%',
-              fontSize: '0.84rem',
-              gap: '8px',
-              borderRadius: '8px',
-              borderColor: '#d1d5db',
-              color: '#374151'
-            }}
-          >
-            <Key size={15} /> Auto-Fill & Authenticate Admin Session
-          </button>
+          <Key size={12} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} />
+          Secure Administrator Access Only
         </div>
       </div>
     </div>

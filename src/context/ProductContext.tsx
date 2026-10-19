@@ -50,52 +50,89 @@ export function ProductProvider({ children }: { children: ReactNode }) {
       const res = await apiFetch('/products');
       if (res.ok) {
         const data = await res.json();
-        if (data.success && Array.isArray(data.products) && data.products.length > 0) {
-          let deletedIds: string[] = [];
-          try {
-            const rawDel = localStorage.getItem(DELETED_KEY);
-            if (rawDel) deletedIds = JSON.parse(rawDel) || [];
-          } catch {}
 
-          // Filter out explicitly deleted products
-          const filtered = data.products.filter((p: Product) =>
-            !deletedIds.includes(p.id) &&
-            !deletedIds.includes(p.id.replace('_', '-')) &&
-            !deletedIds.includes(p.id.replace('-', '_'))
+        let deletedIds: string[] = [];
+        try {
+          const rawDel = localStorage.getItem(DELETED_KEY);
+          if (rawDel) deletedIds = JSON.parse(rawDel) || [];
+        } catch {}
+
+        const isDeleted = (id: string) =>
+          deletedIds.some(
+            (did) => did === id || did.replace('-', '_') === id.replace('-', '_')
+          );
+
+        const idsMatch = (a: string, b: string) =>
+          a === b || a.replace('-', '_') === b.replace('-', '_');
+
+        if (data.success && Array.isArray(data.products) && data.products.length > 0) {
+          // Filter out explicitly deleted products from API response
+          const filtered = data.products.filter(
+            (p: Product) => !isDeleted(p.id)
           );
 
           // Map images to valid bundled asset URLs
           const mappedApiProds: Product[] = filtered.map(normalizeProduct);
 
-          // Ensure default products like Ragi Malt exist unless explicitly deleted
+          // Start with all API products
           const merged = [...mappedApiProds];
+
+          // Ensure default products exist unless explicitly deleted
           defaultProducts.map(normalizeProduct).forEach((dp) => {
-            const existsInMerged = merged.some(
-              (p) => p.id === dp.id || p.id.replace('-', '_') === dp.id.replace('-', '_')
-            );
-            const isDeleted = deletedIds.some(
-              (did) => did === dp.id || did.replace('-', '_') === dp.id.replace('-', '_')
-            );
-            if (!existsInMerged && !isDeleted) {
+            const existsInMerged = merged.some((p) => idsMatch(p.id, dp.id));
+            if (!existsInMerged && !isDeleted(dp.id)) {
               merged.push(dp);
             }
           });
+
+          // Preserve any locally-cached products (e.g. admin-added) that aren't
+          // in the API response yet (handles cases where the POST succeeded locally
+          // but the GET hasn't caught up, or the backend write failed silently)
+          try {
+            const cached = localStorage.getItem(CACHE_KEY);
+            if (cached) {
+              const localProds: Product[] = JSON.parse(cached);
+              if (Array.isArray(localProds)) {
+                localProds.forEach((lp) => {
+                  const existsInMerged = merged.some((p) => idsMatch(p.id, lp.id));
+                  if (!existsInMerged && !isDeleted(lp.id)) {
+                    merged.push(normalizeProduct(lp));
+                  }
+                });
+              }
+            }
+          } catch {}
 
           if (merged.length > 0) {
             saveProductsToLocal(merged);
           }
         } else {
-          // Fallback to defaultProducts if API returns empty array
-          let deletedIds: string[] = [];
+          // API returned empty — merge defaults with any local products
+          const merged: Product[] = [];
+
+          // Add defaults unless deleted
+          defaultProducts.filter((dp) => !isDeleted(dp.id))
+            .map(normalizeProduct)
+            .forEach((dp) => merged.push(dp));
+
+          // Also preserve locally-cached admin-added products
           try {
-            const rawDel = localStorage.getItem(DELETED_KEY);
-            if (rawDel) deletedIds = JSON.parse(rawDel) || [];
+            const cached = localStorage.getItem(CACHE_KEY);
+            if (cached) {
+              const localProds: Product[] = JSON.parse(cached);
+              if (Array.isArray(localProds)) {
+                localProds.forEach((lp) => {
+                  const existsInMerged = merged.some((p) => idsMatch(p.id, lp.id));
+                  if (!existsInMerged && !isDeleted(lp.id)) {
+                    merged.push(normalizeProduct(lp));
+                  }
+                });
+              }
+            }
           } catch {}
-          const availableDefaults = defaultProducts.filter(
-            (dp) => !deletedIds.includes(dp.id)
-          ).map(normalizeProduct);
-          if (availableDefaults.length > 0) {
-            saveProductsToLocal(availableDefaults);
+
+          if (merged.length > 0) {
+            saveProductsToLocal(merged);
           }
         }
       }

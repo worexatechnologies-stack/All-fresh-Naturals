@@ -1039,12 +1039,309 @@ export default function ArticleDetailPage() {
             content="en_US"
           />
         </Helmet>
+      ) : article.id === 'ragi-malt-for-weight-loss' ? (
+        <Helmet>
+          <title id="metaTitle">Ragi Malt for Weight Loss: Benefits &amp; Nutrition Guide</title>
+
+          <meta
+            name="description"
+            id="metaDescription"
+            content="Discover how ragi malt may support weight management, its nutritional value, preparation methods, and tips for including it in a balanced and healthy diet."
+          />
+
+          <meta
+            name="keywords"
+            id="metaKeywords"
+            content="ragi malt for weight loss, benefits of ragi malt for weight loss, best time to drink ragi malt for weight loss, drinking ragi malt at night for weight loss, ragi drink for weight loss, weight loss ragi malt"
+          />
+
+          <meta
+            id="ogTitle"
+            property="og:title"
+            content="Ragi Malt for Weight Loss: Nutrition, Benefits &amp; Preparation Guide"
+          />
+
+          <meta
+            id="ogType"
+            property="og:type"
+            content="article"
+          />
+
+          <meta
+            id="ogDescription"
+            property="og:description"
+            content="Explore ragi malt for weight loss, including its nutritional value, potential benefits, preparation methods, and how this nutritious millet-based drink can fit into a balanced diet."
+          />
+
+          <meta
+            id="ogUrl"
+            property="og:url"
+            content="https://allfreshnaturals.com/articles/ragi-malt-for-weight-loss"
+          />
+
+          <meta
+            id="ogSiteName"
+            property="og:site_name"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            id="ogImage"
+            property="og:image"
+            content="https://allfreshnaturals.com/assets/ragi-malt-for-weight-loss.jpg"
+          />
+
+          <meta
+            id="twitterSite"
+            name="twitter:site"
+            content="https://twitter.com/"
+          />
+
+          <meta
+            id="twitterTitle"
+            name="twitter:title"
+            content="Ragi Malt for Weight Loss: Benefits, Nutrition &amp; Recipe"
+          />
+
+          <meta
+            id="twitterDescription"
+            name="twitter:description"
+            content="Learn about ragi malt for weight loss, its nutritional benefits, preparation method, and practical tips for enjoying this millet-based drink as part of a balanced diet."
+          />
+
+          <meta
+            id="author"
+            name="author"
+            content="Akshay"
+          />
+
+          <link
+            id="canonical"
+            rel="canonical"
+            href="https://allfreshnaturals.com/articles/ragi-malt-for-weight-loss"
+          />
+
+          <meta
+            id="indexingStatus"
+            name="robots"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+          />
+
+          <meta
+            id="Publisher"
+            property="publisher"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            property="og:locale"
+            content="en_US"
+          />
+        </Helmet>
+      ) : article.id === 'abc-malt-powder' ? (
+        <Helmet>
+          <title id="metaTitle">ABC Malt Powder: Benefits, Nutrition &amp; Preparation Guide</title>
+
+          <meta
+            name="description"
+            id="metaDescription"
+            content="Discover ABC malt powder, its ingredients, nutritional value, preparation methods, and potential health benefits as part of a balanced and healthy diet."
+          />
+
+          <meta
+            name="keywords"
+            id="metaKeywords"
+            content="abc malt powder, abc malt mix, abc malt drink, abc health drink, abc drink"
+          />
+
+          <meta
+            id="ogTitle"
+            property="og:title"
+            content="ABC Malt Powder: Nutrition, Benefits &amp; Preparation Guide"
+          />
+
+          <meta
+            id="ogType"
+            property="og:type"
+            content="article"
+          />
+
+          <meta
+            id="ogDescription"
+            property="og:description"
+            content="Explore ABC malt powder made with apple, beetroot, and carrot, including its nutritional value, preparation methods, and potential benefits for a balanced diet."
+          />
+
+          <meta
+            id="ogUrl"
+            property="og:url"
+            content="https://allfreshnaturals.com/articles/abc-malt-powder"
+          />
+
+          <meta
+            id="ogSiteName"
+            property="og:site_name"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            id="ogImage"
+            property="og:image"
+            content="https://allfreshnaturals.com/assets/abc-malt-powder.jpg"
+          />
+
+          <meta
+            id="twitterSite"
+            name="twitter:site"
+            content="https://twitter.com/"
+          />
+
+          <meta
+            id="twitterTitle"
+            name="twitter:title"
+            content="ABC Malt Powder: Benefits, Nutrition &amp; Easy Preparation Guide"
+          />
+
+          <meta
+            id="twitterDescription"
+            name="twitter:description"
+            content="Learn about ABC malt powder made with apple, beetroot, and carrot, its nutritional value, preparation method, and potential benefits, plus how to include it in a balanced and healthy diet."
+          />
+
+          <meta
+            id="author"
+            name="author"
+            content="Akshay"
+          />
+
+          <link
+            id="canonical"
+            rel="canonical"
+            href="https://allfreshnaturals.com/articles/abc-malt-powder"
+          />
+
+          <meta
+            id="indexingStatus"
+            name="robots"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+          />
+
+          <meta
+            id="Publisher"
+            property="publisher"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            property="og:locale"
+            content="en_US"
+          />
+        </Helmet>
+      ) : article.id === 'ragi-malt-powder' ? (
+        <Helmet>
+          <title id="metaTitle">Ragi Malt Powder: Benefits, Nutrition &amp; Preparation Guide</title>
+
+          <meta
+            name="description"
+            id="metaDescription"
+            content="Discover ragi malt powder, its nutritional value, ingredients, preparation methods, and potential health benefits as part of a balanced and healthy diet."
+          />
+
+          <meta
+            name="keywords"
+            id="metaKeywords"
+            content="ragi malt powder, ragi malt mix, ragi malt drink, ragi health drink, ragi drink"
+          />
+
+          <meta
+            id="ogTitle"
+            property="og:title"
+            content="Ragi Malt Powder: Nutrition, Benefits &amp; Preparation Guide"
+          />
+
+          <meta
+            id="ogType"
+            property="og:type"
+            content="article"
+          />
+
+          <meta
+            id="ogDescription"
+            property="og:description"
+            content="Explore ragi malt powder, including its key nutrients, ingredients, preparation methods, potential health benefits, and ways to include this nutritious millet-based food in your daily diet."
+          />
+
+          <meta
+            id="ogUrl"
+            property="og:url"
+            content="https://allfreshnaturals.com/articles/ragi-malt-powder"
+          />
+
+          <meta
+            id="ogSiteName"
+            property="og:site_name"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            id="ogImage"
+            property="og:image"
+            content="https://allfreshnaturals.com/assets/ragi-malt-powder.jpg"
+          />
+
+          <meta
+            id="twitterSite"
+            name="twitter:site"
+            content="https://twitter.com/"
+          />
+
+          <meta
+            id="twitterTitle"
+            name="twitter:title"
+            content="Ragi Malt Powder: Benefits, Nutrition &amp; Recipe"
+          />
+
+          <meta
+            id="twitterDescription"
+            name="twitter:description"
+            content="Learn about ragi malt powder, its nutritional value, ingredients, preparation methods, and potential benefits, plus how this millet-based drink can fit into a balanced diet."
+          />
+
+          <meta
+            id="author"
+            name="author"
+            content="Akshay"
+          />
+
+          <link
+            id="canonical"
+            rel="canonical"
+            href="https://allfreshnaturals.com/articles/ragi-malt-powder"
+          />
+
+          <meta
+            id="indexingStatus"
+            name="robots"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+          />
+
+          <meta
+            id="Publisher"
+            property="publisher"
+            content="All Fresh Naturals"
+          />
+
+          <meta
+            property="og:locale"
+            content="en_US"
+          />
+        </Helmet>
       ) : (
         <Helmet>
-          <title>{`${article.title} | All Fresh Naturals`}</title>
-          <meta name="description" content={article.summary} />
-          <meta property="og:title" content={`${article.title} | All Fresh Naturals`} />
-          <meta property="og:description" content={article.summary} />
+          <title>{article.metaTitle || `${article.title} | All Fresh Naturals`}</title>
+          <meta name="description" content={article.metaDescription || article.summary} />
+          <meta property="og:title" content={article.metaTitle || `${article.title} | All Fresh Naturals`} />
+          <meta property="og:description" content={article.metaDescription || article.summary} />
           <meta property="og:image" content={article.coverImage} />
           <meta property="og:type" content="article" />
           <link rel="canonical" href={`https://allfreshnaturals.com/articles/${article.slug}`} />

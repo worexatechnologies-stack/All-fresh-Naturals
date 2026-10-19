@@ -28,6 +28,9 @@ export default function AuthModal() {
   const [otpInput, setOtpInput] = useState('');
   const [newPasswordInput, setNewPasswordInput] = useState('');
   const [showNewPassword, setShowNewPassword] = useState(false);
+  // Local fallback OTP (when user exists only in localStorage, not backend DB)
+  const [localOtp, setLocalOtp] = useState<string | null>(null);
+  const [isLocalReset, setIsLocalReset] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'error' | 'success'; text: string } | null>(null);
@@ -66,6 +69,20 @@ export default function AuthModal() {
     }
   };
 
+  // Helper: look up user in localStorage accounts
+  const findLocalUser = (email: string) => {
+    try {
+      const saved = localStorage.getItem('afn_registered_accounts');
+      if (saved) {
+        const accounts: Array<{ user: { email: string; phone?: string }; pass: string }> = JSON.parse(saved);
+        return accounts.find(
+          (a) => a.user.email?.toLowerCase() === email.toLowerCase()
+        ) || null;
+      }
+    } catch {}
+    return null;
+  };
+
   // Step 1: Send OTP to email
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,14 +102,37 @@ export default function AuthModal() {
       const data = await res.json();
 
       if (res.ok && data.success) {
+        setIsLocalReset(false);
+        setLocalOtp(null);
         setMessage({ type: 'success', text: data.message || `A 6-digit OTP code has been sent to ${cleanEmail}.` });
         setOtpInput('');
         setTab('forgot-otp');
       } else {
-        setMessage({ type: 'error', text: data.message || 'No registered account found with this email.' });
+        const localAccount = findLocalUser(cleanEmail);
+        if (localAccount) {
+          const generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+          setLocalOtp(generatedOtp);
+          setIsLocalReset(true);
+          setOtpInput(generatedOtp);
+          setTab('forgot-otp');
+          setMessage({ type: 'success', text: `Verification Code: ${generatedOtp}. Enter this 6-digit code below to proceed.` });
+        } else {
+          setMessage({ type: 'error', text: data.message || 'No registered account found with this email.' });
+        }
       }
     } catch {
-      setMessage({ type: 'error', text: 'Could not connect to backend server. Please try again.' });
+      // Network error — try localStorage fallback
+      const localAccount = findLocalUser(cleanEmail);
+      if (localAccount) {
+        const generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+        setLocalOtp(generatedOtp);
+        setIsLocalReset(true);
+        setOtpInput(generatedOtp);
+        setTab('forgot-otp');
+        setMessage({ type: 'success', text: `Verification Code: ${generatedOtp}. Enter this 6-digit code below to proceed.` });
+      } else {
+        setMessage({ type: 'error', text: 'Could not connect to server and no local account found. Please try again.' });
+      }
     } finally {
       setLoading(false);
     }
@@ -111,6 +151,18 @@ export default function AuthModal() {
 
     if (cleanOtp.length !== 6) {
       setMessage({ type: 'error', text: 'OTP code must be 6 digits.' });
+      return;
+    }
+
+    // Local fallback OTP verification
+    if (isLocalReset) {
+      if (cleanOtp === localOtp) {
+        setMessage({ type: 'success', text: 'OTP verified! Please enter your new password below.' });
+        setNewPasswordInput('');
+        setTab('forgot-new-password');
+      } else {
+        setMessage({ type: 'error', text: 'Invalid OTP code. Please check the code shown in the popup.' });
+      }
       return;
     }
 
@@ -153,6 +205,34 @@ export default function AuthModal() {
       return;
     }
 
+    // Local fallback password reset — update localStorage accounts
+    if (isLocalReset) {
+      try {
+        const saved = localStorage.getItem('afn_registered_accounts');
+        if (saved) {
+          const accounts: Array<{ user: { email: string }; pass: string }> = JSON.parse(saved);
+          const idx = accounts.findIndex(
+            (a) => a.user.email?.toLowerCase() === cleanEmail.toLowerCase()
+          );
+          if (idx !== -1) {
+            accounts[idx].pass = cleanPass;
+            localStorage.setItem('afn_registered_accounts', JSON.stringify(accounts));
+            setMessage({ type: 'success', text: 'Password updated successfully! You can now sign in.' });
+            setSignInInput(cleanEmail);
+            setSignInPassword(cleanPass);
+            setTimeout(() => {
+              setTab('signin');
+              setLocalOtp(null);
+              setIsLocalReset(false);
+            }, 1500);
+            return;
+          }
+        }
+      } catch {}
+      setMessage({ type: 'error', text: 'Could not update password locally. Please try again.' });
+      return;
+    }
+
     setLoading(true);
     setMessage(null);
     try {
@@ -170,6 +250,24 @@ export default function AuthModal() {
           window.location.reload();
         }, 1200);
       } else {
+        // Try local fallback even if backend fails
+        try {
+          const saved = localStorage.getItem('afn_registered_accounts');
+          if (saved) {
+            const accounts: Array<{ user: { email: string }; pass: string }> = JSON.parse(saved);
+            const idx = accounts.findIndex(
+              (a) => a.user.email?.toLowerCase() === cleanEmail.toLowerCase()
+            );
+            if (idx !== -1) {
+              accounts[idx].pass = cleanPass;
+              localStorage.setItem('afn_registered_accounts', JSON.stringify(accounts));
+              setMessage({ type: 'success', text: 'Password updated! You can now sign in.' });
+              setSignInInput(cleanEmail);
+              setTimeout(() => setTab('signin'), 1500);
+              return;
+            }
+          }
+        } catch {}
         setMessage({ type: 'error', text: data.message || 'Could not update password. Please try again.' });
       }
     } catch {
